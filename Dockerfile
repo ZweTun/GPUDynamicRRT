@@ -52,11 +52,13 @@ RUN python3 -c "import importlib, sys; importlib.import_module('f1tenth_gym'); p
 RUN mkdir -p sim_ws/src/f1tenth_gym_ros
 COPY ./f1tenth_gym_ros /sim_ws/src/f1tenth_gym_ros
 COPY ./lab7_pkg /sim_ws/src/lab7_pkg
+COPY ./lab7_pkg_cpp /sim_ws/src/lab7_pkg_cpp
 RUN source /opt/ros/humble/setup.bash && \
     cd sim_ws/ && \
     apt-get update --fix-missing && \
     rosdep install -i --from-path src --rosdistro humble -y && \
     colcon build
+COPY ./run_parallel.sh /sim_ws/run_parallel.sh
 
 WORKDIR '/sim_ws'
 ENTRYPOINT ["/bin/bash"]

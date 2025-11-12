@@ -37,7 +37,7 @@ class RRT(Node):
         scan_topic = "/scan"
 
         # ROS Subscribers
-        self.sim = False
+        self.sim = True
 
         # Subscribe to the correct odometry topic
         odom_topic = "/ego_racecar/odom" if self.sim else "/pf/viz/inferred_pose"
