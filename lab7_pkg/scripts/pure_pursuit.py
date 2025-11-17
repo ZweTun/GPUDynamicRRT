@@ -28,7 +28,7 @@ class PurePursuit(Node):
         self.drive_pub = self.create_publisher(AckermannDriveStamped, '/drive', 10)
 
         # Parameters for lookahead distance and control gain
-        self.L = 0.7
+        self.L = 0.3
         self.P = 0.1
 
         # Initialize empty waypoints
