@@ -5,7 +5,7 @@
 #include "common.h"
 #include "cmath"
 #include <device_launch_parameters.h>
-
+#include <vector>
 
 
 // Devices
@@ -16,7 +16,7 @@ __device__ float distance(float x1, float y1, float x2, float y2) {
 }
 
 // Checks if the given point is in free space 
-__device__ bool isPointFree(const OccupancyGridGPU* grid, float x, float y) {
+__device__ bool isPointFree(const OccupancyGrid* grid, float x, float y) {
     int gx = (x - grid->origin_x) / grid->resolution;
     int gy = (y - grid->origin_y) / grid->resolution;
     int idx = gy * grid->width + gx;
@@ -31,7 +31,7 @@ __device__ bool isGoal(float x, float y, float goalX, float goalY) {
 
 // Samples a random point in free space
 // Should call device_isPointFree to ensure sampled point is in free space
-__device__ TreeNode sampleFreeSpace(OccupancyGridGPU* grid) {
+__device__ TreeNode sampleFreeSpace(OccupancyGrid* grid) {
 	//TODO
 
 }
@@ -43,15 +43,10 @@ __device__ int nearestNeighbor(TreeNode* tree, int tree_size, float rand_x, floa
 
 
 //Checks for collision between two points
-__device__ bool checkCollision(OccupancyGridGPU* grid, float x1, float y1, float x2, float y2) {
+__device__ bool checkCollision(OccupancyGrid* grid, float x1, float y1, float x2, float y2) {
     //TODO
 }
 
-
-// Returns path as a array of TreeNode pointers from start to goal
-__device__ TreeNode* findPath(TreeNode* tree, TreeNode lastNode) {
-    //TODO
-}
 
 
 
@@ -70,7 +65,7 @@ __global__ void kernInitTree(TreeNode* tree, int max_nodes, float start_x, float
 __global__ void kernRRT(
     int maxIter,
     int maxNodes,
-    OccupancyGridGPU grid,
+    OccupancyGrid grid,
     float startX, float startY,
     float goalX, float goalY,
     TreeNode* allTrees,
@@ -96,6 +91,11 @@ __global__ void kernRRT(
             tree[idx] = newNode;
 
             if (isGoal(newNode.x, newNode.y, goalX, goalY)) {
+
+				// Path found
+				// Store the index of the goal node
+				// result[tid] will be used to trace back the path later
+				// final node on host side will be tree[results[tid]]
                 results[tid] = idx;  
                 return;              
             }
@@ -106,15 +106,82 @@ __global__ void kernRRT(
 }
 
 
-
-void initOccupancyGridGPU(OccupancyGridGPU* grid, uint8_t* data, int width, int height, float resolution, float origin_x, float origin_y) {
-    grid->data = data;
-    grid->width = width;
-    grid->height = height;
-    grid->resolution = resolution;
-    grid->origin_x = origin_x;
-	grid->origin_y = origin_y;
+void findFinalPathRecursive(const TreeNode* tree, int index, std::vector<TreeNode>& path) {
+    if (index == -1) return;
+    findFinalPathRecursive(tree, tree[index].parent, path);
+    path.push_back(tree[index]);
 }
 
 
+std::vector<TreeNode> launchRRT(const OccupancyGrid& h_grid,
+    float startX, float startY,
+    float goalX, float goalY)
+{   
 
+	// parameters
+    int numThreads = 1024;
+    int maxNodes = 2048;
+    int maxIter = 2000;
+
+  
+    OccupancyGrid d_grid;
+
+    size_t gridBytes = h_grid.width * h_grid.height * sizeof(uint8_t);
+    cudaMalloc(&d_grid.data, gridBytes);
+    cudaMemcpy(d_grid.data, h_grid.data, gridBytes, cudaMemcpyHostToDevice);
+
+    d_grid.width = h_grid.width;
+    d_grid.height = h_grid.height;
+    d_grid.resolution = h_grid.resolution;
+    d_grid.origin_x = h_grid.origin_x;
+    d_grid.origin_y = h_grid.origin_y;
+
+	// allocations of GPU memory
+    TreeNode* d_allTrees;
+    cudaMalloc(&d_allTrees, numThreads * maxNodes * sizeof(TreeNode));
+
+    int* d_results;
+    cudaMalloc(&d_results, numThreads * sizeof(int));
+
+    TreeNode* h_allTrees = new TreeNode[numThreads * maxNodes];
+    int* h_results = new int[numThreads];
+
+	// launch kernels
+    dim3 block(128);
+    dim3 gridDim((numThreads + block.x - 1) / block.x);
+
+    kernRRT << <gridDim, block >> > (
+        maxIter,
+        maxNodes,
+        d_grid,
+        startX, startY,
+        goalX, goalY,
+        d_allTrees,
+        d_results
+        );
+
+    cudaDeviceSynchronize();
+
+   // Copy back to host
+    cudaMemcpy(h_allTrees, d_allTrees,
+        numThreads * maxNodes * sizeof(TreeNode),
+        cudaMemcpyDeviceToHost);
+
+    cudaMemcpy(h_results, d_results,
+        numThreads * sizeof(int),
+        cudaMemcpyDeviceToHost);
+
+	// find a successful path
+    for (int tid = 0; tid < numThreads; ++tid) {
+        if (h_results[tid] != -1) {
+            int goalIndex = h_results[tid];
+            TreeNode* treeBase = &h_allTrees[tid * maxNodes];
+			std::vector<TreeNode>& path = std::vector<TreeNode>();
+			findFinalPathRecursive(treeBase, goalIndex, path);
+			return path; // Return the found path
+        }
+    }
+
+    // No solution
+    return {};
+}
