@@ -20,16 +20,9 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
 endif()
 
 # File lists
-set(headers
-    "headers/rrt.h"
-    "headers/utils.h"
-)
+file(GLOB headers "headers/*.h")
+file(GLOB sources "sources/*.cpp" "sources/*.cu")
 
-set(sources
-    "sources/main.cpp"
-    "sources/rrt.cu"
-    "sources/utils.cpp"
-)
 
 list(SORT headers)
 list(SORT sources)
@@ -42,7 +35,11 @@ add_executable(${CMAKE_PROJECT_NAME} ${sources} ${headers})
 
 
 # Tell compiler where to find headers
-target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE headers)
+target_include_directories(${CMAKE_PROJECT_NAME}
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/headers
+)
+
 
 # Enable separable compilation for CUDA
 set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
