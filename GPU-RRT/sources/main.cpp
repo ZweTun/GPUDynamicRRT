@@ -16,7 +16,24 @@ void initOccupancyGrid(OccupancyGrid& grid, int width, int height, float resolut
 
 int main() {
     std::cout << "Hello from GPU RRT!" << std::endl;
-   
+	OccupancyGrid* grid = new OccupancyGrid();
+    initOccupancyGrid(*grid, 100, 100, 0.1f);
+    // Define start and goal positions
+    float startX = 1.0f, startY = 1.0f;
+    float goalX = 8.0f, goalY = 8.0f;
+    // Allocate memory for trees and results
+	std::vector<TreeNode> path = launchRRT(*grid, startX, startY, goalX, goalY);
+    if (!path.empty()) {
+        std::cout << "Path found:" << std::endl;
+        for (const auto& node : path) {
+            std::cout << "(" << node.x << ", " << node.y << ")" << std::endl;
+        }
+    } else {
+        std::cout << "No path found." << std::endl;
+    }
+    delete[] grid->data;
+    delete grid;
+	return 0;
 }
 
 

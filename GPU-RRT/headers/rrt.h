@@ -5,6 +5,7 @@
 #include <cuda_runtime.h>
 #include <stdint.h>
 #include "common.h"
+#include <vector>
 
 struct TreeNode {
     float x, y;
@@ -40,14 +41,9 @@ __global__ void kernRRT(
 ); 
 
 
-void findPathRRT(
-    int maxIter,
-    int maxNodes,
-    OccupancyGrid& grid,
-    float startX, float startY,
-    float goalX, float goalY,
-    TreeNode* allTrees,
-    int* results
-);
 
+
+std::vector<TreeNode> launchRRT(const OccupancyGrid& h_grid,
+    float startX, float startY,
+    float goalX, float goalY);
 
