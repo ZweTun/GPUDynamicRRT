@@ -124,11 +124,6 @@ OccupancyGrid makeGrid(const std::vector<int>& visual) {
     return g;
 }
 
-//void printPath(const std::vector<TreeNode>& path) {
-//    for (const auto& n : path) {
-//        printf("(%.3f, %.3f)\n", n.x, n.y);
-//    }
-//}
 
 int main(int argc, char* argv[]) {
 

@@ -1,5 +1,5 @@
 #pragma once
-#pragma once
+
 
 #include "cpu_rrt.h"
 
@@ -21,7 +21,6 @@ TreeNode steerCPU(const TreeNode& from, const TreeNode& to, float maxStep);
 
 TreeNode sampleFreeSpaceCPU(const OccupancyGrid& grid);
 
-TreeNode steerCPU(const TreeNode& from, const TreeNode& to, float maxStep);
 
 // Checks if the given point is within a threshold distance to the goal
 bool isGoalCPU(float x, float y, float goalX, float goalY);

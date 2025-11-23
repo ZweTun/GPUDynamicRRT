@@ -279,10 +279,7 @@ std::vector<TreeNode> launchRRT(const OccupancyGrid& h_grid,
         d_results, maxStep
         );
 
-    for (int k = 0; k < 1000000; k++) {
-        // waste time
-		float temp = sqrtf(static_cast<float>(k));
-    }
+ 
 
     cudaDeviceSynchronize();
 
@@ -301,8 +298,7 @@ std::vector<TreeNode> launchRRT(const OccupancyGrid& h_grid,
         if (h_results[tid] != -1) {
             int goalIndex = h_results[tid];
             TreeNode* treeBase = &h_allTrees[tid * maxNodes];
-			std::vector<TreeNode>& path = std::vector<TreeNode>();
-
+			
 
             return findFinalPath(treeBase, goalIndex);
 			//return path; // Return the found path
