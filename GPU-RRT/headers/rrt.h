@@ -6,19 +6,7 @@
 #include <stdint.h>
 #include "common.h"
 #include <vector>
-
-struct TreeNode {
-    float x, y;
-    int parent;
-};
-
-struct OccupancyGrid {
-	//2D array grid data 
-    uint8_t* data;
-    int width, height;
-    float resolution;
-    float origin_x, origin_y;
-};
+#include "rrt_types.h"
 
 
 
@@ -46,5 +34,4 @@ __global__ void kernRRT(
 
 std::vector<TreeNode> launchRRT(const OccupancyGrid& h_grid,
     float startX, float startY,
-    float goalX, float goalY);
-
+    float goalX, float goalY, int maxIter, int maxNodes, float maxStep); 

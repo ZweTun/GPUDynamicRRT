@@ -159,7 +159,7 @@ __global__ void kernRRT(
     float startX, float startY,
     float goalX, float goalY,
     TreeNode* allTrees,
-    int* results    // size = numThreads
+    int* results, float maxStep    // size = numThreads
 ) {
     int tid = blockIdx.x * blockDim.x + threadIdx.x;
 	if (tid >= numThreads) return;
@@ -176,7 +176,7 @@ __global__ void kernRRT(
         TreeNode newNode = sampleFreeSpace(&grid, iter);
         int nearestIdx = nearestNeighbor(tree, size, newNode.x, newNode.y);
         TreeNode nearest = tree[nearestIdx];
-		newNode = steer(nearest, newNode, 1.0f); //Steer with max range 0.5
+		newNode = steer(nearest, newNode, maxStep); //Steer with max range 0.5
 
         if (!checkCollision(&grid, nearest.x, nearest.y, newNode.x, newNode.y)) {
             newNode.parent = nearestIdx;
@@ -227,13 +227,11 @@ std::vector<TreeNode> findFinalPath(TreeNode* tree, int goalIdx) {
 
 std::vector<TreeNode> launchRRT(const OccupancyGrid& h_grid,
     float startX, float startY,
-    float goalX, float goalY)
-{   
+    float goalX, float goalY, int maxIter, int maxNodes, float maxStep) {
+
 
 	// parameters
     int numThreads = 1024;
-    int maxNodes = 2048;
-    int maxIter = 5000;
 
   
     OccupancyGrid d_grid;
@@ -270,7 +268,7 @@ std::vector<TreeNode> launchRRT(const OccupancyGrid& h_grid,
         startX, startY,
         goalX, goalY,
         d_allTrees,
-        d_results
+        d_results, maxStep
         );
 
     cudaDeviceSynchronize();

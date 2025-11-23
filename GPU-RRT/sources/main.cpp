@@ -2,11 +2,14 @@
 #include <cuda.h>]
 #include <cuda_runtime.h>
 #include "rrt.h"
-
+#include "cpu_rrt.h"
 int width = 10;
 int height = 10;
-float resolution = 1.0f
-;
+float resolution = 1.0f;
+float maxStep = 0.5f;
+int maxIter = 6000;
+int maxNodes = 6000;
+
 // Define start and goal positions
 float startX = 0.0f, startY = 0.0f;
 float goalX = 9.0f, goalY = 9.0f;
@@ -62,14 +65,16 @@ void initOccupancyGridFromVector(OccupancyGrid& grid,
 
 
 int main() {
-    std::cout << "Hello from GPU RRT!" << std::endl;
+    std::cout << "Hello RRT!" << std::endl;
 	OccupancyGrid* grid = new OccupancyGrid();
     //initOccupancyGrid(*grid, width, height, resolution);
 
 	initOccupancyGridFromVector(*grid, width, height, resolution, visualMap);
 
     // Allocate memory for trees and results
-	std::vector<TreeNode> path = launchRRT(*grid, startX, startY, goalX, goalY);
+std::vector<TreeNode> path = launchRRT(*grid, startX, startY, goalX, goalY, maxIter, maxNodes, maxStep);
+
+//	std::vector<TreeNode> path = cpuRRT(*grid, startX, startY, goalX, goalY, maxIter, maxNodes, maxStep);
     if (!path.empty()) {
         std::cout << "Path found:" << std::endl;
         for (const auto& node : path) {
