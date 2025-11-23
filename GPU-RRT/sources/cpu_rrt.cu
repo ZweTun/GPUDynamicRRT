@@ -7,7 +7,7 @@
 #include <cmath>
 
 
-
+#include "common.h"
 
 //Checks for collision between two points
 bool checkCollisionCPU(OccupancyGrid* grid, float x1, float y1, float x2, float y2) {
@@ -97,7 +97,7 @@ std::vector<TreeNode> cpuRRT(OccupancyGrid grid,
     float startX, float startY,
     float goalX, float goalY,
     int maxIter, int maxNodes, float maxStep) {
-   
+    
 	std::vector<TreeNode>(tree) (maxNodes);
 	std::vector<TreeNode> path;
 
@@ -120,7 +120,7 @@ std::vector<TreeNode> cpuRRT(OccupancyGrid grid,
                 // Path found
 				path.push_back({ goalX, goalY, idx });
                 
-                
+
                 return path;
             }
         }

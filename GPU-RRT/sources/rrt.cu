@@ -189,7 +189,7 @@ __global__ void kernRRT(
 				// Store the index of the goal node
 				// result[tid] will be used to trace back the path later
 				// final node on host side will be tree[results[tid]]
-                printf("Thread %d found RRT Path\n", threadIdx.x);
+               // printf("Thread %d found RRT Path\n", threadIdx.x);
 
                 results[tid] = idx;  
                 return;              
@@ -225,10 +225,17 @@ std::vector<TreeNode> findFinalPath(TreeNode* tree, int goalIdx) {
 }
 
 
+
+using RRT::Common::PerformanceTimer;
+PerformanceTimer& timerGPU()
+{
+    static PerformanceTimer timer;
+    return timer;
+}
+
 std::vector<TreeNode> launchRRT(const OccupancyGrid& h_grid,
     float startX, float startY,
     float goalX, float goalY, int maxIter, int maxNodes, float maxStep) {
-
 
 	// parameters
     int numThreads = 1024;
@@ -259,6 +266,7 @@ std::vector<TreeNode> launchRRT(const OccupancyGrid& h_grid,
 	// launch kernels
     dim3 block(128);
     dim3 gridDim((numThreads + block.x - 1) / block.x);
+    timerGPU().startGpuTimer();
 
     kernRRT <<<gridDim, block >>> (
         maxIter,
@@ -271,8 +279,14 @@ std::vector<TreeNode> launchRRT(const OccupancyGrid& h_grid,
         d_results, maxStep
         );
 
+    for (int k = 0; k < 1000000; k++) {
+        // waste time
+		float temp = sqrtf(static_cast<float>(k));
+    }
+
     cudaDeviceSynchronize();
 
+    timerGPU().endGpuTimer();
    // Copy back to host
     cudaMemcpy(h_allTrees, d_allTrees,
         numThreads * maxNodes * sizeof(TreeNode),
@@ -288,6 +302,8 @@ std::vector<TreeNode> launchRRT(const OccupancyGrid& h_grid,
             int goalIndex = h_results[tid];
             TreeNode* treeBase = &h_allTrees[tid * maxNodes];
 			std::vector<TreeNode>& path = std::vector<TreeNode>();
+
+
             return findFinalPath(treeBase, goalIndex);
 			//return path; // Return the found path
         }
