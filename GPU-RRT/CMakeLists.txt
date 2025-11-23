@@ -38,7 +38,9 @@ add_executable(${CMAKE_PROJECT_NAME} ${sources} ${headers})
 target_include_directories(${CMAKE_PROJECT_NAME}
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/headers
+        ${CMAKE_CUDA_TOOLKIT_INCLUDE_DIRECTORIES}  
 )
+
 
 
 # Enable separable compilation for CUDA

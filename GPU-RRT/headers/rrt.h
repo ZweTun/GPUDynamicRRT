@@ -33,6 +33,7 @@ __device__ bool checkCollision(OccupancyGrid* grid, float x1, float y1, float x2
 __global__ void kernRRT(
     int maxIter,
     int maxNodes,
+    int numThreads,
     OccupancyGrid grid,
     float startX, float startY,
     float goalX, float goalY,
