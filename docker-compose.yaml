@@ -1,0 +1,23 @@
+services:
+  ros:
+    build: .
+    depends_on:
+      - novnc
+    environment:
+      - DISPLAY=novnc:0.0
+    networks:
+      - x11
+
+  # https://github.com/theasp/docker-novnc
+  novnc:
+    environment:
+      - DISPLAY_WIDTH=1280
+      - DISPLAY_HEIGHT=720
+    image: theasp/novnc:latest
+    networks:
+      - x11
+    ports:
+      - "8080:8080"
+
+networks:
+  x11:
