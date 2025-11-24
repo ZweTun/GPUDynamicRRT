@@ -10,13 +10,16 @@ RRT::RRT()
 {
     // Declare and get ROS parameters
     this->declare_parameter<bool>("sim", true);
+    
     this->declare_parameter<std::string>("waypoints_csv", "");
+    //this->declare_parameter<std::string>("waypoints_csv","/home/jeff/sim_ws/src/sampling-based-motion-planning-team10/lab7_pkg/scripts/levine.csv");
+    
     this->declare_parameter<int>("max_iter", 2500);
     this->declare_parameter<double>("steer_range", 0.5);
     this->declare_parameter<double>("goal_threshold", 0.15);
     this->declare_parameter<double>("sample_range_x", 5.0);
     this->declare_parameter<double>("sample_range_y", 5.0);
-    this->declare_parameter<double>("max_goal_distance", 5.0);
+    this->declare_parameter<double>("max_goal_distance", 4.0);
     this->declare_parameter<double>("margin", 0.15);
     this->declare_parameter<int>("max_samples", 100);
 
@@ -441,10 +444,12 @@ std::vector<RRT_Node> RRT::find_path(const std::vector<RRT_Node> &tree,
 }
 
 std::vector<RRT_Node> RRT::plan_rrt(double start_x, double start_y,
-                                    double goal_x, double goal_y) {
+                                    double goal_x, double goal_y,
+                                    std::vector<RRT_Node> &tree) {
     // Execute the RRT algorithm from start to goal. Returns the path if found (or empty vector if no path).
-    std::vector<RRT_Node> tree;
+    tree.clear();
     tree.reserve(max_iter_ + 1);
+
     // Initialize tree with start node
     RRT_Node start_node(start_x, start_y, -1);
     start_node.is_root = true;
@@ -724,10 +729,14 @@ void RRT::run_rrt_planning() {
     RCLCPP_INFO(this->get_logger(),
                 "Planning path from (%.2f, %.2f) to (%.2f, %.2f)...",
                 start_x, start_y, goal_x, goal_y);
-    // Run RRT algorithm
-    std::vector<RRT_Node> path = plan_rrt(start_x, start_y, goal_x, goal_y);
-    // Visualize the RRT result (tree and path)
-    visualize_rrt(path, /*tree=*/ {});  // Note: here we don't pass a full tree
+
+    // Run RRT algorithm and get both path and full tree (for visualization)
+    std::vector<RRT_Node> tree;
+    std::vector<RRT_Node> path = plan_rrt(start_x, start_y, goal_x, goal_y, tree);
+
+    // Visualize the RRT result (tree and path) — same idea as Python:
+    // tree nodes + tree edges + path line + path waypoints.
+    visualize_rrt(path, tree);
 }
 
 void RRT::test_sampling() {

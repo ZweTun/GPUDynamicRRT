@@ -28,8 +28,8 @@ class PurePursuit(Node):
         self.drive_pub = self.create_publisher(AckermannDriveStamped, '/drive', 10)
 
         # Parameters for lookahead distance and control gain
-        self.L = 1.3
-        self.P = 0.5
+        self.L = 0.7
+        self.P = 0.1
 
         # Initialize empty waypoints
         self.waypoints = np.array([])
@@ -89,7 +89,7 @@ class PurePursuit(Node):
 
         # Publish drive command
         drive_msg = AckermannDriveStamped()
-        drive_msg.drive.speed = 1.5
+        drive_msg.drive.speed = 1.0
         drive_msg.drive.steering_angle = steering_angle
         self.drive_pub.publish(drive_msg)
 

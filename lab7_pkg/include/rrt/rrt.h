@@ -95,7 +95,11 @@ private:
     bool check_collision(const RRT_Node &nearest_node, const RRT_Node &new_node);
     bool is_goal(const RRT_Node &node, double goal_x, double goal_y);
     std::vector<RRT_Node> find_path(const std::vector<RRT_Node> &tree, const RRT_Node &latest_node);
-    std::vector<RRT_Node> plan_rrt(double start_x, double start_y, double goal_x, double goal_y);
+
+    // NOTE: now returns path AND fills 'tree' for visualization (same idea as Python self.tree)
+    std::vector<RRT_Node> plan_rrt(double start_x, double start_y,
+                                   double goal_x, double goal_y,
+                                   std::vector<RRT_Node> &tree);
 
     // Helper methods
     double get_yaw_from_quaternion(double x, double y, double z, double w);

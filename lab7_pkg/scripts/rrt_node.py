@@ -36,11 +36,11 @@ class RRT(Node):
         scan_topic = "/scan"
 
         # ROS Subscribers
-        self.sim = False
+        self.sim = True
 
         # Subscribe to the correct odometry topic
         odom_topic = "/ego_racecar/odom" if self.sim else "/pf/viz/inferred_pose"
-        self.create_subscription(Odometry if self.sim else PoseStamped, pose_topic, self.pose_callback, 10)
+        self.create_subscription(Odometry if self.sim else PoseStamped, odom_topic, self.pose_callback, 10)
 
 
 
@@ -65,7 +65,7 @@ class RRT(Node):
        
 
         # RRT Parameter
-        self.max_iter = 2500 # 2500
+        self.max_iter = 1000 # 2500
         self.goal_threshold = 0.15
         self.steer_range = 0.5
         self.sample_range_x = 5.0
@@ -74,7 +74,7 @@ class RRT(Node):
         # Occupancy Grid Setup
         self.map_ = None  # Global map (OccupancyGrid)
         self.map_updated_ = None  # Updated map with inflated obstacles
-        self.margin = 0.15  # Margin to inflate obstacles (meters)
+        self.margin = 0.35  # Margin to inflate obstacles (meters)
 
         # Visualization Markers
         self.tree_nodes_marker = Marker()
@@ -82,7 +82,7 @@ class RRT(Node):
         self.path_marker = Marker()
 
 
-        #self.timer = self.create_timer(0.75, self.publish_static_obstacle)
+        self.timer = self.create_timer(0.75, self.publish_static_obstacle) #We have to change
        
 
         # Initialize Visualization Markers and Occupancy Grid
@@ -90,7 +90,7 @@ class RRT(Node):
 
         self.L = 1.3
         self.P = 0.5
-        csv_data = np.genfromtxt("/home/nvidia/f1tenth_ws/src/sampling-based-motion-planning-team10/lab7_pkg/scripts/levine1.csv", delimiter=",", skip_header=1, dtype=None, encoding='UTF-8')
+        csv_data = np.genfromtxt("/home/jeff/sim_ws/src/sampling-based-motion-planning-team10/lab7_pkg/scripts/levine.csv", delimiter=",", skip_header=1, dtype=None, encoding='UTF-8')
         self.waypoints = csv_data[:, 0:2]
         self.kd_tree = KDTree(self.waypoints)
         self.path = []
