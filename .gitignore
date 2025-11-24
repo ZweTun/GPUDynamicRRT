@@ -1,2 +1,7 @@
+# ROS
+/build/
+/install/
+/log/
+
 # macOS
 .DS_Store
