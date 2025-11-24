@@ -7,6 +7,13 @@ services:
       - DISPLAY=novnc:0.0
     networks:
       - x11
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
 
   # https://github.com/theasp/docker-novnc
   novnc:
