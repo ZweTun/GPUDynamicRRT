@@ -10,8 +10,7 @@ RUN apt-get update && \
         python3-pip \
         ros-humble-rviz2 \
         tmux \
-        vim && \
-    rm -rf /var/lib/apt/lists/*
+        vim
 
 RUN git clone \
         --branch dev-dynamics \
@@ -20,5 +19,12 @@ RUN git clone \
     pip install ./f1tenth_gym
 
 WORKDIR /sim_ws
+SHELL ["/bin/bash", "-c"]
+
+COPY src src
+RUN source /opt/ros/humble/setup.bash && \
+    rosdep install -i --from-path src --rosdistro humble -y && \
+    colcon build
+
 # Keep the container running.
 CMD ["tail", "-f", "/dev/null"]
