@@ -26,6 +26,7 @@ def generate_launch_description():
                 executable="rrt_node",
                 name="rrt_node",
                 output="screen",
+                parameters=[{"sim": True}],
             ),
             Node(
                 package="waypoint_tracker",
