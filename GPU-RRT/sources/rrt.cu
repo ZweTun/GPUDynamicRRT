@@ -38,11 +38,10 @@ __device__ bool isGoal(float x, float y, float goalX, float goalY) {
 
 
 
-
 // Samples a random point in free space
 // Should call device_isPointFree to ensure sampled point is in free space
 // Uses thrust random number generators
-__device__ TreeNode sampleFreeSpace(OccupancyGrid* grid, int iter) {
+__device__ TreeNode sampleFreeSpace(OccupancyGrid* grid, int iter, float goalX, float goalY) {
 
 	//Jittered random seed based on thread and iteration
 
@@ -59,8 +58,11 @@ __device__ TreeNode sampleFreeSpace(OccupancyGrid* grid, int iter) {
         float rx = dist01(rng);
         float ry = dist01(rng);
 
-        float x = grid->origin_x + rx * (grid->width * grid->resolution);
-        float y = grid->origin_y + ry * (grid->height * grid->resolution);
+        int cx = int(rx * grid->width);
+        int cy = int(ry * grid->height);
+
+        float x = grid->origin_x + (cx + 0.5f) * grid->resolution;
+        float y = grid->origin_y + (cy + 0.5f) * grid->resolution;
 
 
         if (isPointFree(grid, x, y)) {
@@ -111,6 +113,7 @@ __device__ bool checkCollision(OccupancyGrid* grid, float x1, float y1, float x2
     //TODO
 	int x_diff = abs(int(ceil((x2 - x1) / grid->resolution)));
     int y_diff = abs(int(ceil((y2 - y1) / grid->resolution)));
+
     int steps = -1;
     if (x_diff > y_diff) {
         steps = x_diff;
@@ -138,6 +141,43 @@ __device__ bool checkCollision(OccupancyGrid* grid, float x1, float y1, float x2
 }
 
 
+/*__device__ bool checkCollision(OccupancyGrid* grid, float x1, float y1, float x2, float y2) {
+    float gx1 = (x1 - grid->origin_x) / grid->resolution;
+    float gy1 = (y1 - grid->origin_y) / grid->resolution;
+    float gx2 = (x2 - grid->origin_x) / grid->resolution;
+    float gy2 = (y2 - grid->origin_y) / grid->resolution;
+
+    int x = (int)floorf(gx1);
+    int y = (int)floorf(gy1);
+    int endX = (int)floorf(gx2);
+    int endY = (int)floorf(gy2);
+
+    int stepX = (gx2 > gx1) ? 1 : -1;
+    int stepY = (gy2 > gy1) ? 1 : -1;
+
+    float tMaxX = fabsf((floorf(gx1 + (stepX > 0 ? 1 : 0)) - gx1) / (gx2 - gx1));
+    float tMaxY = fabsf((floorf(gy1 + (stepY > 0 ? 1 : 0)) - gy1) / (gy2 - gy1));
+
+    float tDeltaX = fabsf(1.0f / (gx2 - gx1));
+    float tDeltaY = fabsf(1.0f / (gy2 - gy1));
+
+    while (x != endX || y != endY) {
+        int idx = y * grid->width + x;
+        if (idx < 0 || idx >= grid->width * grid->height) return true;
+        if (grid->data[idx] != 0) return true;
+
+        if (tMaxX < tMaxY) {
+            tMaxX += tDeltaX;
+            x += stepX;
+        }
+        else {
+            tMaxY += tDeltaY;
+            y += stepY;
+        }
+    }
+
+    return false;
+} */
 
 // Kernels
 __global__ void kernInitTree(TreeNode* tree, int max_nodes, float start_x, float start_y) {
@@ -173,11 +213,18 @@ __global__ void kernRRT(
     results[tid] = -1;  
 
     for (int iter = 1; iter < maxIter && size < maxNodes; ++iter) {
-        TreeNode newNode = sampleFreeSpace(&grid, iter);
+        TreeNode newNode = sampleFreeSpace(&grid, iter, goalX, goalY);
         int nearestIdx = nearestNeighbor(tree, size, newNode.x, newNode.y);
         TreeNode nearest = tree[nearestIdx];
 		newNode = steer(nearest, newNode, maxStep); //Steer with max range 0.5
-
+       
+        unsigned seed = (tid * 1337u) ^ (iter * 911u);
+        thrust::default_random_engine rng(seed);
+        thrust::uniform_real_distribution<float> dist01(0.0f, 1.0f);
+        if (dist01(rng) < 0.1f) {
+            newNode.x = goalX;
+            newNode.y = goalY;
+		}
         if (!checkCollision(&grid, nearest.x, nearest.y, newNode.x, newNode.y)) {
             newNode.parent = nearestIdx;
             int idx = size++;
@@ -283,7 +330,7 @@ std::vector<TreeNode> launchRRT(const OccupancyGrid& h_grid,
 
     cudaDeviceSynchronize();
 
-    timerGPU().endGpuTimer();
+  
    // Copy back to host
     cudaMemcpy(h_allTrees, d_allTrees,
         numThreads * maxNodes * sizeof(TreeNode),
@@ -299,12 +346,57 @@ std::vector<TreeNode> launchRRT(const OccupancyGrid& h_grid,
             int goalIndex = h_results[tid];
             TreeNode* treeBase = &h_allTrees[tid * maxNodes];
 			
-
+            timerGPU().endGpuTimer();
             return findFinalPath(treeBase, goalIndex);
+            
 			//return path; // Return the found path
         }
-    }
+    } 
 
+    timerGPU().endGpuTimer();
     // No solution
     return {};
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //// find ALL successful paths
+    //bool firstFound = false;
+    //std::vector<TreeNode> returnPath;
+
+    //for (int tid = 0; tid < numThreads; ++tid) {
+    //    if (h_results[tid] != -1) {
+
+    //        int goalIndex = h_results[tid];
+    //        TreeNode* treeBase = &h_allTrees[tid * maxNodes];
+
+    //        auto path = findFinalPath(treeBase, goalIndex);
+
+    //        printf("Thread %d success, path length = %zu\n", tid, path.size());
+    //        for (const auto& n : path) {
+    //            printf("   (%.3f, %.3f),\n", n.x, n.y);
+    //        }
+
+    //        // save first successful path to return
+    //        if (!firstFound) {
+    //            returnPath = path;
+    //            firstFound = true;
+    //        }
+    //    }
+    //}
+    //   timerGPU().endGpuTimer();
+    //// return first successful path
+    //if (firstFound) return returnPath;
+
+    //// otherwise return empty
+    //return {};
 }

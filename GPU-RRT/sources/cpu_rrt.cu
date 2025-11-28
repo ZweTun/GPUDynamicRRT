@@ -106,10 +106,15 @@ std::vector<TreeNode> cpuRRT(OccupancyGrid grid,
 
     for (int iter = 1; iter < maxIter && size < maxNodes; ++iter) {
         TreeNode newNode = sampleFreeSpaceCPU(grid);
+
+
 		int nearestIdx = nearestNeighborCPU(tree, newNode.x, newNode.y);
         TreeNode nearest = tree[nearestIdx];
         newNode = steerCPU(nearest, newNode, 1.0f); //Steer with max range 0.5
-
+        if (rand() % 100 < 5) {
+            // With small probability, sample the goal directly
+            newNode = { goalX, goalY, -1 };
+        }
         if (!checkCollisionCPU(&grid, nearest.x, nearest.y, newNode.x, newNode.y)) {
             newNode.parent = nearestIdx;
             int idx = size++;

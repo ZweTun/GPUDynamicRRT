@@ -83,7 +83,7 @@ inline void printHeader(const std::string& title) {
 // Print a path
 inline void printPath(const std::vector<TreeNode>& path) {
     for (const auto& n : path) {
-        printf("   (%.3f, %.3f)\n", n.x, n.y);
+        printf("   (%.3f, %.3f),\n", n.x, n.y);
     }
 }
 
@@ -111,7 +111,7 @@ inline void printCmpPath(const std::vector<TreeNode>& cpu,
     }
 
     if (cpu.empty() && !gpu.empty()) {
-        printf("    CPU failed, GPU succeeded check correctness\n");
+        printf("    CPU failed, GPU succeeded\n");
         return;
     }
     if (!cpu.empty() && gpu.empty()) {

@@ -3,65 +3,8 @@
 #include <cuda_runtime.h>
 #include "rrt.h"
 #include "cpu_rrt.h"
-int width = 10;
-int height = 10;
-float resolution = 1.0f;
-float maxStep = 0.5f;
-int maxIter = 6000;
-int maxNodes = 6000;
-
-// Define start and goal positions
-float startX = 0.0f, startY = 0.0f;
-float goalX = 9.0f, goalY = 9.0f;
-
-// Visual representation of the occupancy grid 10 x 10
-
-std::vector<int> visualMap = {
-    0,0,0,0,0,0,0,0,0,0,
-    0,0,0,1,1,1,0,0,0,0,
-    0,1,0,0,0,1,0,1,0,0,
-    0,1,0,1,0,1,0,1,0,0,
-    0,0,0,1,0,1,0,0,0,0,
-    0,1,0,1,0,1,1,1,0,0,
-    0,1,0,0,0,0,0,0,0,0,
-     0,0,0,0,0,0,0,0,0,0,
-     0,0,0,1,1,1,0,0,0,0,
-     0,0,0,0,0,0,0,0,0,0
-};
 
 
-
-// All free space 
-void initOccupancyGrid(OccupancyGrid& grid, int width, int height, float resolution) {
-    grid.width = width;
-    grid.height = height;
-    grid.resolution = resolution;
-    grid.origin_x = 0.0f;
-    grid.origin_y = 0.0f;
-    grid.data = new uint8_t[width * height];
-    std::memset(grid.data, 0, width * height * sizeof(uint8_t));
-}
-
-
-// Initialize occupancy grid from a vector representation
-void initOccupancyGridFromVector(OccupancyGrid& grid,
-    int width, int height,
-    float resolution,
-    const std::vector<int>& src)
-{
-    grid.width = width;
-    grid.height = height;
-    grid.resolution = resolution;
-    grid.origin_x = 0.0f;
-    grid.origin_y = 0.0f;
-
-    grid.data = new uint8_t[width * height];
-
-    for (int i = 0; i < width * height; i++) {
-        grid.data[i] = (src[i] == 1 ? 100 : 0);
-        // 1 = obstacle, 0 = free
-    }
-}
 
 
 //int main() {
@@ -102,27 +45,70 @@ void initOccupancyGridFromVector(OccupancyGrid& grid,
 #include "testing_helpers.hpp"
 
 #include "common.h"
-const int MAP_W = 10;
-const int MAP_H = 10;
 
-uint8_t gridDataCPU[MAP_W * MAP_H];
-uint8_t gridDataGPU[MAP_W * MAP_H];
+float resolution = 0.05f;
+float maxStep = 0.5f;
+int maxIter = 100000;
+int maxNodes = 50000;
 
-OccupancyGrid makeGrid(const std::vector<int>& visual) {
+
+// Define start and goal positions
+float startX = 0.0f, startY = 0.0f;
+float goalX = 9.0f, goalY = 9.0f;
+void inflateObstaclesCPU(std::vector<int>& grid, int width, int height, int inflationRadius)
+{
+    std::vector<int> inflated = grid;  // start with copy
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+
+            if (grid[y * width + x] == 1) {   // expand around OBSTACLE
+
+                // Inflate neighbors
+                for (int dy = -inflationRadius; dy <= inflationRadius; dy++) {
+                    for (int dx = -inflationRadius; dx <= inflationRadius; dx++) {
+
+                        int nx = x + dx;
+                        int ny = y + dy;
+
+                        if (nx < 0 || nx >= width || ny < 0 || ny >= height)
+                            continue;
+
+                        // Only fill within circular radius
+                        if (dx * dx + dy * dy <= inflationRadius * inflationRadius) {
+                            inflated[ny * width + nx] = 1;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+    grid = inflated;
+}
+
+OccupancyGrid makeGrid(const std::vector<int>& visual, int W, int H)
+{
     OccupancyGrid g;
-    g.width = MAP_W;
-    g.height = MAP_H;
+    g.width = W;
+    g.height = H;
     g.resolution = 1.0f;
     g.origin_x = 0;
     g.origin_y = 0;
 
-    for (int i = 0; i < MAP_W * MAP_H; i++) {
-        gridDataCPU[i] = visual[i];
-        gridDataGPU[i] = visual[i];
+    // allocate exact size
+    uint8_t* buf = new uint8_t[W * H];
+
+    for (int i = 0; i < W * H; i++) {
+        buf[i] = (uint8_t)visual[i];
     }
-    g.data = gridDataCPU;
+
+    g.data = buf; 
     return g;
 }
+
+
 
 
 int main(int argc, char* argv[]) {
@@ -141,10 +127,11 @@ int main(int argc, char* argv[]) {
     //
     // Test 1: Empty map
     //
-    printHeader("TEST 1: Empty map");
+    printHeader("TEST 1: Empty map (10x10)");
 
-    std::vector<int> emptyMap(MAP_W * MAP_H, 0);
-    OccupancyGrid gridEmpty = makeGrid(emptyMap);
+    std::vector<int> emptyMap(10 * 10, 0);
+    OccupancyGrid gridEmpty = makeGrid(emptyMap, 10, 10);
+
 
     // CPU RRT
     printDesc("CPU RRT (empty map)");
@@ -167,7 +154,7 @@ int main(int argc, char* argv[]) {
     //
     // Test 2: Maze
     //
-    printHeader("TEST 2: Maze map");
+    printHeader("TEST 2: Maze map (10x10)");
 
     std::vector<int> mazeMap = {
         0,0,0,0,0,0,0,0,0,0,
@@ -182,7 +169,7 @@ int main(int argc, char* argv[]) {
         0,0,0,0,0,0,0,0,0,0
     };
 
-    OccupancyGrid gridMaze = makeGrid(mazeMap);
+    OccupancyGrid gridMaze = makeGrid(mazeMap, 10, 10);
 
     printDesc("CPU RRT (maze)");
     zeroTimerCPU();
@@ -205,10 +192,10 @@ int main(int argc, char* argv[]) {
     //
     printHeader("TEST 3: Blocked map");
 
-    std::vector<int> blocked(MAP_W * MAP_H, 1);
+    std::vector<int> blocked(10 * 10, 1);
     blocked[0] = 0; // start free
 
-    OccupancyGrid gridBlocked = makeGrid(blocked);
+    OccupancyGrid gridBlocked = makeGrid(blocked, 10, 10);
 
     printDesc("CPU RRT (blocked)");
     zeroTimerCPU();
@@ -225,6 +212,100 @@ int main(int argc, char* argv[]) {
     printf("GPU path length: %zu\n", gpuBlocked.size());
 
     printCmpPath(cpuBlocked, gpuBlocked);
+
+    // ======================================
+// TEST 4: Larger Corridor Map
+// ======================================
+    printHeader("TEST 4: Corridor map (20x10)");
+
+    // A corridor-style map
+    std::vector<int> bigCorridor = {
+     0,0,0,0,0,0,0,0,0,0,  0,0,0,0,0,0,0,0,0,0,
+     0,1,1,1,1,1,1,1,1,0,  0,1,1,1,1,1,1,1,1,0,
+     0,1,0,0,0,0,0,0,1,0,  0,1,0,0,0,0,0,0,1,0,
+     0,1,0,1,1,1,1,0,1,0,  0,1,0,1,1,1,1,0,1,0,
+     0,1,0,1,0,0,1,0,1,0,  0,1,0,1,0,0,1,0,1,0,
+     0,1,0,1,0,0,1,0,1,0,  0,1,0,1,0,0,1,0,1,0,
+     0,1,0,1,1,1,1,0,1,0,  0,1,0,1,1,1,1,0,1,0,
+     0,1,0,0,0,0,0,0,1,0,  0,1,0,0,0,0,0,0,1,0,
+     0,0,0,0,0,0,0,0,0,0,  0,1,1,1,1,1,1,1,1,0,
+     0,0,0,0,0,0,0,0,0,0,  0,0,0,0,0,0,0,0,0,0
+    };
+    float margin = 0.15f;      // meters
+
+    int radius = int(margin / resolution); // = 3
+
+
+
+	inflateObstaclesCPU(bigCorridor, 20, 10, 0.99);
+
+    OccupancyGrid gridCorridor = makeGrid(bigCorridor, 20, 10);
+   
+    printDesc("CPU RRT (corridor)");
+    zeroTimerCPU();
+    timerCPU().startCpuTimer();
+    auto cpuCorr = cpuRRT(gridCorridor, startX, startY, goalX, goalY, maxIter, maxNodes, maxStep);
+    timerCPU().endCpuTimer();
+    printElapsedTimeCPU("(std::chrono measured)");
+    printf("CPU path length: %zu\n", cpuCorr.size());
+
+    printDesc("GPU RRT (corridor)");
+    zeroTimerGPU();
+    auto gpuCorr = launchRRT(gridCorridor, startX, startY, goalX, goalY, maxIter, maxNodes, maxStep);
+    printElapsedTimeGPU("(CUDA measured)");
+    printf("GPU path length: %zu\n", gpuCorr.size());
+	//printPath(gpuCorr);
+
+    printCmpPath(cpuCorr, gpuCorr);
+
+
+    // ======================================
+    // TEST 5: Random map (seeded)
+    // ======================================
+    printHeader("TEST 5: Random Map (1000x1000)");
+
+
+    int RW = 1000;
+    int RH = 1000;
+	goalX = 600;
+	goalY = 600;
+
+    srand(12345);
+    std::vector<int> randMap(RW* RH);
+
+    for (int i = 0; i < RW * RH; i++) {
+        randMap[i] = (rand() % 6 == 0) ? 1 : 0;   // ~16% obstacles
+    }
+
+    // Ensure start and goal are not obstacles
+    int startIdx = (int)startY * RW + (int)startX;
+    int goalIdx = (int)goalY * RW + (int)goalX;
+
+    randMap[startIdx] = 0;
+    randMap[goalIdx] = 0;
+
+    OccupancyGrid gridRand = makeGrid(randMap, RW, RH);
+
+    printDesc("CPU RRT (random)");
+    zeroTimerCPU();
+    timerCPU().startCpuTimer();
+    auto cpuRand = cpuRRT(gridRand, startX, startY, goalX, goalY,
+        maxIter, maxNodes, maxStep);
+    timerCPU().endCpuTimer();
+    printElapsedTimeCPU("(std::chrono measured)");
+    printf("CPU path length: %zu\n", cpuRand.size());
+
+    printDesc("GPU RRT (random)");
+    zeroTimerGPU();
+    auto gpuRand = launchRRT(gridRand, startX, startY, goalX, goalY,
+        maxIter, maxNodes, maxStep);
+    printElapsedTimeGPU("(CUDA measured)");
+    printf("GPU path length: %zu\n", gpuRand.size());
+
+    printCmpPath(cpuRand, gpuRand);
+
+
+
 
     printf("\n*** RRT TESTING COMPLETE ***\n");
 
