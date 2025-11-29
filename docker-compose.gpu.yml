@@ -3,7 +3,7 @@ services:
     build:
       context: .
       args:
-        WITH_GPU: "true"
+        WITH_GPU: "1"
     # https://docs.docker.com/compose/how-tos/gpu-support/
     deploy:
       resources:

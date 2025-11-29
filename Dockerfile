@@ -1,5 +1,5 @@
 FROM ros:humble-ros-base-jammy
-ARG WITH_GPU=false
+ARG WITH_GPU
 
 RUN apt-get update && \
     apt-get --yes dist-upgrade && \
@@ -13,7 +13,7 @@ RUN apt-get update && \
         tmux \
         vim
 
-RUN if [ "${WITH_GPU}" = "true" ]; then \
+RUN if [ -n "${WITH_GPU}" ]; then \
         curl \
             --location https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb \
             --output cuda-keyring.deb && \
@@ -22,6 +22,11 @@ RUN if [ "${WITH_GPU}" = "true" ]; then \
         apt-get update && \
         apt-get --yes install cuda-toolkit-12-9; \
     fi
+
+ENV CUDA_HOME="/usr/local/cuda-12.9"
+# https://docs.docker.com/reference/dockerfile#environment-replacement
+ENV PATH="${WITH_GPU:+${CUDA_HOME}/bin${PATH:+:}}${PATH}"
+ENV LD_LIBRARY_PATH="${WITH_GPU:+${CUDA_HOME}/lib64${LD_LIBRARY_PATH:+:}}${LD_LIBRARY_PATH}"
 
 RUN groupadd --gid 1000 developer && \
     useradd --uid 1000 --gid 1000 --shell /bin/bash --create-home developer && \

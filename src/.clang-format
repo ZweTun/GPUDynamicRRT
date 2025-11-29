@@ -1,3 +1,6 @@
 BasedOnStyle: LLVM
+AccessModifierOffset: -4
+AllowShortFunctionsOnASingleLine: Empty
 ColumnLimit: 100
 IndentWidth: 4
+PackConstructorInitializers: Never
