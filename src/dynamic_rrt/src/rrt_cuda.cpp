@@ -10,6 +10,10 @@ namespace dynamic_rrt {
 RRTCuda::RRTCuda()
     : RRTBase("dynamic_rrt_cuda") {}
 
+auto RRTCuda::set_resolution(double resolution) -> void {
+    // TODO
+}
+
 auto RRTCuda::plan_rrt(
     const Pose2D& start,
     const Point2D& goal,

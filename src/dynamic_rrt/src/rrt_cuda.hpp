@@ -13,6 +13,8 @@ public:
     RRTCuda();
 
 private:
+    auto set_resolution(double resolution) -> void override;
+
     auto plan_rrt(
         const Pose2D& start,
         const Point2D& goal,

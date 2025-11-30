@@ -37,6 +37,8 @@ public:
     auto operator=(RRTBase&&) -> RRTBase& = delete;
 
 protected:
+    virtual auto set_resolution(double resolution) -> void = 0;
+
     virtual auto plan_rrt(
         const Pose2D& start,
         const Point2D& goal,

@@ -95,8 +95,8 @@ auto RRTBase::map_callback(const nav_msgs::msg::OccupancyGrid& msg) -> void {
 
     map_ = msg;
     RCLCPP_INFO(this->get_logger(), "Received initial occupancy grid map");
-
     RCLCPP_INFO(this->get_logger(), "Map frame ID: %s", map_.header.frame_id.c_str());
+    this->set_resolution(map_.info.resolution);
     RCLCPP_INFO(this->get_logger(), "Map resolution: %.3f [m/cell]", map_.info.resolution);
     map_width_ = static_cast<std::int32_t>(map_.info.width);
     map_height_ = static_cast<std::int32_t>(map_.info.height);
@@ -144,6 +144,10 @@ auto RRTBase::map_callback(const nav_msgs::msg::OccupancyGrid& msg) -> void {
 
 auto RRTBase::scan_callback(const sensor_msgs::msg::LaserScan& msg) -> void {
     if (map_width_ == 0 || map_height_ == 0 || !pose_) {
+        RCLCPP_WARN(
+            this->get_logger(),
+            "Cannot process LaserScan message before receiving initial map and pose"
+        );
         return;
     }
 
@@ -167,6 +171,9 @@ auto RRTBase::scan_callback(const sensor_msgs::msg::LaserScan& msg) -> void {
 
 auto RRTBase::run_planning() -> void {
     if (map_width_ == 0 || map_height_ == 0 || !pose_) {
+        RCLCPP_WARN(
+            this->get_logger(), "Cannot run planning before receiving initial map and pose"
+        );
         return;
     }
     local_waypoints_.clear();
@@ -216,6 +223,7 @@ auto RRTBase::run_planning() -> void {
 
 auto RRTBase::publish_local_waypoints() -> void {
     if (local_waypoints_.empty()) {
+        RCLCPP_WARN(this->get_logger(), "No local waypoints to publish");
         return;
     }
 
@@ -243,6 +251,7 @@ auto RRTBase::publish_local_waypoints() -> void {
         marker.color.a = 1.0f;
     }
     waypoint_publisher_->publish(std::move(marker_array));
+    RCLCPP_INFO(this->get_logger(), "Published %zu local waypoints", local_waypoints_.size());
 }
 
 auto RRTBase::load_global_waypoints() -> bool {
