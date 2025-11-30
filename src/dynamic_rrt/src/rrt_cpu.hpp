@@ -26,9 +26,8 @@ private:
         const Point2D& goal,
         std::int32_t map_width,
         std::int32_t map_height,
-        const std::vector<std::int8_t>& map_data,
-        std::vector<Point2D>& local_waypoints
-    ) -> void override;
+        const std::vector<std::int8_t>& map_data
+    ) -> std::vector<Point2D> override;
 
     auto sample_point() -> Point2D;
 
@@ -43,7 +42,7 @@ private:
 
     auto is_goal_reached(const Point2D& point) const -> bool;
 
-    auto construct_path(std::int32_t goal_index) -> void;
+    auto construct_path(std::int32_t goal_index) -> std::vector<Point2D>;
 
     std::mt19937 rng_;
 
@@ -66,7 +65,6 @@ private:
     std::int32_t map_width_ = 0;
     std::int32_t map_height_ = 0;
     const std::vector<std::int8_t>* map_data_ = nullptr;
-    std::vector<Point2D>* local_waypoints_ = nullptr;
     std::vector<TreeNode> tree_;
 };
 

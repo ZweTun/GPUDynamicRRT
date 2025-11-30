@@ -51,7 +51,8 @@ RUN groupadd --gid 1000 developer && \
 
 USER developer
 WORKDIR /home/developer/sim_ws
-RUN echo -e "\n source /opt/ros/humble/setup.bash" >> /home/developer/.bashrc
+RUN echo >> /home/developer/.bashrc && \
+    echo "source /opt/ros/humble/setup.bash" >> /home/developer/.bashrc
 
 RUN git clone \
         --branch dev-dynamics \

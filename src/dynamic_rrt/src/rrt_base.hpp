@@ -44,9 +44,8 @@ protected:
         const Point2D& goal,
         std::int32_t map_width,
         std::int32_t map_height,
-        const std::vector<std::int8_t>& map_data,
-        std::vector<Point2D>& local_waypoints
-    ) -> void = 0;
+        const std::vector<std::int8_t>& map_data
+    ) -> std::vector<Point2D> = 0;
 
 private:
     auto map_callback(const nav_msgs::msg::OccupancyGrid& msg) -> void;

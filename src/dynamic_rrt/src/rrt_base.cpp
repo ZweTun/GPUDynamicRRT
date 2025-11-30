@@ -212,12 +212,20 @@ auto RRTBase::run_planning() -> void {
         position->y = (position->y - map_.info.origin.position.y) / map_.info.resolution;
     }
 
-    this->plan_rrt(start_pose, goal_position, map_width_, map_height_, map_.data, local_waypoints_);
+    const auto grid_waypoints =
+        this->plan_rrt(start_pose, goal_position, map_width_, map_height_, map_.data);
+    if (grid_waypoints.empty()) {
+        return;
+    }
 
     // Convert local waypoints back to world coordinates.
-    for (auto& waypoint : local_waypoints_) {
-        waypoint.x = waypoint.x * map_.info.resolution + map_.info.origin.position.x;
-        waypoint.y = waypoint.y * map_.info.resolution + map_.info.origin.position.y;
+    local_waypoints_.clear();
+    local_waypoints_.reserve(grid_waypoints.size());
+    for (const auto& waypoint : grid_waypoints) {
+        local_waypoints_.push_back(Point2D{
+            waypoint.x * map_.info.resolution + map_.info.origin.position.x,
+            waypoint.y * map_.info.resolution + map_.info.origin.position.y
+        });
     }
 }
 
@@ -252,6 +260,7 @@ auto RRTBase::publish_local_waypoints() -> void {
     }
     waypoint_publisher_->publish(std::move(marker_array));
     RCLCPP_INFO(this->get_logger(), "Published %zu local waypoints", local_waypoints_.size());
+    local_waypoints_.clear();
 }
 
 auto RRTBase::load_global_waypoints() -> bool {

@@ -19,9 +19,8 @@ auto RRTCuda::plan_rrt(
     const Point2D& goal,
     std::int32_t map_width,
     std::int32_t map_height,
-    const std::vector<std::int8_t>& map_data,
-    std::vector<Point2D>& local_waypoints
-) -> void {
+    const std::vector<std::int8_t>& map_data
+) -> std::vector<Point2D> {
     // TODO
 }
 

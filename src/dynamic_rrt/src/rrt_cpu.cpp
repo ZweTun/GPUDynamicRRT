@@ -47,15 +47,13 @@ auto RRTCpu::plan_rrt(
     const Point2D& goal,
     std::int32_t map_width,
     std::int32_t map_height,
-    const std::vector<std::int8_t>& map_data,
-    std::vector<Point2D>& local_waypoints
-) -> void {
+    const std::vector<std::int8_t>& map_data
+) -> std::vector<Point2D> {
     start_ = start;
     goal_ = goal;
     map_width_ = map_width;
     map_height_ = map_height;
     map_data_ = &map_data;
-    local_waypoints_ = &local_waypoints;
 
     tree_.clear();
     tree_.reserve(1 + max_iterations_);
@@ -80,8 +78,7 @@ auto RRTCpu::plan_rrt(
             tree_.size()
         );
         const auto goal_index = static_cast<std::int32_t>(tree_.size() - 1);
-        this->construct_path(goal_index);
-        return;
+        return this->construct_path(goal_index);
     }
 
     RCLCPP_WARN(
@@ -90,6 +87,7 @@ auto RRTCpu::plan_rrt(
         max_iterations_,
         tree_.size()
     );
+    return std::vector<Point2D>{};
 }
 
 auto RRTCpu::sample_point() -> Point2D {
@@ -189,15 +187,16 @@ auto RRTCpu::is_goal_reached(const Point2D& point) const -> bool {
     return distance <= goal_threshold_cells_;
 }
 
-auto RRTCpu::construct_path(std::int32_t goal_index) -> void {
-    std::vector<Point2D> reversed_path;
+auto RRTCpu::construct_path(std::int32_t goal_index) -> std::vector<Point2D> {
+    std::vector<Point2D> path;
     auto index = goal_index;
     while (index >= 0) {
         const auto& node = tree_[index];
-        reversed_path.push_back(node.point);
+        path.push_back(node.point);
         index = node.parent_index;
     }
-    local_waypoints_->assign(reversed_path.rbegin(), reversed_path.rend());
+    std::reverse(path.begin(), path.end());
+    return path;
 }
 
 }  // namespace dynamic_rrt
