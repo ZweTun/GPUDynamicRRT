@@ -4,10 +4,13 @@
 #include <chrono>
 #include <cmath>
 #include <cstddef>
+#include <fstream>
 #include <functional>
 #include <memory>
+#include <sstream>
 #include <utility>
 
+#include "ament_index_cpp/get_package_share_directory.hpp"
 #include "rclcpp/wait_for_message.hpp"
 
 namespace dynamic_rrt {
@@ -21,6 +24,8 @@ RRTBase::RRTBase(const std::string& node_name)
     this->declare_parameter<int>("planning_interval_ms", 100);
     this->declare_parameter<int>("waypoint_publish_interval_ms", 1000);
     this->declare_parameter<double>("obstacle_margin", 0.15);
+    this->declare_parameter<std::string>("global_waypoint_csv", "");
+    this->declare_parameter<double>("global_waypoint_max_distance", 5.0);
 
     rclcpp::QoS default_qos(10);
 
@@ -29,18 +34,35 @@ RRTBase::RRTBase(const std::string& node_name)
         odometry_subscription_ = this->create_subscription<nav_msgs::msg::Odometry>(
             "/ego_racecar/odom",
             default_qos,
-            [this](const nav_msgs::msg::Odometry& msg) { this->update_pose(msg.pose.pose); }
+            [this](const nav_msgs::msg::Odometry& msg) {
+                RCLCPP_INFO_ONCE(
+                    this->get_logger(),
+                    "Received first Odometry message with frame ID: %s",
+                    msg.header.frame_id.c_str()
+                );
+                this->update_pose(msg.pose.pose);
+            }
         );
         RCLCPP_INFO(this->get_logger(), "Running in simulation mode");
     } else {
         pose_subscription_ = this->create_subscription<geometry_msgs::msg::PoseStamped>(
             "/pf/viz/inferred_pose",
             default_qos,
-            [this](const geometry_msgs::msg::PoseStamped& msg) { this->update_pose(msg.pose); }
+            [this](const geometry_msgs::msg::PoseStamped& msg) {
+                RCLCPP_INFO_ONCE(
+                    this->get_logger(),
+                    "Received first PoseStamped message with frame ID: %s",
+                    msg.header.frame_id.c_str()
+                );
+                this->update_pose(msg.pose);
+            }
         );
         RCLCPP_INFO(this->get_logger(), "Running in real mode");
     }
-    this->create_subscription<sensor_msgs::msg::LaserScan>(
+    map_subscription_ = this->create_subscription<nav_msgs::msg::OccupancyGrid>(
+        "/map", default_qos, std::bind(&RRTBase::map_callback, this, _1)
+    );
+    scan_subscription_ = this->create_subscription<sensor_msgs::msg::LaserScan>(
         "/scan", default_qos, std::bind(&RRTBase::scan_callback, this, _1)
     );
 
@@ -56,36 +78,56 @@ RRTBase::RRTBase(const std::string& node_name)
     );
     this->waypoint_timer_ = this->create_wall_timer(
         std::chrono::milliseconds(this->get_parameter("waypoint_publish_interval_ms").as_int()),
-        std::bind(&RRTBase::publish_waypoints, this)
+        std::bind(&RRTBase::publish_local_waypoints, this)
     );
 
-    // Initialize the occupancy grid.
-    const auto map_topic = "/map";
-    const auto success = rclcpp::wait_for_message<nav_msgs::msg::OccupancyGrid>(
-        map_, this->shared_from_this(), map_topic
-    );
-    if (!success) {
-        RCLCPP_FATAL(
-            this->get_logger(), "Failed to receive initial occupancy grid from topic %s", map_topic
-        );
+    // Load global waypoints from CSV.
+    if (!this->load_global_waypoints()) {
         rclcpp::shutdown();
         return;
     }
-    RCLCPP_INFO(this->get_logger(), "Received initial occupancy grid from topic %s", map_topic);
-    map_height_ = static_cast<std::int32_t>(map_.info.height);
+}
+
+auto RRTBase::map_callback(const nav_msgs::msg::OccupancyGrid& msg) -> void {
+    if (map_width_ > 0 && map_height_ > 0) {
+        return;
+    }
+
+    map_ = msg;
+    RCLCPP_INFO(this->get_logger(), "Received initial occupancy grid map");
+
+    RCLCPP_INFO(this->get_logger(), "Map frame ID: %s", map_.header.frame_id.c_str());
+    RCLCPP_INFO(this->get_logger(), "Map resolution: %.3f [m/cell]", map_.info.resolution);
     map_width_ = static_cast<std::int32_t>(map_.info.width);
+    map_height_ = static_cast<std::int32_t>(map_.info.height);
+    RCLCPP_INFO(
+        this->get_logger(), "Map size: width=%d, height=%d [cells]", map_width_, map_height_
+    );
+    const auto& position = map_.info.origin.position;
     RCLCPP_INFO(
         this->get_logger(),
-        "Occupancy grid size: width=%d, height=%d, resolution=%.3f",
-        map_width_,
-        map_height_,
-        map_.info.resolution
+        "Map origin position: x=%.3f, y=%.3f, z=%.3f [m]",
+        position.x,
+        position.y,
+        position.z
     );
+    const auto& orientation = map_.info.origin.orientation;
+    RCLCPP_INFO(
+        this->get_logger(),
+        "Map origin orientation: x=%.3f, y=%.3f, z=%.3f, w=%.3f",
+        orientation.x,
+        orientation.y,
+        orientation.z,
+        orientation.w
+    );
+
     obstacle_inflation_radius_ = static_cast<std::int32_t>(
         std::ceil(this->get_parameter("obstacle_margin").as_double() / map_.info.resolution)
     );
     RCLCPP_INFO(
-        this->get_logger(), "Obstacle inflation radius set to %d cells", obstacle_inflation_radius_
+        this->get_logger(),
+        "Obstacle inflation radius set to %d [cells]",
+        obstacle_inflation_radius_
     );
 
     // Inflate obstacles in the initial occupancy grid.
@@ -101,17 +143,18 @@ RRTBase::RRTBase(const std::string& node_name)
 }
 
 auto RRTBase::scan_callback(const sensor_msgs::msg::LaserScan& msg) -> void {
-    if (!pose_) {
+    if (map_width_ == 0 || map_height_ == 0 || !pose_) {
         return;
     }
+
     for (std::size_t i = 0; i < msg.ranges.size(); ++i) {
         const auto range = msg.ranges[i];
         if (!std::isfinite(range)) {
             continue;
         }
         const auto angle = msg.angle_min + static_cast<double>(i) * msg.angle_increment;
-        const auto obstacle_x = pose_->x + range * std::cos(pose_->yaw + angle);
-        const auto obstacle_y = pose_->y + range * std::sin(pose_->yaw + angle);
+        const auto obstacle_x = pose_->position.x + range * std::cos(pose_->yaw + angle);
+        const auto obstacle_y = pose_->position.y + range * std::sin(pose_->yaw + angle);
         const auto grid_x = static_cast<std::int32_t>(
             (obstacle_x - map_.info.origin.position.x) / map_.info.resolution
         );
@@ -122,19 +165,67 @@ auto RRTBase::scan_callback(const sensor_msgs::msg::LaserScan& msg) -> void {
     }
 }
 
-auto RRTBase::run_planning() -> void {}
-
-auto RRTBase::publish_waypoints() -> void {
-    if (waypoints_.empty()) {
+auto RRTBase::run_planning() -> void {
+    if (map_width_ == 0 || map_height_ == 0 || !pose_) {
         return;
     }
+    local_waypoints_.clear();
+
+    // Select a global waypoint as the local planning goal.
+    const auto max_distance = this->get_parameter("global_waypoint_max_distance").as_double();
+    std::optional<Point2D> best_waypoint;
+    auto best_distance = 0.0;
+    for (const auto& waypoint : global_waypoints_) {
+        const auto delta_x = waypoint.x - pose_->position.x;
+        const auto delta_y = waypoint.y - pose_->position.y;
+        const auto distance = std::hypot(delta_x, delta_y);
+        const auto x_car_frame = delta_x * std::cos(-pose_->yaw) - delta_y * std::sin(-pose_->yaw);
+        if (distance <= max_distance && x_car_frame > 0.0 && distance > best_distance) {
+            best_waypoint = waypoint;
+            best_distance = distance;
+        }
+    }
+
+    if (!best_waypoint) {
+        RCLCPP_WARN(this->get_logger(), "No valid global waypoint found within range");
+        return;
+    }
+    RCLCPP_INFO(
+        this->get_logger(),
+        "Selected global waypoint at (%.2f, %.2f) as local planning goal",
+        best_waypoint->x,
+        best_waypoint->y
+    );
+
+    // Convert start and goal positions to grid coordinates.
+    auto start_pose = *pose_;
+    auto goal_position = *best_waypoint;
+    for (auto position : {&start_pose.position, &goal_position}) {
+        position->x = (position->x - map_.info.origin.position.x) / map_.info.resolution;
+        position->y = (position->y - map_.info.origin.position.y) / map_.info.resolution;
+    }
+
+    this->plan_rrt(start_pose, goal_position, map_width_, map_height_, map_.data, local_waypoints_);
+
+    // Convert local waypoints back to world coordinates.
+    for (auto& waypoint : local_waypoints_) {
+        waypoint.x = waypoint.x * map_.info.resolution + map_.info.origin.position.x;
+        waypoint.y = waypoint.y * map_.info.resolution + map_.info.origin.position.y;
+    }
+}
+
+auto RRTBase::publish_local_waypoints() -> void {
+    if (local_waypoints_.empty()) {
+        return;
+    }
+
     auto marker_array = std::make_unique<visualization_msgs::msg::MarkerArray>();
-    marker_array->markers.reserve(waypoints_.size());
+    marker_array->markers.reserve(local_waypoints_.size());
     const auto stamp = this->get_clock()->now();
-    for (std::size_t i = 0; i < waypoints_.size(); ++i) {
-        const auto& waypoint = waypoints_[i];
+    for (std::size_t i = 0; i < local_waypoints_.size(); ++i) {
+        const auto& waypoint = local_waypoints_[i];
         auto& marker = marker_array->markers.emplace_back();
-        marker.header.frame_id = "map";
+        marker.header.frame_id = map_.header.frame_id;
         marker.header.stamp = stamp;
         marker.ns = "waypoints";
         marker.id = static_cast<std::int32_t>(i);
@@ -154,6 +245,64 @@ auto RRTBase::publish_waypoints() -> void {
     waypoint_publisher_->publish(std::move(marker_array));
 }
 
+auto RRTBase::load_global_waypoints() -> bool {
+    auto csv_path = this->get_parameter("global_waypoint_csv").as_string();
+    if (csv_path.empty()) {
+        csv_path = ament_index_cpp::get_package_share_directory("dynamic_rrt");
+        csv_path += "/resource/levine1.csv";
+        RCLCPP_INFO(
+            this->get_logger(),
+            "No global waypoint CSV specified, using default path: %s",
+            csv_path.c_str()
+        );
+    } else {
+        RCLCPP_INFO(
+            this->get_logger(),
+            "Loading global waypoints from specified CSV path: %s",
+            csv_path.c_str()
+        );
+    }
+
+    std::ifstream stream(csv_path);
+    if (!stream) {
+        RCLCPP_FATAL(this->get_logger(), "Failed to open global waypoint CSV file");
+        return false;
+    }
+
+    std::string line;
+    while (std::getline(stream, line)) {
+        if (line.empty()) {
+            continue;
+        }
+        std::istringstream line_stream(line);
+        std::string x_str, y_str;
+        if (!std::getline(line_stream, x_str, ',') || !std::getline(line_stream, y_str, ',')) {
+            RCLCPP_WARN(this->get_logger(), "Invalid line in CSV, skipping: %s", line.c_str());
+            continue;
+        }
+        try {
+            Point2D waypoint{std::stod(x_str), std::stod(y_str)};
+            global_waypoints_.push_back(waypoint);
+        } catch (const std::exception&) {
+            RCLCPP_WARN(
+                this->get_logger(),
+                "Failed to parse coordinates from line, skipping: %s",
+                line.c_str()
+            );
+        }
+    }
+
+    if (global_waypoints_.empty()) {
+        RCLCPP_FATAL(this->get_logger(), "No valid global waypoints loaded from CSV");
+        return false;
+    }
+
+    RCLCPP_INFO(
+        this->get_logger(), "Loaded %zu global waypoints from CSV", global_waypoints_.size()
+    );
+    return true;
+}
+
 auto RRTBase::update_pose(const geometry_msgs::msg::Pose& pose) -> void {
     auto& position = pose.position;
     auto& orientation = pose.orientation;
@@ -162,7 +311,7 @@ auto RRTBase::update_pose(const geometry_msgs::msg::Pose& pose) -> void {
     const auto cos_yaw_cos_pitch =
         1.0 - 2.0 * (orientation.y * orientation.y + orientation.z * orientation.z);
     const auto yaw = std::atan2(sin_yaw_cos_pitch, cos_yaw_cos_pitch);
-    pose_ = Pose2D{position.x, position.y, yaw};
+    pose_ = Pose2D{Point2D{position.x, position.y}, yaw};
 }
 
 auto RRTBase::inflate_obstacle(std::int32_t x, std::int32_t y) -> void {

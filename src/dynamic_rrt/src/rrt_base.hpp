@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <optional>
 #include <string>
+#include <vector>
 
 #include "geometry_msgs/msg/pose.hpp"
 #include "geometry_msgs/msg/pose_stamped.hpp"
@@ -15,15 +16,14 @@
 
 namespace dynamic_rrt {
 
-struct Pose2D {
+struct Point2D {
     double x;
     double y;
-    double yaw;
 };
 
-struct Waypoint {
-    double x;
-    double y;
+struct Pose2D {
+    Point2D position;
+    double yaw;
 };
 
 class RRTBase : public rclcpp::Node {
@@ -36,18 +36,31 @@ public:
     auto operator=(const RRTBase&) -> RRTBase& = delete;
     auto operator=(RRTBase&&) -> RRTBase& = delete;
 
+protected:
+    virtual auto plan_rrt(
+        const Pose2D& start,
+        const Point2D& goal,
+        std::int32_t map_width,
+        std::int32_t map_height,
+        const std::vector<std::int8_t>& map_data,
+        std::vector<Point2D>& local_waypoints
+    ) -> void = 0;
+
 private:
+    auto map_callback(const nav_msgs::msg::OccupancyGrid& msg) -> void;
     auto scan_callback(const sensor_msgs::msg::LaserScan& msg) -> void;
 
     auto run_planning() -> void;
-    auto publish_waypoints() -> void;
+    auto publish_local_waypoints() -> void;
 
+    auto load_global_waypoints() -> bool;
     auto update_pose(const geometry_msgs::msg::Pose& pose) -> void;
     auto inflate_obstacle(std::int32_t x, std::int32_t y) -> void;
 
     // Subscriptions
     rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odometry_subscription_;
     rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr pose_subscription_;
+    rclcpp::Subscription<nav_msgs::msg::OccupancyGrid>::SharedPtr map_subscription_;
     rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr scan_subscription_;
 
     // Publishers
@@ -61,14 +74,15 @@ private:
     static constexpr std::int8_t OCCUPANCY_GRID_OCCUPIED = 100;
 
     // Computed properties
-    std::int32_t map_height_ = 0;
     std::int32_t map_width_ = 0;
+    std::int32_t map_height_ = 0;
     std::int32_t obstacle_inflation_radius_ = 0;
+    std::vector<Point2D> global_waypoints_;
 
     // States
     nav_msgs::msg::OccupancyGrid map_;
     std::optional<Pose2D> pose_;
-    std::vector<Waypoint> waypoints_;
+    std::vector<Point2D> local_waypoints_;
 };
 
 }  // namespace dynamic_rrt

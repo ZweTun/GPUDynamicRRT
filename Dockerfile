@@ -16,10 +16,13 @@ RUN apt-get update && \
         ros-humble-ament-index-cpp \
         ros-humble-geometry-msgs \
         ros-humble-nav-msgs \
+        ros-humble-nav2-lifecycle-manager \
+        ros-humble-nav2-map-server \
         ros-humble-rviz2 \
         ros-humble-sensor-msgs \
         ros-humble-tf2-ros \
         ros-humble-visualization-msgs \
+        ros-humble-xacro \
         sudo \
         tmux \
         vim
