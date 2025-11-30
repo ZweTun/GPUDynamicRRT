@@ -5,11 +5,22 @@ RUN apt-get update && \
     apt-get --yes dist-upgrade && \
     apt-get --yes install \
         black \
+        clang \
+        clang-format \
+        clang-tidy \
         isort \
         nano \
         pylint \
         python3-pip \
+        ros-humble-ackermann-msgs \
+        ros-humble-ament-index-cpp \
+        ros-humble-geometry-msgs \
+        ros-humble-nav-msgs \
         ros-humble-rviz2 \
+        ros-humble-sensor-msgs \
+        ros-humble-tf2-ros \
+        ros-humble-visualization-msgs \
+        sudo \
         tmux \
         vim
 
@@ -30,7 +41,6 @@ ENV LD_LIBRARY_PATH="${WITH_GPU:+${CUDA_HOME}/lib64${LD_LIBRARY_PATH:+:}}${LD_LI
 
 RUN groupadd --gid 1000 developer && \
     useradd --uid 1000 --gid 1000 --shell /bin/bash --create-home developer && \
-    apt-get install --yes sudo && \
     echo "developer ALL=(root) NOPASSWD: ALL" >> /etc/sudoers.d/developer && \
     chmod 0440 /etc/sudoers.d/developer && \
     mkdir --parent /home/developer/sim_ws/src && \
@@ -38,6 +48,7 @@ RUN groupadd --gid 1000 developer && \
 
 USER developer
 WORKDIR /home/developer/sim_ws
+RUN echo -e "\n source /opt/ros/humble/setup.bash" >> /home/developer/.bashrc
 
 RUN git clone \
         --branch dev-dynamics \

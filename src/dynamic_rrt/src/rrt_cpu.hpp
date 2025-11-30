@@ -12,6 +12,6 @@ public:
 private:
 };
 
-} // namespace dynamic_rrt
+}  // namespace dynamic_rrt
 
-#endif // DYNAMIC_RRT_RRT_CPU_HPP
+#endif  // DYNAMIC_RRT_RRT_CPU_HPP

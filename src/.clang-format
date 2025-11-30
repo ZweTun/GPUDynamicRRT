@@ -1,6 +1,9 @@
-BasedOnStyle: LLVM
+BasedOnStyle: Google
 AccessModifierOffset: -4
+AlignAfterOpenBracket: BlockIndent
 AllowShortFunctionsOnASingleLine: Empty
+BinPackArguments: false
+BinPackParameters: false
 ColumnLimit: 100
 IndentWidth: 4
 PackConstructorInitializers: Never

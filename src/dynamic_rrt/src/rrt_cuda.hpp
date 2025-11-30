@@ -12,6 +12,6 @@ public:
 private:
 };
 
-} // namespace dynamic_rrt
+}  // namespace dynamic_rrt
 
-#endif // DYNAMIC_RRT_RRT_CUDA_HPP
+#endif  // DYNAMIC_RRT_RRT_CUDA_HPP
