@@ -14,28 +14,42 @@
 #include "rrt_types.h"
 
 
+// ---- Device helpers ----
 
+// Returns true if the point (x,y) is free in the occupancy grid
+__device__ bool isPointFreeGPU(const OccupancyGrid& grid, float x, float y);
 
-//Checks for collision between two points
-bool checkCollisionGPU(OccupancyGrid* grid, float x1, float y1, float x2, float y2);
+// Checks for collision along the segment [x1,y1]  [x2,y2]; true if any collision
+__device__ bool checkCollisionGPU(const OccupancyGrid& grid, float x1, float y1, float x2, float y2);
 
-bool isPointFreeGPU(const OccupancyGrid& grid, float x, float y);
+// Steer from 'from' towards 'to' by at most maxStep
+__device__ TreeNode steerGPU(const TreeNode& from, const TreeNode& to, float maxStep);
 
-__global__ void neighborSearchScan(int n, int* odata, const int* idata, int offset); 
+// Sampling in free space using per-thread RNG
+__device__ TreeNode sampleFreeSpaceGPU(const OccupancyGrid& grid, int iter);
+// Goal check
+__device__ bool isGoalGPU(float x, float y, float goalX, float goalY);
 
-int neighborSearch(int n, int* odata, const int* idata);
+// Device function to compute distances from sample to tree nodes
+__device__
+void distanceReduction(int* idx, int n, int offset);
 
-TreeNode steerGPU(const TreeNode& from, const TreeNode& to, float maxStep);
+__global__ void rrtSingleTreeKernel(
+    OccupancyGrid grid,
+    float goalX, float goalY,
+    int maxIter, int maxNodes, float maxStep, 
+    bool* d_goalReached,
+    TreeNode* d_goal,
+    TreeNode* d_tree,
+    int* d_size, int* goal_idx
+);
 
-TreeNode sampleFreeSpaceGPU(const OccupancyGrid& grid);
+// ---- Host launcher ----
 
-
-// Checks if the given point is within a threshold distance to the goal
-bool isGoalGPU(float x, float y, float goalX, float goalY);
-
-
-// CPU RRT implementation
-std::vector<TreeNode> gpuRRT(OccupancyGrid grid,
+std::vector<TreeNode> gpuRRT(
+    const OccupancyGrid& h_grid,
     float startX, float startY,
     float goalX, float goalY,
-    int maxIter, int maxNodes, float maxStep);
+    int maxIter, int maxNodes, float maxStep
+);
+

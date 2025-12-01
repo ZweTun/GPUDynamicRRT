@@ -31,5 +31,11 @@ namespace RRT {
         }
 
 
+        PerformanceTimer& timerpRRT() {
+            static PerformanceTimer timer;
+            return timer;
+        }
+
+
     }
 }

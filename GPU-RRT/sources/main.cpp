@@ -3,7 +3,7 @@
 #include <cuda_runtime.h>
 #include "rrt.h"
 #include "cpu_rrt.h"
-
+#include "pRRT.h"
 
 
 
@@ -46,15 +46,7 @@
 
 #include "common.h"
 
-float resolution = 0.05f;
-float maxStep = 0.5f;
-int maxIter = 100000;
-int maxNodes = 50000;
 
-
-// Define start and goal positions
-float startX = 0.0f, startY = 0.0f;
-float goalX = 9.0f, goalY = 9.0f;
 void inflateObstaclesCPU(std::vector<int>& grid, int width, int height, int inflationRadius)
 {
     std::vector<int> inflated = grid;  // start with copy
@@ -117,12 +109,22 @@ int main(int argc, char* argv[]) {
     printf("** RRT TESTING **\n");
     printf("*****************\n");
 
-    float startX = 0, startY = 0;
-    float goalX = 8, goalY = 8;
+    //float startX = 0, startY = 0;
+    //float goalX = 8, goalY = 8;
 
-    int maxIter = 4000;
-    int maxNodes = 2048;
+    //int maxIter = 4000;
+    //int maxNodes = 2048;
+    //float maxStep = 1.0f;
+
+    float resolution = 0.05f;
     float maxStep = 1.0f;
+    int maxIter = 10000;
+    int maxNodes = 100000;
+
+
+    // Define start and goal positions
+    float startX = 0.0f, startY = 0.0f;
+    float goalX = 9.0f, goalY = 9.0f;
 
     //
     // Test 1: Empty map
@@ -150,6 +152,14 @@ int main(int argc, char* argv[]) {
     printf("GPU path length: %zu\n", gpuPath.size());
 
     printCmpPath(cpuPath, gpuPath);
+
+    // GPU pRRT
+	printDesc("pRRT (empty map)");
+	zeroTimerpRRT();
+	auto pRRTPath = gpuRRT(gridEmpty, startX, startY, goalX, goalY, maxIter, maxNodes, maxStep);
+    printElapsedTimepRRT("(CUDA measured)");
+	printf("pRRT path length: %zu\n", pRRTPath.size());
+	printCmpPath(cpuPath, pRRTPath);
 
     //
     // Test 2: Maze
@@ -184,34 +194,54 @@ int main(int argc, char* argv[]) {
     auto gpuMaze = launchRRT(gridMaze, startX, startY, goalX, goalY, maxIter, maxNodes, maxStep);
     printElapsedTimeGPU("(CUDA measured)");
     printf("GPU path length: %zu\n", gpuMaze.size());
-
     printCmpPath(cpuMaze, gpuMaze);
+
+    // GPU pRRT
+    printDesc("pRRT (maze)");
+    zeroTimerpRRT();
+    auto pRRTMaze = gpuRRT(gridMaze, startX, startY, goalX, goalY, maxIter, maxNodes, maxStep);
+    printElapsedTimepRRT("(CUDA measured)");
+    printf("pRRT path length: %zu\n", pRRTMaze.size());
+    printCmpPath(cpuMaze, pRRTMaze);
+
+
+
 
     //
     // Test 3: Fully blocked
     //
-    printHeader("TEST 3: Blocked map");
+ //   printHeader("TEST 3: Blocked map");
 
-    std::vector<int> blocked(10 * 10, 1);
-    blocked[0] = 0; // start free
+ //   std::vector<int> blocked(10 * 10, 1);
+ //   blocked[0] = 0; // start free
 
-    OccupancyGrid gridBlocked = makeGrid(blocked, 10, 10);
+ //   OccupancyGrid gridBlocked = makeGrid(blocked, 10, 10);
 
-    printDesc("CPU RRT (blocked)");
-    zeroTimerCPU();
-    timerCPU().startCpuTimer();
-    auto cpuBlocked = cpuRRT(gridBlocked, startX, startY, goalX, goalY, maxIter, maxNodes, maxStep);
-	timerCPU().endCpuTimer();
-    printElapsedTimeCPU("(std::chrono measured)");
-    printf("CPU path length: %zu\n", cpuBlocked.size());
+ //   printDesc("CPU RRT (blocked)");
+ //   zeroTimerCPU();
+ //   timerCPU().startCpuTimer();
+ //   auto cpuBlocked = cpuRRT(gridBlocked, startX, startY, goalX, goalY, maxIter, maxNodes, maxStep);
+	//timerCPU().endCpuTimer();
+ //   printElapsedTimeCPU("(std::chrono measured)");
+ //   printf("CPU path length: %zu\n", cpuBlocked.size());
 
-    printDesc("GPU RRT (blocked)");
-    zeroTimerGPU();
-    auto gpuBlocked = launchRRT(gridBlocked, startX, startY, goalX, goalY, maxIter, maxNodes, maxStep);
-    printElapsedTimeGPU("(CUDA measured)");
-    printf("GPU path length: %zu\n", gpuBlocked.size());
+ //   printDesc("GPU RRT (blocked)");
+ //   zeroTimerGPU();
+ //   auto gpuBlocked = launchRRT(gridBlocked, startX, startY, goalX, goalY, maxIter, maxNodes, maxStep);
+ //   printElapsedTimeGPU("(CUDA measured)");
+ //   printf("GPU path length: %zu\n", gpuBlocked.size());
 
-    printCmpPath(cpuBlocked, gpuBlocked);
+ //   printCmpPath(cpuBlocked, gpuBlocked);
+
+
+ //   // GPU pRRT
+ //   printDesc("pRRT (blocked)");
+ //   zeroTimerGPU();
+ //   auto pRRTBlocked = gpuRRT(gridBlocked, startX, startY, goalX, goalY, maxIter, maxNodes, maxStep, 0.15f);
+ //   printElapsedTimeGPU("(CUDA measured)");
+ //   printf("pRRT path length: %zu\n", pRRTBlocked.size());
+ //   printCmpPath(cpuBlocked, pRRTBlocked);
+
 
     // ======================================
 // TEST 4: Larger Corridor Map
@@ -259,6 +289,14 @@ int main(int argc, char* argv[]) {
     printCmpPath(cpuCorr, gpuCorr);
 
 
+    printDesc("pRRT (corridor)");
+    zeroTimerpRRT();
+    auto pRRTCorr = gpuRRT(gridCorridor, startX, startY, goalX, goalY, maxIter, maxNodes, maxStep);
+    printElapsedTimepRRT("(CUDA measured)");
+    printf("pRRT path length: %zu\n", pRRTCorr.size());
+    printCmpPath(cpuCorr, pRRTCorr);
+
+
     // ======================================
     // TEST 5: Random map (seeded)
     // ======================================
@@ -303,6 +341,15 @@ int main(int argc, char* argv[]) {
     printf("GPU path length: %zu\n", gpuRand.size());
 
     printCmpPath(cpuRand, gpuRand);
+
+
+    printDesc("pRRT (random)");
+    zeroTimerpRRT();
+    auto pRRTRand= gpuRRT(gridRand, startX, startY, goalX, goalY, maxIter, maxNodes, maxStep);
+    printElapsedTimepRRT("(CUDA measured)");
+    printf("pRRT path length: %zu\n", pRRTRand.size());
+    printCmpPath(cpuRand, pRRTRand);
+
 
 
 

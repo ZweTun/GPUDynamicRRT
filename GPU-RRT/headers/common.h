@@ -106,6 +106,7 @@ namespace RRT {
 
         PerformanceTimer& timerCPU();
         PerformanceTimer& timerGPU();
+		PerformanceTimer& timerpRRT();
 
     } // namespace Common
 } // namespace RRT
