@@ -22,6 +22,8 @@ private:
         std::int32_t map_height,
         const std::vector<std::int8_t>& map_data
     ) -> std::vector<Point2D> override;
+
+    double resolution_;
 };
 
 }  // namespace dynamic_rrt
