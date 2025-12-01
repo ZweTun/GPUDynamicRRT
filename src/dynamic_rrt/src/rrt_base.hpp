@@ -57,6 +57,7 @@ private:
     auto load_global_waypoints() -> bool;
     auto update_pose(const geometry_msgs::msg::Pose& pose) -> void;
     auto inflate_obstacle(std::int32_t x, std::int32_t y) -> void;
+    auto publish_global_waypoints(std::int32_t selected_index) -> void;
 
     // Subscriptions
     rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odometry_subscription_;
@@ -65,7 +66,9 @@ private:
     rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr scan_subscription_;
 
     // Publishers
-    rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr waypoint_publisher_;
+    rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr global_waypoint_publisher_;
+    rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr local_waypoint_publisher_;
+    rclcpp::Publisher<nav_msgs::msg::OccupancyGrid>::SharedPtr map_publisher_;
 
     // Timers
     rclcpp::TimerBase::SharedPtr planning_timer_;

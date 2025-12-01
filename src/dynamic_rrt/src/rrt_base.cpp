@@ -8,6 +8,7 @@
 #include <functional>
 #include <memory>
 #include <sstream>
+#include <unordered_map>
 #include <utility>
 
 #include "ament_index_cpp/get_package_share_directory.hpp"
@@ -67,9 +68,16 @@ RRTBase::RRTBase(const std::string& node_name)
     );
 
     // Create publishers.
-    this->waypoint_publisher_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
+    this->global_waypoint_publisher_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
+        "/global_waypoints_markers", default_qos
+    );
+    this->local_waypoint_publisher_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
         "/waypoints_markers", default_qos
     );
+    rclcpp::QoS map_qos(1);
+    map_qos.transient_local();
+    this->map_publisher_ =
+        this->create_publisher<nav_msgs::msg::OccupancyGrid>("/map_updated", map_qos);
 
     // Create timers.
     this->planning_timer_ = this->create_wall_timer(
@@ -121,6 +129,30 @@ auto RRTBase::map_callback(const nav_msgs::msg::OccupancyGrid& msg) -> void {
         orientation.w
     );
 
+    // Log occupancy grid value distribution.
+    std::unordered_map<std::int8_t, std::int32_t> value_counts;
+    for (const auto cell_value : map_.data) {
+        ++value_counts[cell_value];
+    }
+    std::vector<std::int8_t> sorted_keys;
+    sorted_keys.reserve(value_counts.size());
+    for (const auto& pair : value_counts) {
+        sorted_keys.push_back(pair.first);
+    }
+    std::sort(sorted_keys.begin(), sorted_keys.end());
+    RCLCPP_INFO(this->get_logger(), "Occupancy grid value distribution:");
+    for (const auto& key : sorted_keys) {
+        const auto count = value_counts[key];
+        const auto percentage = count * 100.0 / (map_width_ * map_height_);
+        RCLCPP_INFO(
+            this->get_logger(),
+            "  Value %3d: count = %8d, percentage = %.2f%%",
+            static_cast<int>(key),
+            count,
+            percentage
+        );
+    }
+
     obstacle_inflation_radius_ = static_cast<std::int32_t>(
         std::ceil(this->get_parameter("obstacle_margin").as_double() / map_.info.resolution)
     );
@@ -140,6 +172,8 @@ auto RRTBase::map_callback(const nav_msgs::msg::OccupancyGrid& msg) -> void {
             }
         }
     }
+
+    map_publisher_->publish(map_);
 }
 
 auto RRTBase::scan_callback(const sensor_msgs::msg::LaserScan& msg) -> void {
@@ -151,7 +185,8 @@ auto RRTBase::scan_callback(const sensor_msgs::msg::LaserScan& msg) -> void {
         return;
     }
 
-    for (std::size_t i = 0; i < msg.ranges.size(); ++i) {
+    // TODO: Enable dynamic obstacles once they can expire over time.
+    for (std::size_t i = 0; false && i < msg.ranges.size(); ++i) {
         const auto range = msg.ranges[i];
         if (!std::isfinite(range)) {
             continue;
@@ -167,6 +202,8 @@ auto RRTBase::scan_callback(const sensor_msgs::msg::LaserScan& msg) -> void {
         );
         this->inflate_obstacle(grid_x, grid_y);
     }
+
+    map_publisher_->publish(map_);
 }
 
 auto RRTBase::run_planning() -> void {
@@ -180,33 +217,35 @@ auto RRTBase::run_planning() -> void {
 
     // Select a global waypoint as the local planning goal.
     const auto max_distance = this->get_parameter("global_waypoint_max_distance").as_double();
-    std::optional<Point2D> best_waypoint;
+    std::int32_t best_index = -1;
     auto best_distance = 0.0;
-    for (const auto& waypoint : global_waypoints_) {
+    for (std::int32_t index = 0; index < static_cast<std::int32_t>(global_waypoints_.size());
+         ++index) {
+        const auto& waypoint = global_waypoints_[index];
         const auto delta_x = waypoint.x - pose_->position.x;
         const auto delta_y = waypoint.y - pose_->position.y;
         const auto distance = std::hypot(delta_x, delta_y);
         const auto x_car_frame = delta_x * std::cos(-pose_->yaw) - delta_y * std::sin(-pose_->yaw);
         if (distance <= max_distance && x_car_frame > 0.0 && distance > best_distance) {
-            best_waypoint = waypoint;
+            best_index = index;
             best_distance = distance;
         }
     }
-
-    if (!best_waypoint) {
+    this->publish_global_waypoints(best_index);
+    if (best_index < 0) {
         RCLCPP_WARN(this->get_logger(), "No valid global waypoint found within range");
         return;
     }
-    RCLCPP_INFO(
-        this->get_logger(),
-        "Selected global waypoint at (%.2f, %.2f) as local planning goal",
-        best_waypoint->x,
-        best_waypoint->y
-    );
 
     // Convert start and goal positions to grid coordinates.
     auto start_pose = *pose_;
-    auto goal_position = *best_waypoint;
+    auto goal_position = global_waypoints_[best_index];
+    RCLCPP_INFO(
+        this->get_logger(),
+        "Selected global waypoint at (%.2f, %.2f) as local planning goal",
+        goal_position.x,
+        goal_position.y
+    );
     for (auto position : {&start_pose.position, &goal_position}) {
         position->x = (position->x - map_.info.origin.position.x) / map_.info.resolution;
         position->y = (position->y - map_.info.origin.position.y) / map_.info.resolution;
@@ -258,7 +297,7 @@ auto RRTBase::publish_local_waypoints() -> void {
         marker.color.b = 0.0f;
         marker.color.a = 1.0f;
     }
-    waypoint_publisher_->publish(std::move(marker_array));
+    local_waypoint_publisher_->publish(std::move(marker_array));
     RCLCPP_INFO(this->get_logger(), "Published %zu local waypoints", local_waypoints_.size());
     local_waypoints_.clear();
 }
@@ -349,6 +388,43 @@ auto RRTBase::inflate_obstacle(std::int32_t x, std::int32_t y) -> void {
             map_.data[neighbor_index] = OCCUPANCY_GRID_OCCUPIED;
         }
     }
+}
+
+auto RRTBase::publish_global_waypoints(std::int32_t selected_index) -> void {
+    auto marker_array = std::make_unique<visualization_msgs::msg::MarkerArray>();
+    marker_array->markers.reserve(global_waypoints_.size());
+    const auto stamp = this->get_clock()->now();
+    for (std::size_t i = 0; i < global_waypoints_.size(); ++i) {
+        const auto& waypoint = global_waypoints_[i];
+        auto& marker = marker_array->markers.emplace_back();
+        marker.header.frame_id = map_.header.frame_id;
+        marker.header.stamp = stamp;
+        marker.ns = "global_waypoints";
+        marker.id = static_cast<std::int32_t>(i);
+        marker.type = visualization_msgs::msg::Marker::CUBE;
+        marker.action = visualization_msgs::msg::Marker::ADD;
+        marker.pose.position.x = waypoint.x;
+        marker.pose.position.y = waypoint.y;
+        marker.pose.position.z = 0.1;  // Slightly above the ground for visibility
+        if (static_cast<std::int32_t>(i) == selected_index) {
+            marker.scale.x = 0.3;
+            marker.scale.y = 0.3;
+            marker.scale.z = 0.3;
+            marker.color.r = 0.0f;
+            marker.color.g = 1.0f;
+            marker.color.b = 0.0f;
+        } else {
+            marker.scale.x = 0.2;
+            marker.scale.y = 0.2;
+            marker.scale.z = 0.2;
+            marker.color.r = 0.0f;
+            marker.color.g = 0.0f;
+            marker.color.b = 1.0f;
+        }
+        marker.color.a = 1.0f;
+    }
+    global_waypoint_publisher_->publish(std::move(marker_array));
+    RCLCPP_INFO(this->get_logger(), "Published %zu global waypoints", global_waypoints_.size());
 }
 
 }  // namespace dynamic_rrt
