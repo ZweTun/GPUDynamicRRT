@@ -1,6 +1,7 @@
 #include "rrt_cpu.hpp"
 
 #include <algorithm>
+#include <cinttypes>
 #include <cmath>
 #include <limits>
 #include <memory>
@@ -13,10 +14,11 @@ RRTCpu::RRTCpu()
     : RRTBase("dynamic_rrt_cpu"),
       rng_(std::random_device()()) {
     // Declare parameters.
-    this->declare_parameter<int>("max_iterations", 2500);
-    max_iterations_ = this->get_parameter("max_iterations").as_int();
-    this->declare_parameter<int>("max_sampling_attempts", 100);
-    max_sampling_attempts_ = this->get_parameter("max_sampling_attempts").as_int();
+    this->declare_parameter<std::int64_t>("max_iterations", 2500);
+    max_iterations_ = static_cast<std::int32_t>(this->get_parameter("max_iterations").as_int());
+    this->declare_parameter<std::int64_t>("max_sampling_attempts", 100);
+    max_sampling_attempts_ =
+        static_cast<std::int32_t>(this->get_parameter("max_sampling_attempts").as_int());
 
     this->declare_parameter<double>("sample_forward_min_m", 0.7);
     this->declare_parameter<double>("sample_forward_max_m", 5.0);
@@ -59,7 +61,7 @@ auto RRTCpu::plan_rrt(
     tree_.reserve(1 + max_iterations_);
     tree_.push_back(TreeNode{start_.position, -1});
 
-    for (std::int64_t i = 0; i < max_iterations_; ++i) {
+    for (std::int32_t i = 0; i < max_iterations_; ++i) {
         const auto sampled_point = this->sample_point();
         const auto nearest_index = this->get_nearest_node_index(sampled_point);
         const auto& nearest_point = tree_[nearest_index].point;
@@ -73,7 +75,7 @@ auto RRTCpu::plan_rrt(
         }
         RCLCPP_INFO(
             this->get_logger(),
-            "Path found after %ld iterations (tree size: %zu)",
+            "Path found after " PRId64 " iterations (tree size: %zu)",
             i + 1,
             tree_.size()
         );
@@ -83,7 +85,7 @@ auto RRTCpu::plan_rrt(
 
     RCLCPP_WARN(
         this->get_logger(),
-        "Failed to find a path within %ld iterations (tree size: %zu)",
+        "Failed to find a path within " PRId64 " iterations (tree size: %zu)",
         max_iterations_,
         tree_.size()
     );
@@ -100,7 +102,7 @@ auto RRTCpu::sample_point() -> Point2D {
     std::uniform_real_distribution lateral_dist(
         -sample_lateral_range_cells_, sample_lateral_range_cells_
     );
-    for (std::int64_t i = 0; i < max_sampling_attempts_; ++i) {
+    for (std::int32_t i = 0; i < max_sampling_attempts_; ++i) {
         const auto forward = forward_dist(rng_);
         const auto lateral = lateral_dist(rng_);
         const Point2D point{
@@ -133,14 +135,14 @@ auto RRTCpu::is_point_free(const Point2D& point) const -> bool {
 auto RRTCpu::get_nearest_node_index(const Point2D& point) const -> std::int32_t {
     std::int32_t nearest_index = -1;
     auto nearest_distance_squared = std::numeric_limits<double>::max();
-    for (std::int32_t index = 0; index < static_cast<std::int32_t>(tree_.size()); ++index) {
+    for (std::size_t index = 0; index < tree_.size(); ++index) {
         auto& node = tree_[index];
         const auto delta_x = point.x - node.point.x;
         const auto delta_y = point.y - node.point.y;
         const auto distance_squared = delta_x * delta_x + delta_y * delta_y;
         if (distance_squared < nearest_distance_squared) {
             nearest_distance_squared = distance_squared;
-            nearest_index = index;
+            nearest_index = static_cast<std::int32_t>(index);
         }
     }
     return nearest_index;

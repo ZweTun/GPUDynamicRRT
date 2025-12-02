@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <chrono>
+#include <cinttypes>
 #include <cmath>
 #include <cstddef>
 #include <fstream>
@@ -22,8 +23,8 @@ RRTBase::RRTBase(const std::string& node_name)
     : Node(node_name) {
     // Declare parameters.
     this->declare_parameter<bool>("simulation", false);
-    this->declare_parameter<int>("planning_interval_ms", 100);
-    this->declare_parameter<int>("waypoint_publish_interval_ms", 1000);
+    this->declare_parameter<std::int64_t>("planning_interval_ms", 100);
+    this->declare_parameter<std::int64_t>("waypoint_publish_interval_ms", 1000);
     this->declare_parameter<double>("obstacle_margin", 0.15);
     this->declare_parameter<std::string>("global_waypoint_csv", "");
     this->declare_parameter<double>("global_waypoint_max_distance", 5.0);
@@ -109,7 +110,10 @@ auto RRTBase::map_callback(nav_msgs::msg::OccupancyGrid::ConstSharedPtr msg) -> 
     map_width_ = static_cast<std::int32_t>(map_.info.width);
     map_height_ = static_cast<std::int32_t>(map_.info.height);
     RCLCPP_INFO(
-        this->get_logger(), "Map size: width=%d, height=%d [cells]", map_width_, map_height_
+        this->get_logger(),
+        "Map size: width=" PRId32 ", height=" PRId32 " [cells]",
+        map_width_,
+        map_height_
     );
     const auto& position = map_.info.origin.position;
     RCLCPP_INFO(
@@ -146,8 +150,8 @@ auto RRTBase::map_callback(nav_msgs::msg::OccupancyGrid::ConstSharedPtr msg) -> 
         const auto percentage = count * 100.0 / (map_width_ * map_height_);
         RCLCPP_INFO(
             this->get_logger(),
-            "  Value %3d: count = %8d, percentage = %.2f%%",
-            static_cast<int>(key),
+            "  Value " PRId8 ": count = " PRId32 ", percentage = %.1f%%",
+            key,
             count,
             percentage
         );
@@ -158,7 +162,7 @@ auto RRTBase::map_callback(nav_msgs::msg::OccupancyGrid::ConstSharedPtr msg) -> 
     );
     RCLCPP_INFO(
         this->get_logger(),
-        "Obstacle inflation radius set to %d [cells]",
+        "Obstacle inflation radius set to " PRId32 " [cells]",
         obstacle_inflation_radius_
     );
 
@@ -167,7 +171,7 @@ auto RRTBase::map_callback(nav_msgs::msg::OccupancyGrid::ConstSharedPtr msg) -> 
     for (std::int32_t y = 0; y < map_height_; ++y) {
         for (std::int32_t x = 0; x < map_width_; ++x) {
             const auto index = y * map_width_ + x;
-            if (original_map_data[index] == OCCUPANCY_GRID_OCCUPIED) {
+            if (original_map_data[index] != 0) {
                 this->inflate_obstacle(x, y);
             }
         }
@@ -219,15 +223,14 @@ auto RRTBase::run_planning() -> void {
     const auto max_distance = this->get_parameter("global_waypoint_max_distance").as_double();
     std::int32_t best_index = -1;
     auto best_distance = 0.0;
-    for (std::int32_t index = 0; index < static_cast<std::int32_t>(global_waypoints_.size());
-         ++index) {
+    for (std::size_t index = 0; index < global_waypoints_.size(); ++index) {
         const auto& waypoint = global_waypoints_[index];
         const auto delta_x = waypoint.x - pose_->position.x;
         const auto delta_y = waypoint.y - pose_->position.y;
         const auto distance = std::hypot(delta_x, delta_y);
         const auto x_car_frame = delta_x * std::cos(-pose_->yaw) - delta_y * std::sin(-pose_->yaw);
         if (distance <= max_distance && x_car_frame > 0.0 && distance > best_distance) {
-            best_index = index;
+            best_index = static_cast<std::int32_t>(index);
             best_distance = distance;
         }
     }
@@ -242,7 +245,7 @@ auto RRTBase::run_planning() -> void {
     auto goal_position = global_waypoints_[best_index];
     RCLCPP_INFO(
         this->get_logger(),
-        "Selected global waypoint at (%.2f, %.2f) as local planning goal",
+        "Selected global waypoint at (%.3f, %.3f) as local planning goal",
         goal_position.x,
         goal_position.y
     );

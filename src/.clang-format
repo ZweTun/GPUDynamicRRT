@@ -5,5 +5,6 @@ AllowShortFunctionsOnASingleLine: Empty
 BinPackArguments: false
 BinPackParameters: false
 ColumnLimit: 100
+IncludeBlocks: Preserve
 IndentWidth: 4
 PackConstructorInitializers: Never

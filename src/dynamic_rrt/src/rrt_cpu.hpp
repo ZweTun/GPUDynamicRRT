@@ -47,8 +47,8 @@ private:
     std::mt19937 rng_;
 
     // Algorithm parameters
-    std::int64_t max_iterations_ = 0;
-    std::int64_t max_sampling_attempts_ = 0;
+    std::int32_t max_iterations_ = 0;
+    std::int32_t max_sampling_attempts_ = 0;
 
     // Computed parameters
     double sample_forward_min_cells_ = 0.0;

@@ -4,6 +4,7 @@
 
 #include "cuda/rrt.h"
 #include "rclcpp/rclcpp.hpp"
+
 #include "rrt_kernels.cuh"
 
 namespace dynamic_rrt {
