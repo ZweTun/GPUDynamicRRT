@@ -6,8 +6,15 @@
 #include <vector>
 
 #include "rrt_base.hpp"
+#include "rrt_common.hpp"
 
 namespace dynamic_rrt {
+
+struct RRTStateCpu final : RRTStateBase {
+    std::mt19937* random_engines;
+
+    auto sample_uniform_real(float a, float b, unsigned int worker_index) const -> float;
+};
 
 class RRTCpu final : public RRTBase {
 public:
@@ -39,11 +46,12 @@ private:
 
     auto construct_path(std::int32_t goal_index) -> std::vector<Point2D>;
 
-    std::mt19937 rng_;
+    std::mt19937 random_engine_;
 
     // Algorithm parameters
     std::int32_t num_workers_ = 0;
     std::int32_t max_iterations_ = 0;
+    std::int32_t max_nodes_per_tree_ = 0;
     std::int32_t max_sampling_attempts_ = 0;
 
     // Computed parameters
@@ -54,14 +62,6 @@ private:
     float sample_fallback_forward_max_cells_ = 0.0f;
     float steer_step_size_cells_ = 0.0f;
     float goal_tolerance_cells_ = 0.0f;
-
-    // Planning states
-    Pose2D start_{};
-    Point2D goal_{};
-    std::int32_t map_width_ = 0;
-    std::int32_t map_height_ = 0;
-    const std::vector<std::int8_t>* map_data_ = nullptr;
-    std::vector<TreeNode> tree_;
 };
 
 }  // namespace dynamic_rrt

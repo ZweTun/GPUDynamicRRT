@@ -118,13 +118,14 @@ struct Tree {
     }
 };
 
-struct RRTState {
+struct RRTStateBase {
     Pose2D start;
     Point2D goal;
     OccupancyGridView grid;
 
     std::int32_t num_workers;
     std::int32_t max_iterations;
+    std::int32_t max_nodes_per_tree;
     std::int32_t max_sampling_attempts;
     float sample_forward_min;
     float sample_forward_max;
@@ -140,6 +141,8 @@ struct RRTState {
     template <typename Self>
     DYNAMIC_RRT_HOST_DEVICE static auto search(Self& self, unsigned int worker_index) -> void {
         auto& tree = self.trees[worker_index];
+        tree.size = 0;
+        tree.add_node(self.start.position, -1);
         for (std::int32_t i = 0; i < self.max_iterations && !tree.is_full(); ++i) {
             const auto sampled_point = Self::sample_point(self, worker_index);
             const auto nearest_index = tree.get_nearest_node_index(sampled_point);

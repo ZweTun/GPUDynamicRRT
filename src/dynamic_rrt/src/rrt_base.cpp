@@ -111,7 +111,7 @@ auto RRTBase::map_callback(nav_msgs::msg::OccupancyGrid::ConstSharedPtr msg) -> 
     map_height_ = static_cast<std::int32_t>(map_.info.height);
     RCLCPP_INFO(
         this->get_logger(),
-        "Map size: width=" PRId32 ", height=" PRId32 " [cells]",
+        "Map size: width=%" PRId32 ", height=%" PRId32 " [cells]",
         map_width_,
         map_height_
     );
@@ -150,7 +150,7 @@ auto RRTBase::map_callback(nav_msgs::msg::OccupancyGrid::ConstSharedPtr msg) -> 
         const auto percentage = count * 100.0 / (map_width_ * map_height_);
         RCLCPP_INFO(
             this->get_logger(),
-            "  Value " PRId8 ": count = " PRId32 ", percentage = %.1f%%",
+            "  Value %" PRId8 ": count = %" PRId32 ", percentage = %.1f%%",
             key,
             count,
             percentage
@@ -162,7 +162,7 @@ auto RRTBase::map_callback(nav_msgs::msg::OccupancyGrid::ConstSharedPtr msg) -> 
     );
     RCLCPP_INFO(
         this->get_logger(),
-        "Obstacle inflation radius set to " PRId32 " [cells]",
+        "Obstacle inflation radius set to %" PRId32 " [cells]",
         obstacle_inflation_radius_
     );
 
