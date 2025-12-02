@@ -14,17 +14,9 @@
 #include "sensor_msgs/msg/laser_scan.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
 
+#include "rrt_common.hpp"
+
 namespace dynamic_rrt {
-
-struct Point2D {
-    double x;
-    double y;
-};
-
-struct Pose2D {
-    Point2D position;
-    double yaw;
-};
 
 class RRTBase : public rclcpp::Node {
 public:
@@ -37,7 +29,7 @@ public:
     auto operator=(RRTBase&&) -> RRTBase& = delete;
 
 protected:
-    virtual auto set_resolution(double resolution) -> void = 0;
+    virtual auto set_resolution(float resolution) -> void = 0;
 
     virtual auto plan_rrt(
         const Pose2D& start,

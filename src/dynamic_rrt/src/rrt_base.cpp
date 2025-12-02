@@ -195,7 +195,7 @@ auto RRTBase::scan_callback(sensor_msgs::msg::LaserScan::ConstSharedPtr msg) -> 
         if (!std::isfinite(range)) {
             continue;
         }
-        const auto angle = msg->angle_min + static_cast<double>(i) * msg->angle_increment;
+        const auto angle = msg->angle_min + i * msg->angle_increment;
         const auto obstacle_x = pose_->position.x + range * std::cos(pose_->yaw + angle);
         const auto obstacle_y = pose_->position.y + range * std::sin(pose_->yaw + angle);
         const auto grid_x = static_cast<std::int32_t>(
@@ -220,7 +220,8 @@ auto RRTBase::run_planning() -> void {
     local_waypoints_.clear();
 
     // Select a global waypoint as the local planning goal.
-    const auto max_distance = this->get_parameter("global_waypoint_max_distance").as_double();
+    const auto max_distance =
+        static_cast<float>(this->get_parameter("global_waypoint_max_distance").as_double());
     std::int32_t best_index = -1;
     auto best_distance = 0.0;
     for (std::size_t index = 0; index < global_waypoints_.size(); ++index) {
@@ -265,8 +266,8 @@ auto RRTBase::run_planning() -> void {
     local_waypoints_.reserve(grid_waypoints.size());
     for (const auto& waypoint : grid_waypoints) {
         local_waypoints_.push_back(Point2D{
-            waypoint.x * map_.info.resolution + map_.info.origin.position.x,
-            waypoint.y * map_.info.resolution + map_.info.origin.position.y
+            static_cast<float>(waypoint.x * map_.info.resolution + map_.info.origin.position.x),
+            static_cast<float>(waypoint.y * map_.info.resolution + map_.info.origin.position.y)
         });
     }
 }
@@ -341,7 +342,7 @@ auto RRTBase::load_global_waypoints() -> bool {
             continue;
         }
         try {
-            Point2D waypoint{std::stod(x_str), std::stod(y_str)};
+            Point2D waypoint{std::stof(x_str), std::stof(y_str)};
             global_waypoints_.push_back(waypoint);
         } catch (const std::exception&) {
             RCLCPP_WARN(
@@ -371,7 +372,10 @@ auto RRTBase::update_pose(const geometry_msgs::msg::Pose& pose) -> void {
     const auto cos_yaw_cos_pitch =
         1.0 - 2.0 * (orientation.y * orientation.y + orientation.z * orientation.z);
     const auto yaw = std::atan2(sin_yaw_cos_pitch, cos_yaw_cos_pitch);
-    pose_ = Pose2D{Point2D{position.x, position.y}, yaw};
+    pose_ = Pose2D{
+        Point2D{static_cast<float>(position.x), static_cast<float>(position.y)},
+        static_cast<float>(yaw)
+    };
 }
 
 auto RRTBase::inflate_obstacle(std::int32_t x, std::int32_t y) -> void {

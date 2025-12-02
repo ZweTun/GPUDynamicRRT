@@ -14,6 +14,8 @@ RRTCpu::RRTCpu()
     : RRTBase("dynamic_rrt_cpu"),
       rng_(std::random_device()()) {
     // Declare parameters.
+    this->declare_parameter<std::int64_t>("num_workers", 1);
+    num_workers_ = static_cast<std::int32_t>(this->get_parameter("num_workers").as_int());
     this->declare_parameter<std::int64_t>("max_iterations", 2500);
     max_iterations_ = static_cast<std::int32_t>(this->get_parameter("max_iterations").as_int());
     this->declare_parameter<std::int64_t>("max_sampling_attempts", 100);
@@ -23,25 +25,29 @@ RRTCpu::RRTCpu()
     this->declare_parameter<double>("sample_forward_min_m", 0.7);
     this->declare_parameter<double>("sample_forward_max_m", 5.0);
     this->declare_parameter<double>("sample_lateral_range_m", 5.0);
-    this->declare_parameter<double>("fallback_forward_min_m", 0.3);
-    this->declare_parameter<double>("fallback_forward_max_m", 1.0);
-    this->declare_parameter<double>("steer_step_m", 0.5);
-    this->declare_parameter<double>("goal_threshold_m", 0.15);
+    this->declare_parameter<double>("sample_fallback_forward_min_m", 0.3);
+    this->declare_parameter<double>("sample_fallback_forward_max_m", 1.0);
+    this->declare_parameter<double>("steer_step_size_m", 0.5);
+    this->declare_parameter<double>("goal_tolerance_m", 0.15);
 }
 
-auto RRTCpu::set_resolution(double resolution) -> void {
+auto RRTCpu::set_resolution(float resolution) -> void {
     sample_forward_min_cells_ =
-        this->get_parameter("sample_forward_min_m").as_double() / resolution;
+        static_cast<float>(this->get_parameter("sample_forward_min_m").as_double() / resolution);
     sample_forward_max_cells_ =
-        this->get_parameter("sample_forward_max_m").as_double() / resolution;
+        static_cast<float>(this->get_parameter("sample_forward_max_m").as_double() / resolution);
     sample_lateral_range_cells_ =
-        this->get_parameter("sample_lateral_range_m").as_double() / resolution;
-    fallback_forward_min_cells_ =
-        this->get_parameter("fallback_forward_min_m").as_double() / resolution;
-    fallback_forward_max_cells_ =
-        this->get_parameter("fallback_forward_max_m").as_double() / resolution;
-    steer_step_cells_ = this->get_parameter("steer_step_m").as_double() / resolution;
-    goal_threshold_cells_ = this->get_parameter("goal_threshold_m").as_double() / resolution;
+        static_cast<float>(this->get_parameter("sample_lateral_range_m").as_double() / resolution);
+    sample_fallback_forward_min_cells_ = static_cast<float>(
+        this->get_parameter("sample_fallback_forward_min_m").as_double() / resolution
+    );
+    sample_fallback_forward_max_cells_ = static_cast<float>(
+        this->get_parameter("sample_fallback_forward_max_m").as_double() / resolution
+    );
+    steer_step_size_cells_ =
+        static_cast<float>(this->get_parameter("steer_step_size_m").as_double() / resolution);
+    goal_tolerance_cells_ =
+        static_cast<float>(this->get_parameter("goal_tolerance_m").as_double() / resolution);
 }
 
 auto RRTCpu::plan_rrt(
@@ -64,7 +70,7 @@ auto RRTCpu::plan_rrt(
     for (std::int32_t i = 0; i < max_iterations_; ++i) {
         const auto sampled_point = this->sample_point();
         const auto nearest_index = this->get_nearest_node_index(sampled_point);
-        const auto& nearest_point = tree_[nearest_index].point;
+        const auto& nearest_point = tree_[nearest_index].position;
         const auto steered_point = this->steer_towards(nearest_point, sampled_point);
         if (!this->is_segment_collision_free(nearest_point, steered_point)) {
             continue;
@@ -116,7 +122,7 @@ auto RRTCpu::sample_point() -> Point2D {
     // If we couldn't find a valid point, use a shorter segment straight ahead without checking for
     // obstacles.
     std::uniform_real_distribution fallback_dist(
-        fallback_forward_min_cells_, fallback_forward_max_cells_
+        sample_fallback_forward_min_cells_, sample_fallback_forward_max_cells_
     );
     const auto forward = fallback_dist(rng_);
     return Point2D{start_.position.x + forward * cos_yaw, start_.position.y + forward * sin_yaw};
@@ -134,11 +140,11 @@ auto RRTCpu::is_point_free(const Point2D& point) const -> bool {
 
 auto RRTCpu::get_nearest_node_index(const Point2D& point) const -> std::int32_t {
     std::int32_t nearest_index = -1;
-    auto nearest_distance_squared = std::numeric_limits<double>::max();
+    auto nearest_distance_squared = std::numeric_limits<float>::max();
     for (std::size_t index = 0; index < tree_.size(); ++index) {
         auto& node = tree_[index];
-        const auto delta_x = point.x - node.point.x;
-        const auto delta_y = point.y - node.point.y;
+        const auto delta_x = point.x - node.position.x;
+        const auto delta_y = point.y - node.position.y;
         const auto distance_squared = delta_x * delta_x + delta_y * delta_y;
         if (distance_squared < nearest_distance_squared) {
             nearest_distance_squared = distance_squared;
@@ -153,10 +159,10 @@ auto RRTCpu::steer_towards(const Point2D& nearest_point, const Point2D& sampled_
     const auto delta_x = sampled_point.x - nearest_point.x;
     const auto delta_y = sampled_point.y - nearest_point.y;
     const auto distance = std::hypot(delta_x, delta_y);
-    if (distance <= steer_step_cells_) {
+    if (distance <= steer_step_size_cells_) {
         return sampled_point;
     }
-    const auto scale = steer_step_cells_ / distance;
+    const auto scale = steer_step_size_cells_ / distance;
     return Point2D{nearest_point.x + delta_x * scale, nearest_point.y + delta_y * scale};
 }
 
@@ -170,10 +176,10 @@ auto RRTCpu::is_segment_collision_free(const Point2D& nearest_point, const Point
         return this->is_point_free(steered_point);
     }
     for (std::int32_t i = 0; i <= num_steps; ++i) {
-        const auto t = static_cast<double>(i) / static_cast<double>(num_steps);
+        const auto t = static_cast<float>(i) / static_cast<float>(num_steps);
         const auto point = Point2D{
-            (1.0 - t) * nearest_point.x + t * steered_point.x,
-            (1.0 - t) * nearest_point.y + t * steered_point.y
+            (1.0f - t) * nearest_point.x + t * steered_point.x,
+            (1.0f - t) * nearest_point.y + t * steered_point.y
         };
         if (!this->is_point_free(point)) {
             return false;
@@ -186,7 +192,7 @@ auto RRTCpu::is_goal_reached(const Point2D& point) const -> bool {
     const auto delta_x = point.x - goal_.x;
     const auto delta_y = point.y - goal_.y;
     const auto distance = std::hypot(delta_x, delta_y);
-    return distance <= goal_threshold_cells_;
+    return distance <= goal_tolerance_cells_;
 }
 
 auto RRTCpu::construct_path(std::int32_t goal_index) -> std::vector<Point2D> {
@@ -194,7 +200,7 @@ auto RRTCpu::construct_path(std::int32_t goal_index) -> std::vector<Point2D> {
     auto index = goal_index;
     while (index >= 0) {
         const auto& node = tree_[index];
-        path.push_back(node.point);
+        path.push_back(node.position);
         index = node.parent_index;
     }
     std::reverse(path.begin(), path.end());

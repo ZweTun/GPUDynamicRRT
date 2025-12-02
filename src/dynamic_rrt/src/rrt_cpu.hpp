@@ -9,17 +9,12 @@
 
 namespace dynamic_rrt {
 
-struct TreeNode {
-    Point2D point;
-    std::int32_t parent_index;
-};
-
 class RRTCpu final : public RRTBase {
 public:
     RRTCpu();
 
 private:
-    auto set_resolution(double resolution) -> void override;
+    auto set_resolution(float resolution) -> void override;
 
     auto plan_rrt(
         const Pose2D& start,
@@ -47,17 +42,18 @@ private:
     std::mt19937 rng_;
 
     // Algorithm parameters
+    std::int32_t num_workers_ = 0;
     std::int32_t max_iterations_ = 0;
     std::int32_t max_sampling_attempts_ = 0;
 
     // Computed parameters
-    double sample_forward_min_cells_ = 0.0;
-    double sample_forward_max_cells_ = 0.0;
-    double sample_lateral_range_cells_ = 0.0;
-    double fallback_forward_min_cells_ = 0.0;
-    double fallback_forward_max_cells_ = 0.0;
-    double steer_step_cells_ = 0.0;
-    double goal_threshold_cells_ = 0.0;
+    float sample_forward_min_cells_ = 0.0f;
+    float sample_forward_max_cells_ = 0.0f;
+    float sample_lateral_range_cells_ = 0.0f;
+    float sample_fallback_forward_min_cells_ = 0.0f;
+    float sample_fallback_forward_max_cells_ = 0.0f;
+    float steer_step_size_cells_ = 0.0f;
+    float goal_tolerance_cells_ = 0.0f;
 
     // Planning states
     Pose2D start_{};

@@ -6,5 +6,6 @@ BinPackArguments: false
 BinPackParameters: false
 ColumnLimit: 100
 IncludeBlocks: Preserve
+IndentPPDirectives: BeforeHash
 IndentWidth: 4
 PackConstructorInitializers: Never

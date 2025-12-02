@@ -16,7 +16,7 @@ RRTCuda::RRTCuda()
     this->declare_parameter<double>("maxStep", 0.5);
 }
 
-auto RRTCuda::set_resolution(double resolution) -> void {
+auto RRTCuda::set_resolution(float resolution) -> void {
     resolution_ = resolution;
 }
 
@@ -48,7 +48,7 @@ auto RRTCuda::plan_rrt(
     std::vector<Point2D> waypoints;
     waypoints.reserve(path.size());
     for (const auto& node : path) {
-        waypoints.push_back(Point2D{static_cast<double>(node.x), static_cast<double>(node.y)});
+        waypoints.push_back(Point2D{node.x, node.y});
     }
     if (!waypoints.empty()) {
         RCLCPP_INFO(this->get_logger(), "RRT found a path with %zu waypoints.", waypoints.size());
