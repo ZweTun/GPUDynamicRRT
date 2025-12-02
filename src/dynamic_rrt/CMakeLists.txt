@@ -54,19 +54,10 @@ if(DYNAMIC_RRT_BUILD_CUDA)
 
     find_package(CUDA REQUIRED) # Use the old FindCUDA module for compatibility with CMake 3.16.
 
-    add_executable(rrt_cuda
-        src/rrt_base.cpp
-        src/rrt_cuda.cpp
-        src/rrt_kernels.cu
-        # TODO: Clean up the CUDA implementation.
-        src/cuda/common.cu
-        src/cuda/cpu_rrt.cu
-        src/cuda/pRRT.cu
-        src/cuda/rrt.cu
-    )
+    add_executable(rrt_cuda src/rrt_base.cpp src/rrt_cuda.cpp src/rrt_kernels.cu)
     ament_target_dependencies(rrt_cuda ${core_dependencies})
     target_include_directories(rrt_cuda SYSTEM PRIVATE ${CUDA_INCLUDE_DIRS})
-    target_link_libraries(rrt_cuda ${CUDA_CUDART_LIBRARY})
+    target_link_libraries(rrt_cuda ${CUDA_CUDART_LIBRARY} ${CUDA_curand_LIBRARY})
     set_target_properties(rrt_cuda PROPERTIES
         CUDA_ARCHITECTURES "72;89" # Jetson Xavier NX and GeForce RTX 4090
         CUDA_SEPARABLE_COMPILATION ON

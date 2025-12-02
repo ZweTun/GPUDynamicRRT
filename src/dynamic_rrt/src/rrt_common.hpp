@@ -2,9 +2,9 @@
 #define DYNAMIC_RRT_RRT_COMMON_HPP
 
 #include <algorithm>
+#include <cfloat>
 #include <cmath>
 #include <cstdint>
-#include <limits>
 #include <vector>
 
 #ifdef __CUDACC__
@@ -91,7 +91,7 @@ struct Tree {
     DYNAMIC_RRT_HOST_DEVICE auto get_nearest_node_index(const Point2D& point
     ) const -> std::int32_t {
         std::int32_t nearest_index = -1;
-        auto nearest_distance_squared = std::numeric_limits<float>::max();
+        auto nearest_distance_squared = FLT_MAX;
         for (std::int32_t index = 0; index < this->size; ++index) {
             auto& node = this->nodes[index];
             const auto delta_x = point.x - node.position.x;
@@ -121,7 +121,7 @@ struct Tree {
 struct RRTStateBase {
     Pose2D start;
     Point2D goal;
-    OccupancyGridView grid;
+    OccupancyGridView map;
 
     std::int32_t num_workers;
     std::int32_t max_iterations;
@@ -135,20 +135,23 @@ struct RRTStateBase {
     float steer_step_size;
     float goal_tolerance;
 
+    TreeNode* tree_nodes;
     Tree* trees;
     std::int32_t* goal_indices;
 
     template <typename Self>
     DYNAMIC_RRT_HOST_DEVICE static auto search(Self& self, unsigned int worker_index) -> void {
         auto& tree = self.trees[worker_index];
+        tree.nodes = &tree.nodes[worker_index * self.max_nodes_per_tree];
         tree.size = 0;
+        tree.capacity = self.max_nodes_per_tree;
         tree.add_node(self.start.position, -1);
         for (std::int32_t i = 0; i < self.max_iterations && !tree.is_full(); ++i) {
             const auto sampled_point = Self::sample_point(self, worker_index);
             const auto nearest_index = tree.get_nearest_node_index(sampled_point);
             const auto& nearest_point = tree.nodes[nearest_index].position;
             const auto steered_point = self.steer_towards(nearest_point, sampled_point);
-            if (!self.grid.is_segment_collision_free(nearest_point, steered_point)) {
+            if (!self.map.is_segment_collision_free(nearest_point, steered_point)) {
                 continue;
             }
             tree.add_node(steered_point, nearest_index);
@@ -172,7 +175,7 @@ struct RRTStateBase {
                 -self.sample_lateral_range, self.sample_lateral_range, worker_index
             );
             const auto point = self.start.forward_lateral(forward, lateral);
-            if (self.grid.is_point_free(point)) {
+            if (self.map.is_point_free(point)) {
                 return point;
             }
         }

@@ -7,10 +7,15 @@
 
 namespace dynamic_rrt {
 
-auto RRTStateCpu::sample_uniform_real(float a, float b, unsigned int worker_index) const -> float {
-    std::uniform_real_distribution distribution(a, b);
-    return distribution(this->random_engines[worker_index]);
-}
+struct RRTStateCpu final : RRTStateBase {
+    std::mt19937::result_type seed;
+    std::mt19937* random_engines;
+
+    auto sample_uniform_real(float a, float b, unsigned int worker_index) const -> float {
+        std::uniform_real_distribution distribution(a, b);
+        return distribution(this->random_engines[worker_index]);
+    }
+};
 
 RRTCpu::RRTCpu()
     : RRTBase("dynamic_rrt_cpu"),
@@ -55,6 +60,12 @@ auto RRTCpu::set_resolution(float resolution) -> void {
         static_cast<float>(this->get_parameter("goal_tolerance_m").as_double() / resolution);
 }
 
+auto rrt_kernel_cpu(RRTStateCpu* state, unsigned int worker_index) -> void {
+    const auto seed = state->seed + static_cast<std::mt19937::result_type>(worker_index);
+    state->random_engines[worker_index].seed(seed);
+    RRTStateCpu::search(*state, worker_index);
+}
+
 auto RRTCpu::plan_rrt(
     const Pose2D& start,
     const Point2D& goal,
@@ -63,26 +74,14 @@ auto RRTCpu::plan_rrt(
     const std::vector<std::int8_t>& map_data
 ) -> std::vector<Point2D> {
     std::vector<TreeNode> tree_nodes(num_workers_ * max_nodes_per_tree_);
-    std::vector<Tree> trees;
-    trees.reserve(num_workers_);
-    for (std::int32_t i = 0; i < num_workers_; ++i) {
-        trees.push_back(Tree{&tree_nodes[i * max_nodes_per_tree_], 0, max_nodes_per_tree_});
-    }
-
+    std::vector<Tree> trees(num_workers_);
     std::vector<std::int32_t> goal_indices(num_workers_, -1);
-
-    std::vector<std::mt19937> random_engines;
-    random_engines.reserve(num_workers_);
-    std::uniform_int_distribution<std::mt19937::result_type> seed_distribution;
-    for (std::int32_t i = 0; i < num_workers_; ++i) {
-        const auto seed = seed_distribution(random_engine_);
-        random_engines.emplace_back(seed);
-    }
+    std::vector<std::mt19937> random_engines(num_workers_);
 
     RRTStateCpu state{};
     state.start = start;
     state.goal = goal;
-    state.grid = OccupancyGridView{map_data.data(), map_width, map_height};
+    state.map = OccupancyGridView{map_data.data(), map_width, map_height};
     state.num_workers = num_workers_;
     state.max_iterations = max_iterations_;
     state.max_nodes_per_tree = max_nodes_per_tree_;
@@ -94,16 +93,16 @@ auto RRTCpu::plan_rrt(
     state.sample_fallback_forward_max = sample_fallback_forward_max_cells_;
     state.steer_step_size = steer_step_size_cells_;
     state.goal_tolerance = goal_tolerance_cells_;
+    state.tree_nodes = tree_nodes.data();
     state.trees = trees.data();
     state.goal_indices = goal_indices.data();
+    state.seed = std::uniform_int_distribution<std::mt19937::result_type>()(random_engine_);
     state.random_engines = random_engines.data();
 
     std::vector<std::thread> workers;
     workers.reserve(num_workers_);
     for (std::int32_t worker_index = 0; worker_index < num_workers_; ++worker_index) {
-        workers.emplace_back([&state, worker_index]() {
-            RRTStateCpu::search(state, static_cast<unsigned int>(worker_index));
-        });
+        workers.emplace_back(rrt_kernel_cpu, &state, worker_index);
     }
     for (auto& worker : workers) {
         worker.join();

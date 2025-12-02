@@ -10,12 +10,6 @@
 
 namespace dynamic_rrt {
 
-struct RRTStateCpu final : RRTStateBase {
-    std::mt19937* random_engines;
-
-    auto sample_uniform_real(float a, float b, unsigned int worker_index) const -> float;
-};
-
 class RRTCpu final : public RRTBase {
 public:
     RRTCpu();
@@ -30,21 +24,6 @@ private:
         std::int32_t map_height,
         const std::vector<std::int8_t>& map_data
     ) -> std::vector<Point2D> override;
-
-    auto sample_point() -> Point2D;
-
-    auto is_point_free(const Point2D& point) const -> bool;
-
-    auto get_nearest_node_index(const Point2D& point) const -> std::int32_t;
-
-    auto steer_towards(const Point2D& nearest_point, const Point2D& sampled_point) const -> Point2D;
-
-    auto is_segment_collision_free(const Point2D& nearest_point, const Point2D& steered_point) const
-        -> bool;
-
-    auto is_goal_reached(const Point2D& point) const -> bool;
-
-    auto construct_path(std::int32_t goal_index) -> std::vector<Point2D>;
 
     std::mt19937 random_engine_;
 
