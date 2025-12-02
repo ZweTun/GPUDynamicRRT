@@ -8,7 +8,12 @@
 		// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
 		"dockerfile": "../Dockerfile",
 		"args": {
-			"WITH_GPU": "1"
+			"ROS_DISTRO": "foxy",
+			"UBUNTU_CODENAME": "focal",
+			"WITH_GPU": "1",
+			"CUDA_VERSION_MAJOR": "11",
+			"CUDA_VERSION_MINOR": "4",
+			"WITH_F1TENTH_GYM": ""
 		}
 	},
 

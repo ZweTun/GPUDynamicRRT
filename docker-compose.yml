@@ -3,7 +3,7 @@ services:
     build:
       context: .
       args:
-        WITH_GPU: ""
+        WITH_F1TENTH_GYM: "1"
     depends_on:
       - novnc
     environment:

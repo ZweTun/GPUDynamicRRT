@@ -35,13 +35,13 @@ RRTBase::RRTBase(const std::string& node_name)
         odometry_subscription_ = this->create_subscription<nav_msgs::msg::Odometry>(
             "/ego_racecar/odom",
             default_qos,
-            [this](const nav_msgs::msg::Odometry& msg) {
+            [this](nav_msgs::msg::Odometry::ConstSharedPtr msg) {
                 RCLCPP_INFO_ONCE(
                     this->get_logger(),
                     "Received first Odometry message with frame ID: %s",
-                    msg.header.frame_id.c_str()
+                    msg->header.frame_id.c_str()
                 );
-                this->update_pose(msg.pose.pose);
+                this->update_pose(msg->pose.pose);
             }
         );
         RCLCPP_INFO(this->get_logger(), "Running in simulation mode");
@@ -49,13 +49,13 @@ RRTBase::RRTBase(const std::string& node_name)
         pose_subscription_ = this->create_subscription<geometry_msgs::msg::PoseStamped>(
             "/pf/viz/inferred_pose",
             default_qos,
-            [this](const geometry_msgs::msg::PoseStamped& msg) {
+            [this](geometry_msgs::msg::PoseStamped::ConstSharedPtr msg) {
                 RCLCPP_INFO_ONCE(
                     this->get_logger(),
                     "Received first PoseStamped message with frame ID: %s",
-                    msg.header.frame_id.c_str()
+                    msg->header.frame_id.c_str()
                 );
-                this->update_pose(msg.pose);
+                this->update_pose(msg->pose);
             }
         );
         RCLCPP_INFO(this->get_logger(), "Running in real mode");
@@ -96,12 +96,12 @@ RRTBase::RRTBase(const std::string& node_name)
     }
 }
 
-auto RRTBase::map_callback(const nav_msgs::msg::OccupancyGrid& msg) -> void {
+auto RRTBase::map_callback(nav_msgs::msg::OccupancyGrid::ConstSharedPtr msg) -> void {
     if (map_width_ > 0 && map_height_ > 0) {
         return;
     }
 
-    map_ = msg;
+    map_ = *msg;
     RCLCPP_INFO(this->get_logger(), "Received initial occupancy grid map");
     RCLCPP_INFO(this->get_logger(), "Map frame ID: %s", map_.header.frame_id.c_str());
     this->set_resolution(map_.info.resolution);
@@ -176,7 +176,7 @@ auto RRTBase::map_callback(const nav_msgs::msg::OccupancyGrid& msg) -> void {
     map_publisher_->publish(map_);
 }
 
-auto RRTBase::scan_callback(const sensor_msgs::msg::LaserScan& msg) -> void {
+auto RRTBase::scan_callback(sensor_msgs::msg::LaserScan::ConstSharedPtr msg) -> void {
     if (map_width_ == 0 || map_height_ == 0 || !pose_) {
         RCLCPP_WARN(
             this->get_logger(),
@@ -186,12 +186,12 @@ auto RRTBase::scan_callback(const sensor_msgs::msg::LaserScan& msg) -> void {
     }
 
     // TODO: Enable dynamic obstacles once they can expire over time.
-    for (std::size_t i = 0; false && i < msg.ranges.size(); ++i) {
-        const auto range = msg.ranges[i];
+    for (std::size_t i = 0; false && i < msg->ranges.size(); ++i) {
+        const auto range = msg->ranges[i];
         if (!std::isfinite(range)) {
             continue;
         }
-        const auto angle = msg.angle_min + static_cast<double>(i) * msg.angle_increment;
+        const auto angle = msg->angle_min + static_cast<double>(i) * msg->angle_increment;
         const auto obstacle_x = pose_->position.x + range * std::cos(pose_->yaw + angle);
         const auto obstacle_y = pose_->position.y + range * std::sin(pose_->yaw + angle);
         const auto grid_x = static_cast<std::int32_t>(

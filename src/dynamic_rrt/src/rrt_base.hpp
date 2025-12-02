@@ -48,8 +48,8 @@ protected:
     ) -> std::vector<Point2D> = 0;
 
 private:
-    auto map_callback(const nav_msgs::msg::OccupancyGrid& msg) -> void;
-    auto scan_callback(const sensor_msgs::msg::LaserScan& msg) -> void;
+    auto map_callback(nav_msgs::msg::OccupancyGrid::ConstSharedPtr msg) -> void;
+    auto scan_callback(sensor_msgs::msg::LaserScan::ConstSharedPtr msg) -> void;
 
     auto run_planning() -> void;
     auto publish_local_waypoints() -> void;

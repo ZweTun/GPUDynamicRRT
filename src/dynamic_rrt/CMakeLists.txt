@@ -1,11 +1,17 @@
 cmake_minimum_required(VERSION 3.16) # CMake version on ROS 2 Foxy
-project(dynamic_rrt)
+project(dynamic_rrt LANGUAGES CXX)
 
-option(DYNAMIC_RRT_BUILD_CUDA "Build the CUDA-accelerated RRT node" ON)
+# Do not use cxx_std_17 because it can propagate to CUDA compilation.
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Enable compiler warnings.
-if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    add_compile_options(-Wall -Wextra -Wpedantic)
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    add_compile_options(
+        $<$<COMPILE_LANGUAGE:CXX>:-Wall>
+        $<$<COMPILE_LANGUAGE:CXX>:-Wextra>
+        $<$<COMPILE_LANGUAGE:CXX>:-Wpedantic>
+    )
 endif()
 
 # Find dependencies.
@@ -26,10 +32,10 @@ endforeach()
 
 # Add the CPU executable.
 add_executable(rrt_cpu src/rrt_base.cpp src/rrt_cpu.cpp)
-target_compile_features(rrt_cpu PRIVATE cxx_std_17)
 ament_target_dependencies(rrt_cpu ${core_dependencies})
 install(TARGETS rrt_cpu DESTINATION lib/${PROJECT_NAME})
 
+option(DYNAMIC_RRT_BUILD_CUDA "Build the CUDA-accelerated RRT node" ON)
 if(DYNAMIC_RRT_BUILD_CUDA)
     # Add the CUDA executable.
 
@@ -42,7 +48,11 @@ if(DYNAMIC_RRT_BUILD_CUDA)
     message(STATUS "CUDA compiler found: ${CMAKE_CUDA_COMPILER}")
     enable_language(CUDA)
 
-    find_package(CUDAToolkit REQUIRED)
+    # CUDA C++17 is not supported until CMake 3.18.
+    set(CMAKE_CUDA_STANDARD 14)
+    set(CMAKE_CUDA_STANDARD_REQUIRED ON)
+
+    find_package(CUDA REQUIRED) # Use the old FindCUDA module for compatibility with CMake 3.16.
 
     add_executable(rrt_cuda
         src/rrt_base.cpp
@@ -54,9 +64,9 @@ if(DYNAMIC_RRT_BUILD_CUDA)
         src/cuda/pRRT.cu
         src/cuda/rrt.cu
     )
-    target_compile_features(rrt_cuda PRIVATE cxx_std_17 cuda_std_17)
     ament_target_dependencies(rrt_cuda ${core_dependencies})
-    target_link_libraries(rrt_cuda CUDA::cudart)
+    target_include_directories(rrt_cuda SYSTEM PRIVATE ${CUDA_INCLUDE_DIRS})
+    target_link_libraries(rrt_cuda ${CUDA_CUDART_LIBRARY})
     set_target_properties(rrt_cuda PROPERTIES
         CUDA_ARCHITECTURES "72;89" # Jetson Xavier NX and GeForce RTX 4090
         CUDA_SEPARABLE_COMPILATION ON
