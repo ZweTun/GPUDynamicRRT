@@ -26,7 +26,7 @@ def generate_launch_description():
     #             "max_nodes_per_tree": 20000,
     #             "sample_forward_min_m": 0.5,
     #             "sample_forward_max_m": 8.0,
-    #             "sample_lateral_range_m": 2.0,
+    #             "sample_lateral_range_m": 5.0,
     #             "steer_step_size_m": 0.2,
     #             "goal_tolerance_m": 0.2,
     #         }
@@ -51,7 +51,7 @@ def generate_launch_description():
                 "threads_per_block": 64,
                 "sample_forward_min_m": 0.5,
                 "sample_forward_max_m": 8.0,
-                "sample_lateral_range_m": 2.0,
+                "sample_lateral_range_m": 5.0,
                 "steer_step_size_m": 0.2,
                 "goal_tolerance_m": 0.2,
             }

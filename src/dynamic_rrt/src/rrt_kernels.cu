@@ -1,5 +1,9 @@
 #include "rrt_kernels.hpp"
 
+#include <stdexcept>
+#include <string>
+
+#include <cuda_runtime.h>
 #include <curand_kernel.h>
 #include <thrust/copy.h>
 #include <thrust/device_vector.h>
@@ -50,6 +54,12 @@ auto plan_rrt_cuda(
 
     const auto num_blocks = (base_state.num_workers + threads_per_block - 1) / threads_per_block;
     rrt_kernel_cuda<<<num_blocks, threads_per_block>>>(cuda_state);
+    const auto status = cudaDeviceSynchronize();
+    if (status != cudaSuccess) {
+        throw std::runtime_error(
+            std::string("CUDA kernel execution failed: ") + cudaGetErrorString(status)
+        );
+    }
 
     thrust::host_vector<std::int32_t> goal_indices = device_goal_indices;
     for (std::int32_t worker_index = 0; worker_index < cuda_state.num_workers; ++worker_index) {

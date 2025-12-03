@@ -25,8 +25,8 @@ struct Pose2D {
     float yaw;
 
     DYNAMIC_RRT_HOST_DEVICE auto forward_lateral(float forward, float lateral) const -> Point2D {
-        const auto cos_yaw = ::cosf(this->yaw);
-        const auto sin_yaw = ::sinf(this->yaw);
+        const auto cos_yaw = cosf(this->yaw);
+        const auto sin_yaw = sinf(this->yaw);
         return Point2D{
             this->position.x + forward * cos_yaw - lateral * sin_yaw,
             this->position.y + forward * sin_yaw + lateral * cos_yaw
@@ -40,8 +40,8 @@ struct OccupancyGridView {
     std::int32_t height;
 
     DYNAMIC_RRT_HOST_DEVICE auto is_point_free(const Point2D& point) const -> bool {
-        const auto grid_x = static_cast<std::int32_t>(::floorf(point.x));
-        const auto grid_y = static_cast<std::int32_t>(::floorf(point.y));
+        const auto grid_x = static_cast<std::int32_t>(floorf(point.x));
+        const auto grid_y = static_cast<std::int32_t>(floorf(point.y));
         if (grid_x < 0 || grid_x >= this->width || grid_y < 0 || grid_y >= this->height) {
             return false;
         }
@@ -50,8 +50,8 @@ struct OccupancyGridView {
 
     DYNAMIC_RRT_HOST_DEVICE auto is_segment_collision_free(const Point2D& start, const Point2D& end)
         const -> bool {
-        const auto delta_x = static_cast<std::int32_t>(::ceilf(::fabsf(end.x - start.x)));
-        const auto delta_y = static_cast<std::int32_t>(::ceilf(::fabsf(end.y - start.y)));
+        const auto delta_x = static_cast<std::int32_t>(ceilf(fabsf(end.x - start.x)));
+        const auto delta_y = static_cast<std::int32_t>(ceilf(fabsf(end.y - start.y)));
         const auto num_steps = delta_x > delta_y ? delta_x : delta_y;
         if (num_steps == 0) {
             return this->is_point_free(end);
@@ -142,12 +142,12 @@ struct RRTStateBase {
     template <typename Self>
     DYNAMIC_RRT_HOST_DEVICE static auto search(Self& self, unsigned int worker_index) -> void {
         auto& tree = self.trees[worker_index];
-        tree.nodes = &tree.nodes[worker_index * self.max_nodes_per_tree];
+        tree.nodes = &self.tree_nodes[worker_index * self.max_nodes_per_tree];
         tree.size = 0;
         tree.capacity = self.max_nodes_per_tree;
         tree.add_node(self.start.position, -1);
         for (std::int32_t i = 0; i < self.max_iterations && !tree.is_full(); ++i) {
-            const auto sampled_point = Self::sample_point(self, worker_index);
+            const auto sampled_point = RRTStateBase::sample_point(self, worker_index);
             const auto nearest_index = tree.get_nearest_node_index(sampled_point);
             const auto& nearest_point = tree.nodes[nearest_index].position;
             const auto steered_point = self.steer_towards(nearest_point, sampled_point);
@@ -191,7 +191,7 @@ struct RRTStateBase {
         -> Point2D {
         const auto delta_x = to.x - from.x;
         const auto delta_y = to.y - from.y;
-        const auto distance = ::hypotf(delta_x, delta_y);
+        const auto distance = hypotf(delta_x, delta_y);
         if (distance <= this->steer_step_size) {
             return to;
         }
@@ -202,7 +202,7 @@ struct RRTStateBase {
     DYNAMIC_RRT_HOST_DEVICE auto is_goal_reached(const Point2D& point) const -> bool {
         const auto delta_x = point.x - this->goal.x;
         const auto delta_y = point.y - this->goal.y;
-        const auto distance = ::hypotf(delta_x, delta_y);
+        const auto distance = hypotf(delta_x, delta_y);
         return distance <= this->goal_tolerance;
     }
 };
