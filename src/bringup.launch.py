@@ -16,6 +16,7 @@ def generate_launch_description():
     #     parameters=[
     #         {
     #             "simulation": True,
+    #             "enable_visualization": True,
     #             "planning_interval_ms": 100,
     #             "waypoint_publish_interval_ms": 1000,
     #             "obstacle_margin": 0.2,
@@ -40,6 +41,7 @@ def generate_launch_description():
         parameters=[
             {
                 "simulation": True,
+                "enable_visualization": True,
                 "planning_interval_ms": 100,
                 "waypoint_publish_interval_ms": 1000,
                 "obstacle_margin": 0.2,

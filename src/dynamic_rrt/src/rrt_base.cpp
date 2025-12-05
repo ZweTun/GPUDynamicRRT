@@ -23,6 +23,7 @@ RRTBase::RRTBase(const std::string& node_name)
     : Node(node_name) {
     // Declare parameters.
     this->declare_parameter<bool>("simulation", false);
+    this->declare_parameter<bool>("enable_visualization", true);
     this->declare_parameter<std::int64_t>("planning_interval_ms", 100);
     this->declare_parameter<std::int64_t>("waypoint_publish_interval_ms", 1000);
     this->declare_parameter<double>("obstacle_margin", 0.15);
@@ -68,17 +69,28 @@ RRTBase::RRTBase(const std::string& node_name)
         "/scan", default_qos, std::bind(&RRTBase::scan_callback, this, _1)
     );
 
-    // Create publishers.
-    this->global_waypoint_publisher_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
-        "/global_waypoints_markers", default_qos
+    const auto enable_visualization = this->get_parameter("enable_visualization").as_bool();
+    RCLCPP_INFO(
+        this->get_logger(), "Visualization is %s", enable_visualization ? "enabled" : "disabled"
     );
+
+    // Create publishers.
+    if (enable_visualization) {
+        this->global_waypoint_publisher_ =
+            this->create_publisher<visualization_msgs::msg::MarkerArray>(
+                "/global_waypoints_markers", default_qos
+            );
+    }
+    // The pure pursuit node relies on /waypoint_markers for waypoint tracking.
     this->local_waypoint_publisher_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
         "/waypoints_markers", default_qos
     );
-    rclcpp::QoS map_qos(1);
-    map_qos.transient_local();
-    this->map_publisher_ =
-        this->create_publisher<nav_msgs::msg::OccupancyGrid>("/map_updated", map_qos);
+    if (enable_visualization) {
+        rclcpp::QoS map_qos(1);
+        map_qos.transient_local();
+        this->map_publisher_ =
+            this->create_publisher<nav_msgs::msg::OccupancyGrid>("/map_updated", map_qos);
+    }
 
     // Create timers.
     this->planning_timer_ = this->create_wall_timer(
@@ -177,7 +189,9 @@ auto RRTBase::map_callback(nav_msgs::msg::OccupancyGrid::ConstSharedPtr msg) -> 
         }
     }
 
-    map_publisher_->publish(map_);
+    if (map_publisher_ != nullptr) {
+        map_publisher_->publish(map_);
+    }
 }
 
 auto RRTBase::scan_callback(sensor_msgs::msg::LaserScan::ConstSharedPtr msg) -> void {
@@ -207,7 +221,9 @@ auto RRTBase::scan_callback(sensor_msgs::msg::LaserScan::ConstSharedPtr msg) -> 
         this->inflate_obstacle(grid_x, grid_y);
     }
 
-    map_publisher_->publish(map_);
+    if (map_publisher_ != nullptr) {
+        map_publisher_->publish(map_);
+    }
 }
 
 auto RRTBase::run_planning() -> void {
@@ -398,6 +414,10 @@ auto RRTBase::inflate_obstacle(std::int32_t x, std::int32_t y) -> void {
 }
 
 auto RRTBase::publish_global_waypoints(std::int32_t selected_index) -> void {
+    if (global_waypoint_publisher_ == nullptr) {
+        // Visualization is disabled.
+        return;
+    }
     auto marker_array = std::make_unique<visualization_msgs::msg::MarkerArray>();
     marker_array->markers.reserve(global_waypoints_.size());
     const auto stamp = this->get_clock()->now();
