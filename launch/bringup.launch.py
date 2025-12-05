@@ -1,0 +1,111 @@
+import os
+
+from ament_index_python.packages import get_package_share_directory
+from launch import LaunchDescription
+from launch.actions import IncludeLaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch_ros.actions import Node
+
+
+def generate_launch_description() -> None:
+    use_gpu = True
+    if use_gpu:
+        rrt_node = Node(
+            package="dynamic_rrt",
+            executable="rrt_cuda",
+            name="rrt_cuda",
+            output="screen",
+            parameters=[
+                {
+                    "simulation": False,
+                    "enable_visualization": False,
+                    "planning_interval_ms": 300,
+                    "waypoint_publish_interval_ms": 1000,
+                    "obstacle_margin": 0.3,
+                    "global_waypoint_csv": "/home/nvidia/f1tenth_ws/skirkanich_lobby.csv",
+                    "global_waypoint_max_distance": 5.0,
+
+                    "num_workers": 128,
+                    "max_iterations": 5000,
+                    "max_nodes_per_tree": 5000,
+                    "threads_per_block": 64,
+                    "sample_forward_min_m": 0.5,
+                    "sample_forward_max_m": 8.0,
+                    "sample_lateral_range_m": 5.0,
+                    "steer_step_size_m": 0.2,
+                    "goal_tolerance_m": 0.2,
+                }
+            ],
+        )
+    else:
+        rrt_node = Node(
+            package="dynamic_rrt",
+            executable="rrt_cpu",
+            name="rrt_cpu",
+            output="screen",
+            parameters=[
+                {
+                    "simulation": False,
+                    "enable_visualization": False,
+                    "planning_interval_ms": 100,
+                    "waypoint_publish_interval_ms": 1000,
+                    "obstacle_margin": 0.3,
+                    "global_waypoint_csv": "/home/nvidia/f1tenth_ws/skirkanich_lobby.csv",
+                    "global_waypoint_max_distance": 5.0,
+
+                    "num_workers": 2,
+                    "max_iterations": 20000,
+                    "max_nodes_per_tree": 20000,
+                    "sample_forward_min_m": 0.5,
+                    "sample_forward_max_m": 8.0,
+                    "sample_lateral_range_m": 5.0,
+                    "steer_step_size_m": 0.2,
+                    "goal_tolerance_m": 0.2,
+                }
+            ],
+        )
+    return LaunchDescription(
+        [
+            # ros2 launch f1tenth_stack bringup_launch.py
+            IncludeLaunchDescription(
+                PythonLaunchDescriptionSource(
+                    os.path.join(
+                        get_package_share_directory("f1tenth_stack"),
+                        "launch",
+                        "bringup_launch.py",
+                    )
+                ),
+            ),
+            # ros2 launch particle_filter localize_launch.py
+            IncludeLaunchDescription(
+                PythonLaunchDescriptionSource(
+                    os.path.join(
+                        get_package_share_directory("particle_filter"),
+                        "launch",
+                        "localize_launch.py",
+                    )
+                ),
+            ),
+            Node(
+                package="rviz2",
+                executable="rviz2",
+                output="screen",
+                arguments=["-d", "/home/nvidia/f1tenth_ws/src/bringup.launch.rviz"],
+                parameters=[],
+            ),
+            rrt_node,
+            Node(
+                package="waypoint_tracker",
+                executable="pure_pursuit",
+                name="pure_pursuit",
+                output="screen",
+                parameters=[
+                    {
+                        "lookahead_distance": 1.0,
+                        "steering_gain": 0.5,
+                        "speed": 1.0,
+                    }
+                ],
+            ),
+        ]
+    )
