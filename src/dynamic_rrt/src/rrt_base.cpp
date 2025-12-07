@@ -177,16 +177,18 @@ auto RRTBase::map_callback(nav_msgs::msg::OccupancyGrid::ConstSharedPtr msg) -> 
         obstacle_inflation_radius_
     );
 
-    obstacle_timestamps_.resize(map_.data.size(), rclcpp::Time(0));
+    const auto clock_type = this->get_clock()->get_clock_type();
+    obstacle_timestamps_.resize(map_.data.size(), rclcpp::Time(std::int64_t(0), clock_type));
 
     // Inflate obstacles in the initial occupancy grid.
+    const rclcpp::Time max_time(rclcpp::Time::max().nanoseconds(), clock_type);
     const auto original_map_data = map_.data;
     for (std::int32_t y = 0; y < map_height_; ++y) {
         for (std::int32_t x = 0; x < map_width_; ++x) {
             const auto index = y * map_width_ + x;
             if (original_map_data[index] != 0) {
                 // Obstacles in the initial map never expire.
-                this->inflate_obstacle(x, y, rclcpp::Time::max());
+                this->inflate_obstacle(x, y, max_time);
             }
         }
     }
@@ -240,6 +242,7 @@ auto RRTBase::run_planning() -> void {
     // Expire old obstacles.
     const auto obstacle_lifespan_ms = this->get_parameter("obstacle_lifespan_ms").as_double();
     const auto current_time = this->get_clock()->now();
+    const rclcpp::Time zero_time(std::int64_t(0), this->get_clock()->get_clock_type());
     for (std::int32_t y = 0; y < map_height_; ++y) {
         for (std::int32_t x = 0; x < map_width_; ++x) {
             const auto index = y * map_width_ + x;
@@ -247,7 +250,7 @@ auto RRTBase::run_planning() -> void {
             const auto age_ms = (current_time - timestamp).seconds() * 1000.0;
             if (age_ms > obstacle_lifespan_ms) {
                 map_.data[index] = 0;
-                obstacle_timestamps_[index] = rclcpp::Time(0);
+                obstacle_timestamps_[index] = zero_time;
             }
         }
     }
