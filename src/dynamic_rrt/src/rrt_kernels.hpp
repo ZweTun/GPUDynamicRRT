@@ -2,6 +2,8 @@
 #define DYNAMIC_RRT_RRT_KERNELS_HPP
 
 #include <cstdint>
+#include <functional>
+#include <string>
 #include <vector>
 
 #include "rrt_common.hpp"
@@ -9,7 +11,10 @@
 namespace dynamic_rrt {
 
 auto plan_rrt_cuda(
-    const RRTStateBase& state, std::int32_t threads_per_block, unsigned long long seed
+    const RRTStateBase& state,
+    std::int32_t threads_per_block,
+    unsigned long long seed,
+    std::function<void(const std::string&)> log_callback
 ) -> std::vector<Point2D>;
 
 }  // namespace dynamic_rrt

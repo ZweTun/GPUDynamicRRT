@@ -1,7 +1,7 @@
 #include "rrt_kernels.hpp"
 
+#include <sstream>
 #include <stdexcept>
-#include <string>
 
 #include <cuda_runtime.h>
 #include <curand_kernel.h>
@@ -31,7 +31,10 @@ __global__ auto rrt_kernel_cuda(RRTStateCuda state) -> void {
 }
 
 auto plan_rrt_cuda(
-    const RRTStateBase& base_state, std::int32_t threads_per_block, unsigned long long seed
+    const RRTStateBase& base_state,
+    std::int32_t threads_per_block,
+    unsigned long long seed,
+    std::function<void(const std::string&)> log_callback
 ) -> std::vector<Point2D> {
     thrust::device_vector<std::int8_t> device_map_data(
         base_state.map.data, base_state.map.data + base_state.map.width * base_state.map.height
@@ -73,8 +76,14 @@ auto plan_rrt_cuda(
             device_tree_nodes.begin() + (worker_index + 1) * base_state.max_nodes_per_tree
         );
         tree.nodes = tree_nodes.data();
-        return tree.construct_path(goal_index);
+        const auto path = tree.construct_path(goal_index);
+        std::ostringstream log_stream;
+        log_stream << "RRT worker " << worker_index << " found a path with " << path.size()
+                   << " waypoints (tree size: " << tree.size << ")";
+        log_callback(log_stream.str());
+        return path;
     }
+    log_callback("All RRT workers failed to find a path");
     return std::vector<Point2D>{};
 }
 

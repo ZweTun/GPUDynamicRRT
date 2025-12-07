@@ -30,6 +30,7 @@ RRTBase::RRTBase(const std::string& node_name)
     this->declare_parameter<std::string>("global_waypoint_csv", "");
     this->declare_parameter<double>("global_waypoint_max_distance", 5.0);
     this->declare_parameter<double>("obstacle_lifespan_ms", 1000.0);
+    this->declare_parameter<double>("obstacle_clearance", 0.1);
 
     rclcpp::QoS default_qos(10);
 
@@ -207,6 +208,7 @@ auto RRTBase::scan_callback(sensor_msgs::msg::LaserScan::ConstSharedPtr msg) -> 
         return;
     }
 
+    const auto obstacle_clearance = this->get_parameter("obstacle_clearance").as_double();
     const auto current_time = this->get_clock()->now();
     for (std::size_t i = 0; i < msg->ranges.size(); ++i) {
         const auto range = msg->ranges[i];
@@ -216,6 +218,12 @@ auto RRTBase::scan_callback(sensor_msgs::msg::LaserScan::ConstSharedPtr msg) -> 
         const auto angle = msg->angle_min + i * msg->angle_increment;
         const auto obstacle_x = pose_->position.x + range * std::cos(pose_->yaw + angle);
         const auto obstacle_y = pose_->position.y + range * std::sin(pose_->yaw + angle);
+        const auto delta_x = obstacle_x - pose_->position.x;
+        const auto delta_y = obstacle_y - pose_->position.y;
+        const auto distance_squared = delta_x * delta_x + delta_y * delta_y;
+        if (distance_squared < obstacle_clearance * obstacle_clearance) {
+            continue;
+        }
         const auto grid_x = static_cast<std::int32_t>(
             (obstacle_x - map_.info.origin.position.x) / map_.info.resolution
         );
@@ -291,8 +299,17 @@ auto RRTBase::run_planning() -> void {
         position->y = (position->y - map_.info.origin.position.y) / map_.info.resolution;
     }
 
+    const auto rrt_start_time = this->get_clock()->now();
     const auto grid_waypoints =
         this->plan_rrt(start_pose, goal_position, map_width_, map_height_, map_.data);
+    const auto rrt_end_time = this->get_clock()->now();
+    const auto rrt_duration_ms = (rrt_end_time - rrt_start_time).seconds() * 1000.0;
+    RCLCPP_INFO(
+        this->get_logger(),
+        "RRT planning completed in %.2f ms, found %zu waypoints",
+        rrt_duration_ms,
+        grid_waypoints.size()
+    );
     if (grid_waypoints.empty()) {
         return;
     }

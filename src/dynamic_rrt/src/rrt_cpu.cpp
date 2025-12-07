@@ -1,5 +1,6 @@
 #include "rrt_cpu.hpp"
 
+#include <cinttypes>
 #include <memory>
 #include <thread>
 
@@ -111,9 +112,18 @@ auto RRTCpu::plan_rrt(
     for (std::int32_t worker_index = 0; worker_index < num_workers_; ++worker_index) {
         const auto goal_index = goal_indices[worker_index];
         if (goal_index >= 0) {
-            return trees[worker_index].construct_path(goal_index);
+            const auto path = trees[worker_index].construct_path(goal_index);
+            RCLCPP_INFO(
+                this->get_logger(),
+                "RRT worker %" PRId32 " found a path with %zu waypoints (tree size: %" PRId32 ")",
+                worker_index,
+                path.size(),
+                trees[worker_index].size
+            );
+            return path;
         }
     }
+    RCLCPP_INFO(this->get_logger(), "All RRT workers failed to find a path");
     return std::vector<Point2D>{};
 }
 

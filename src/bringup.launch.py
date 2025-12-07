@@ -21,6 +21,9 @@ def generate_launch_description():
                 "waypoint_publish_interval_ms": 1000,
                 "obstacle_margin": 0.2,
                 "global_waypoint_max_distance": 5.0,
+                "obstacle_lifespan_ms": 500.0,
+                "obstacle_clearance": 0.2,
+
                 "num_workers": 2,
                 "max_iterations": 20000,
                 "max_nodes_per_tree": 20000,
@@ -45,6 +48,8 @@ def generate_launch_description():
     #             "waypoint_publish_interval_ms": 1000,
     #             "obstacle_margin": 0.2,
     #             "global_waypoint_max_distance": 5.0,
+    #             "obstacle_lifespan_ms": 500.0,
+    #             "obstacle_clearance": 0.2,
 
     #             "num_workers": 512,
     #             "max_iterations": 5000,
