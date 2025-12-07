@@ -348,7 +348,7 @@ auto RRTBase::load_global_waypoints() -> bool {
     auto csv_path = this->get_parameter("global_waypoint_csv").as_string();
     if (csv_path.empty()) {
         csv_path = ament_index_cpp::get_package_share_directory("dynamic_rrt");
-        csv_path += "/resource/levine1.csv";
+        csv_path += "/resource/skirkanich_lobby.csv";
         RCLCPP_INFO(
             this->get_logger(),
             "No global waypoint CSV specified, using default path: %s",

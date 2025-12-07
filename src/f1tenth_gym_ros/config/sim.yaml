@@ -42,7 +42,7 @@ bridge:
     scan_beams: 1080
 
     # map parameters
-    map_path: '/home/developer/sim_ws/src/f1tenth_gym_ros/maps/levine_hall'
+    map_path: '/home/developer/sim_ws/src/f1tenth_gym_ros/maps/skirkanich_lobby'
     map_img_ext: '.pgm'
 
     # car parameters and scale

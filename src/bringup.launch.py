@@ -8,10 +8,34 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
+    rrt_node = Node(
+        package="dynamic_rrt",
+        executable="rrt_cpu",
+        name="rrt_cpu",
+        output="screen",
+        parameters=[
+            {
+                "simulation": True,
+                "enable_visualization": True,
+                "planning_interval_ms": 100,
+                "waypoint_publish_interval_ms": 1000,
+                "obstacle_margin": 0.2,
+                "global_waypoint_max_distance": 5.0,
+                "num_workers": 2,
+                "max_iterations": 20000,
+                "max_nodes_per_tree": 20000,
+                "sample_forward_min_m": 0.5,
+                "sample_forward_max_m": 8.0,
+                "sample_lateral_range_m": 5.0,
+                "steer_step_size_m": 0.2,
+                "goal_tolerance_m": 0.2,
+            }
+        ],
+    )
     # rrt_node = Node(
     #     package="dynamic_rrt",
-    #     executable="rrt_cpu",
-    #     name="rrt_cpu",
+    #     executable="rrt_cuda",
+    #     name="rrt_cuda",
     #     output="screen",
     #     parameters=[
     #         {
@@ -22,9 +46,10 @@ def generate_launch_description():
     #             "obstacle_margin": 0.2,
     #             "global_waypoint_max_distance": 5.0,
 
-    #             "num_workers": 2,
-    #             "max_iterations": 20000,
-    #             "max_nodes_per_tree": 20000,
+    #             "num_workers": 512,
+    #             "max_iterations": 5000,
+    #             "max_nodes_per_tree": 5000,
+    #             "threads_per_block": 64,
     #             "sample_forward_min_m": 0.5,
     #             "sample_forward_max_m": 8.0,
     #             "sample_lateral_range_m": 5.0,
@@ -33,32 +58,6 @@ def generate_launch_description():
     #         }
     #     ],
     # )
-    rrt_node = Node(
-        package="dynamic_rrt",
-        executable="rrt_cuda",
-        name="rrt_cuda",
-        output="screen",
-        parameters=[
-            {
-                "simulation": True,
-                "enable_visualization": True,
-                "planning_interval_ms": 100,
-                "waypoint_publish_interval_ms": 1000,
-                "obstacle_margin": 0.2,
-                "global_waypoint_max_distance": 5.0,
-
-                "num_workers": 512,
-                "max_iterations": 5000,
-                "max_nodes_per_tree": 5000,
-                "threads_per_block": 64,
-                "sample_forward_min_m": 0.5,
-                "sample_forward_max_m": 8.0,
-                "sample_lateral_range_m": 5.0,
-                "steer_step_size_m": 0.2,
-                "goal_tolerance_m": 0.2,
-            }
-        ],
-    )
     return LaunchDescription(
         [
             IncludeLaunchDescription(
@@ -76,6 +75,14 @@ def generate_launch_description():
                 executable="pure_pursuit",
                 name="pure_pursuit",
                 output="screen",
+                parameters=[
+                    {
+                        "simulation": True,
+                        "lookahead_distance": 1.0,
+                        "steering_gain": 0.5,
+                        "speed": 0.5,
+                    }
+                ],
             ),
         ]
     )
