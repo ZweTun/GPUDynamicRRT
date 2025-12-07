@@ -27,7 +27,7 @@ __device__ TreeNode steerGPU(const TreeNode& from, const TreeNode& to, float max
 
 // Sampling in free space using per-thread RNG
 
-__device__ TreeNode sampleFreeSpaceGPU(const OccupancyGrid& grid, int iter, float goalX, float goalY);
+__device__ TreeNode sampleFreeSpaceGPU(const OccupancyGrid& grid, int iter);
 // Goal check
 __device__ bool isGoalGPU(float x, float y, float goalX, float goalY);
 
@@ -56,15 +56,15 @@ __global__ void rrtSingleTreeKernel(
     int* d_size, int* goal_idx
 );
 
-__global__ void rrtDoubleTreeKernel(
-    OccupancyGrid grid,
-    float goalX, float goalY,
-    int maxIter, int maxNodes, float maxStep,
-    bool* d_goalReached,
-    TreeNode* d_goal,
-    TreeNode* d_tree,
-    int* d_size, int* d_goalIdx, TreeNode* d_otree, int* d_osize, int* d_ogoalIdx
-);
+//__global__ void rrtDoubleTreeKernel(
+//    OccupancyGrid grid,
+//    float goalX, float goalY,
+//    int maxIter, int maxNodes, float maxStep,
+//    bool* d_goalReached,
+//    TreeNode* d_goal,
+//    TreeNode* d_tree,
+//    int* d_size, int* d_goalIdx, TreeNode* d_otree, int* d_osize, int* d_ogoalIdx
+//);
 
 // ---- Host launcher ----
 

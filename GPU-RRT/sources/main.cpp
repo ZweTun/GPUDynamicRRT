@@ -115,15 +115,8 @@ int main(int argc, char* argv[]) {
     printf("** RRT TESTING **\n");
     printf("*****************\n");
 
-    //float startX = 0, startY = 0;
-    //float goalX = 8, goalY = 8;
-
-    //int maxIter = 4000;
-    //int maxNodes = 2048;
-    //float maxStep = 1.0f;
-
     float resolution = 1.0f;
-    float maxStep = 0.5f;
+    float maxStep = 1.0f;
     int maxIter = 10000;
     int maxNodes = 100000;
 
@@ -300,12 +293,12 @@ int main(int argc, char* argv[]) {
 
 
     printCmpPath(cpuCorr, gpuCorr);
-    printPath(gpuCorr);
-
+   // printPath(gpuCorr);
+    int pmaxNodes = 1000000;
 
     printDesc("pRRT (corridor)");
     zeroTimerpRRT();
-    auto pRRTCorr = gpuRRT(gridCorridor, startX, startY, goalX, goalY, maxIter, maxNodes, maxStep);
+    auto pRRTCorr = gpuRRT(gridCorridor, startX, startY, goalX, goalY, maxIter, pmaxNodes, maxStep);
     printElapsedTimepRRT("(CUDA measured)");
     printf("pRRT path length: %zu\n", pRRTCorr.size());
     printCmpPath(cpuCorr, pRRTCorr);
@@ -316,7 +309,7 @@ int main(int argc, char* argv[]) {
     // ======================================
     // TEST 5: Random map (seeded)
     // ======================================
-    printHeader("TEST 5: Random Map (1000x1000)");
+ //   printHeader("TEST 5: Random Map (1000x1000)");
 
 
     height = 1000;
@@ -340,6 +333,7 @@ int main(int argc, char* argv[]) {
     randMap[startIdx] = 0;
     randMap[goalIdx] = 0;
 
+	//Inflation turned off for large map test
     OccupancyGrid gridRand = makeGrid(randMap, width, height, resolution, 0.0f);
 
     printDesc("CPU RRT (random)");
@@ -363,7 +357,7 @@ int main(int argc, char* argv[]) {
 
     printDesc("pRRT (random)");
     zeroTimerpRRT();
-    auto pRRTRand= gpuRRT(gridRand, startX, startY, goalX, goalY, maxIter, maxNodes, maxStep);
+    auto pRRTRand= gpuRRT(gridRand, startX, startY, goalX, goalY, maxIter, pmaxNodes, maxStep);
     printElapsedTimepRRT("(CUDA measured)");
     printf("pRRT path length: %zu\n", pRRTRand.size());
     printCmpPath(cpuRand, pRRTRand);

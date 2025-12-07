@@ -325,7 +325,7 @@ std::vector<TreeNode> launchRRT(const OccupancyGrid& h_grid,
         d_allTrees,
         d_results, maxStep
         );
-
+    timerGPU().endGpuTimer();
  
 
     cudaDeviceSynchronize();
@@ -346,14 +346,14 @@ std::vector<TreeNode> launchRRT(const OccupancyGrid& h_grid,
             int goalIndex = h_results[tid];
             TreeNode* treeBase = &h_allTrees[tid * maxNodes];
 			
-            timerGPU().endGpuTimer();
+            
             return findFinalPath(treeBase, goalIndex);
             
 			//return path; // Return the found path
         }
     } 
 
-    timerGPU().endGpuTimer();
+
     // No solution
     return {};
 
