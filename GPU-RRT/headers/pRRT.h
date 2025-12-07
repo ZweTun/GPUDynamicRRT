@@ -26,14 +26,26 @@ __device__ bool checkCollisionGPU(const OccupancyGrid& grid, float x1, float y1,
 __device__ TreeNode steerGPU(const TreeNode& from, const TreeNode& to, float maxStep);
 
 // Sampling in free space using per-thread RNG
-__device__ TreeNode sampleFreeSpaceGPU(const OccupancyGrid& grid, int iter);
+
+__device__ TreeNode sampleFreeSpaceGPU(const OccupancyGrid& grid, int iter, float goalX, float goalY);
 // Goal check
 __device__ bool isGoalGPU(float x, float y, float goalX, float goalY);
 
-// Device function to compute distances from sample to tree nodes
-__device__
-void distanceReduction(int* idx, int n, int offset);
+// Nearest neighbor search in the tree
+__device__ void nearestNeighborGPU(
+    const TreeNode& node,
+    const TreeNode* d_tree,
+    int size,
+    int& outIdx,
+    float& outDist
+);
 
+// Device function to reduce distances from sample to tree nodes
+
+__device__ void distReductionGPU(
+    float* s_dist,
+    int* s_idx
+); 
 __global__ void rrtSingleTreeKernel(
     OccupancyGrid grid,
     float goalX, float goalY,
@@ -42,6 +54,16 @@ __global__ void rrtSingleTreeKernel(
     TreeNode* d_goal,
     TreeNode* d_tree,
     int* d_size, int* goal_idx
+);
+
+__global__ void rrtDoubleTreeKernel(
+    OccupancyGrid grid,
+    float goalX, float goalY,
+    int maxIter, int maxNodes, float maxStep,
+    bool* d_goalReached,
+    TreeNode* d_goal,
+    TreeNode* d_tree,
+    int* d_size, int* d_goalIdx, TreeNode* d_otree, int* d_osize, int* d_ogoalIdx
 );
 
 // ---- Host launcher ----

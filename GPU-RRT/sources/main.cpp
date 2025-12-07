@@ -5,33 +5,6 @@
 #include "cpu_rrt.h"
 #include "pRRT.h"
 
-
-
-//int main() {
-//    std::cout << "Hello RRT!" << std::endl;
-//	OccupancyGrid* grid = new OccupancyGrid();
-//    //initOccupancyGrid(*grid, width, height, resolution);
-//
-//	initOccupancyGridFromVector(*grid, width, height, resolution, visualMap);
-//
-//    // Allocate memory for trees and results
-//    std::vector<TreeNode> path = launchRRT(*grid, startX, startY, goalX, goalY, maxIter, maxNodes, maxStep);
-//    //	std::vector<TreeNode> path = cpuRRT(*grid, startX, startY, goalX, goalY, maxIter, maxNodes, maxStep);
-//    if (!path.empty()) {
-//        std::cout << "Path found:" << std::endl;
-//        for (const auto& node : path) {
-//            std::cout << "(" << node.x << ", " << node.y << ")" << std::endl;
-//        }
-//    } else {
-//        std::cout << "No path found." << std::endl;
-//    }
-//    delete[] grid->data;
-//    delete grid;
-//	return 0;
-//}
-
-
-
 //For code testing purposes
 // RRT_TESTS
 
@@ -46,59 +19,92 @@
 
 #include "common.h"
 
-
-void inflateObstaclesCPU(std::vector<int>& grid, int width, int height, int inflationRadius)
+void inflateObstacles(
+    std::vector<int>& grid,
+    int width,
+    int height,
+    float inflation_meters,
+    float resolution)
 {
-    std::vector<int> inflated = grid;  // start with copy
+    int iterations = static_cast<int>(inflation_meters / resolution);
+    if (iterations <= 0) return;
 
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
+    std::vector<int> inflated = grid;
 
-            if (grid[y * width + x] == 1) {   // expand around OBSTACLE
+    for (int it = 0; it < iterations; it++) {
+        std::vector<int> temp = inflated;
 
-                // Inflate neighbors
-                for (int dy = -inflationRadius; dy <= inflationRadius; dy++) {
-                    for (int dx = -inflationRadius; dx <= inflationRadius; dx++) {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
 
+                if (inflated[y * width + x] == 0) continue; // not obstacle
+
+                // Expand into 8 neighbors 
+                for (int dy = -1; dy <= 1; dy++) {
+                    for (int dx = -1; dx <= 1; dx++) {
                         int nx = x + dx;
                         int ny = y + dy;
 
                         if (nx < 0 || nx >= width || ny < 0 || ny >= height)
                             continue;
 
-                        // Only fill within circular radius
-                        if (dx * dx + dy * dy <= inflationRadius * inflationRadius) {
-                            inflated[ny * width + nx] = 1;
-                        }
+                        temp[ny * width + nx] = 100; // match ROS occupancy value
                     }
                 }
             }
-
         }
+
+        inflated.swap(temp);
     }
 
     grid = inflated;
 }
 
-OccupancyGrid makeGrid(const std::vector<int>& visual, int W, int H)
+
+//OccupancyGrid makeGrid(const std::vector<int>& visual, int W, int H, float resolution)
+//{
+//    OccupancyGrid g;
+//    g.width = W;
+//    g.height = H;
+//    g.resolution = resolution;
+//    g.origin_x = 0;
+//    g.origin_y = 0;
+//
+//    // allocate exact size
+//    uint8_t* buf = new uint8_t[W * H];
+//
+//    for (int i = 0; i < W * H; i++) {
+//        buf[i] = (uint8_t)visual[i];
+//    }
+//
+//    g.data = buf;
+//    return g;
+//}
+
+OccupancyGrid makeGrid(const std::vector<int>& visual, int W, int H, float resolution, float inflation_m = 1.00)
 {
     OccupancyGrid g;
     g.width = W;
     g.height = H;
-    g.resolution = 1.0f;
-    g.origin_x = 0;
-    g.origin_y = 0;
+    g.resolution = resolution;
+    g.origin_x = 0.0f;
+    g.origin_y = 0.0f;
 
-    // allocate exact size
+    std::vector<int> inflated = visual;
+
+    // Inflate obstacles like binary_dilation
+    inflateObstacles(inflated, W, H, inflation_m, resolution);
+
     uint8_t* buf = new uint8_t[W * H];
-
-    for (int i = 0; i < W * H; i++) {
-        buf[i] = (uint8_t)visual[i];
+    for (int i = 0; i < W* H; i++) {
+        buf[i] = (inflated[i] > 0 ? 1 : 0);
     }
 
-    g.data = buf; 
+    g.data = buf;
     return g;
 }
+
+
 
 
 
@@ -116,23 +122,27 @@ int main(int argc, char* argv[]) {
     //int maxNodes = 2048;
     //float maxStep = 1.0f;
 
-    float resolution = 0.05f;
-    float maxStep = 1.0f;
+    float resolution = 1.0f;
+    float maxStep = 0.5f;
     int maxIter = 10000;
     int maxNodes = 100000;
 
 
     // Define start and goal positions
     float startX = 0.0f, startY = 0.0f;
-    float goalX = 9.0f, goalY = 9.0f;
+    float goalX = 99.0f, goalY = 99.0f;
+    float height = 100.0f, width = 100.0f;
 
     //
     // Test 1: Empty map
     //
-    printHeader("TEST 1: Empty map (10x10)");
+    printHeader("TEST 1: Empty map (100x100)");
+    startX = 0.0f, startY = 0.0f;
+    goalX = 99.0f, goalY = 99.0f;
+     height = 100.0f, width = 100.0f;
 
-    std::vector<int> emptyMap(10 * 10, 0);
-    OccupancyGrid gridEmpty = makeGrid(emptyMap, 10, 10);
+    std::vector<int> emptyMap(width * height, 0);
+    OccupancyGrid gridEmpty = makeGrid(emptyMap, width, height, resolution);
 
 
     // CPU RRT
@@ -164,45 +174,46 @@ int main(int argc, char* argv[]) {
     //
     // Test 2: Maze
     //
-    printHeader("TEST 2: Maze map (10x10)");
+ //   printHeader("TEST 2: Maze map (10x10)");
 
-    std::vector<int> mazeMap = {
-        0,0,0,0,0,0,0,0,0,0,
-        0,0,0,1,1,1,0,0,0,0,
-        0,1,0,0,0,1,0,1,0,0,
-        0,1,0,1,0,1,0,1,0,0,
-        0,0,0,1,0,1,0,0,0,0,
-        0,1,0,1,0,1,1,1,0,0,
-        0,1,0,0,0,0,0,0,0,0,
-        0,0,0,0,0,0,0,0,0,0,
-        0,0,0,0,0,0,0,0,0,0,
-        0,0,0,0,0,0,0,0,0,0
-    };
+ //   std::vector<int> mazeMap = {
+ //       0,0,0,0,0,0,0,0,0,0,
+ //       0,0,0,1,1,1,0,0,0,0,
+ //       0,1,0,0,0,1,0,1,0,0,
+ //       0,1,0,1,0,1,0,1,0,0,
+ //       0,0,0,1,0,1,0,0,0,0,
+ //       0,1,0,1,0,1,1,1,0,0,
+ //       0,1,0,0,0,0,0,0,0,0,
+ //       0,0,0,0,0,0,0,0,0,0,
+ //       0,0,0,0,0,0,0,0,0,0,
+ //       0,0,0,0,0,0,0,0,0,0
+ //   };
 
-    OccupancyGrid gridMaze = makeGrid(mazeMap, 10, 10);
+ //   OccupancyGrid gridMaze = makeGrid(mazeMap, 10, 10, resolution);
 
-    printDesc("CPU RRT (maze)");
-    zeroTimerCPU();
-    timerCPU().startCpuTimer();
-    auto cpuMaze = cpuRRT(gridMaze, startX, startY, goalX, goalY, maxIter, maxNodes, maxStep);
-	timerCPU().endCpuTimer();
-    printElapsedTimeCPU("(std::chrono measured)");
-    printf("CPU path length: %zu\n", cpuMaze.size());
+ //   printDesc("CPU RRT (maze)");
+ //   zeroTimerCPU();
+ //   timerCPU().startCpuTimer();
+ //   auto cpuMaze = cpuRRT(gridMaze, startX, startY, goalX, goalY, maxIter, maxNodes, maxStep);
+	//timerCPU().endCpuTimer();
+ //   printElapsedTimeCPU("(std::chrono measured)");
+ //   printf("CPU path length: %zu\n", cpuMaze.size());
 
-    printDesc("GPU RRT (maze)");
-    zeroTimerGPU();
-    auto gpuMaze = launchRRT(gridMaze, startX, startY, goalX, goalY, maxIter, maxNodes, maxStep);
-    printElapsedTimeGPU("(CUDA measured)");
-    printf("GPU path length: %zu\n", gpuMaze.size());
-    printCmpPath(cpuMaze, gpuMaze);
+ //   printDesc("GPU RRT (maze)");
+ //   zeroTimerGPU();
+ //   auto gpuMaze = launchRRT(gridMaze, startX, startY, goalX, goalY, maxIter, maxNodes, maxStep);
+ //   printElapsedTimeGPU("(CUDA measured)");
+ //   printf("GPU path length: %zu\n", gpuMaze.size());
+ //   printCmpPath(cpuMaze, gpuMaze);
 
-    // GPU pRRT
-    printDesc("pRRT (maze)");
-    zeroTimerpRRT();
-    auto pRRTMaze = gpuRRT(gridMaze, startX, startY, goalX, goalY, maxIter, maxNodes, maxStep);
-    printElapsedTimepRRT("(CUDA measured)");
-    printf("pRRT path length: %zu\n", pRRTMaze.size());
-    printCmpPath(cpuMaze, pRRTMaze);
+ //   // GPU pRRT
+ //   printDesc("pRRT (maze)");
+ //   zeroTimerpRRT();
+ //   auto pRRTMaze = gpuRRT(gridMaze, startX, startY, goalX, goalY, maxIter, maxNodes, maxStep);
+ //   printElapsedTimepRRT("(CUDA measured)");
+ //   printf("pRRT path length: %zu\n", pRRTMaze.size());
+ //   printCmpPath(cpuMaze, pRRTMaze);
+ //   printPath(pRRTMaze);
 
 
 
@@ -246,31 +257,32 @@ int main(int argc, char* argv[]) {
     // ======================================
 // TEST 4: Larger Corridor Map
 // ======================================
-    printHeader("TEST 4: Corridor map (20x10)");
+    printHeader("TEST 4: Corridor map (60x120)");
 
-    // A corridor-style map
-    std::vector<int> bigCorridor = {
-     0,0,0,0,0,0,0,0,0,0,  0,0,0,0,0,0,0,0,0,0,
-     0,1,1,1,1,1,1,1,1,0,  0,1,1,1,1,1,1,1,1,0,
-     0,1,0,0,0,0,0,0,1,0,  0,1,0,0,0,0,0,0,1,0,
-     0,1,0,1,1,1,1,0,1,0,  0,1,0,1,1,1,1,0,1,0,
-     0,1,0,1,0,0,1,0,1,0,  0,1,0,1,0,0,1,0,1,0,
-     0,1,0,1,0,0,1,0,1,0,  0,1,0,1,0,0,1,0,1,0,
-     0,1,0,1,1,1,1,0,1,0,  0,1,0,1,1,1,1,0,1,0,
-     0,1,0,0,0,0,0,0,1,0,  0,1,0,0,0,0,0,0,1,0,
-     0,0,0,0,0,0,0,0,0,0,  0,1,1,1,1,1,1,1,1,0,
-     0,0,0,0,0,0,0,0,0,0,  0,0,0,0,0,0,0,0,0,0
-    };
-    float margin = 0.15f;      // meters
+     height = 60;
+	 width = 120;
+	 startX = 5;
+	 startY = 45;
+	 goalX = 115;
+	 goalY = 30;
 
-    int radius = int(margin / resolution); // = 3
+	 std::vector<int> bigCorridor = std::vector<int>(width * height, 0);
+	 // Add walls to create a corridor
+     int corridor_top = 10;   // distance from top wall
+     int corridor_bottom = height - 10;  // distance from bottom wall
 
 
+	 int corridor_left = 10; // width of the corridor
+	 int corridor_right = width - 10;
+     for (int y = corridor_top; y < corridor_bottom; y++) {
+         for (int x = corridor_left; x < corridor_right; x++) {
+			 // Fill in obstacles 
+			 bigCorridor[y * width + x] = 1;
+		 }
+     }
 
-	inflateObstaclesCPU(bigCorridor, 20, 10, 0.99);
-
-    OccupancyGrid gridCorridor = makeGrid(bigCorridor, 20, 10);
-   
+    OccupancyGrid gridCorridor = makeGrid(bigCorridor, width, height, resolution);
+    
     printDesc("CPU RRT (corridor)");
     zeroTimerCPU();
     timerCPU().startCpuTimer();
@@ -281,12 +293,14 @@ int main(int argc, char* argv[]) {
 
     printDesc("GPU RRT (corridor)");
     zeroTimerGPU();
+
     auto gpuCorr = launchRRT(gridCorridor, startX, startY, goalX, goalY, maxIter, maxNodes, maxStep);
     printElapsedTimeGPU("(CUDA measured)");
     printf("GPU path length: %zu\n", gpuCorr.size());
-	//printPath(gpuCorr);
+
 
     printCmpPath(cpuCorr, gpuCorr);
+    printPath(gpuCorr);
 
 
     printDesc("pRRT (corridor)");
@@ -295,6 +309,8 @@ int main(int argc, char* argv[]) {
     printElapsedTimepRRT("(CUDA measured)");
     printf("pRRT path length: %zu\n", pRRTCorr.size());
     printCmpPath(cpuCorr, pRRTCorr);
+    printPath(pRRTCorr);
+    //printPath(gpuCorr);
 
 
     // ======================================
@@ -303,26 +319,28 @@ int main(int argc, char* argv[]) {
     printHeader("TEST 5: Random Map (1000x1000)");
 
 
-    int RW = 1000;
-    int RH = 1000;
-	goalX = 600;
-	goalY = 600;
+    height = 1000;
+    width = 1000;
+    startX = 5;
+    startY = 45;
+    goalX = 500;
+    goalY = 785;
 
     srand(12345);
-    std::vector<int> randMap(RW* RH);
+    std::vector<int> randMap(width * height);
 
-    for (int i = 0; i < RW * RH; i++) {
+    for (int i = 0; i < width * height; i++) {
         randMap[i] = (rand() % 6 == 0) ? 1 : 0;   // ~16% obstacles
     }
 
     // Ensure start and goal are not obstacles
-    int startIdx = (int)startY * RW + (int)startX;
-    int goalIdx = (int)goalY * RW + (int)goalX;
+    int startIdx = (int)startY * width + (int)startX;
+    int goalIdx = (int)goalY * width + (int)goalX;
 
     randMap[startIdx] = 0;
     randMap[goalIdx] = 0;
 
-    OccupancyGrid gridRand = makeGrid(randMap, RW, RH);
+    OccupancyGrid gridRand = makeGrid(randMap, width, height, resolution, 0.0f);
 
     printDesc("CPU RRT (random)");
     zeroTimerCPU();
