@@ -80,7 +80,7 @@ def generate_launch_description():
                         "simulation": True,
                         "lookahead_distance": 1.0,
                         "steering_gain": 0.5,
-                        "speed": 0.5,
+                        "speed": 1.0,
                     }
                 ],
             ),
