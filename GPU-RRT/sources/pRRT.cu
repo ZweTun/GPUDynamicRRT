@@ -53,7 +53,7 @@ __device__ bool isPointFreeGPU(const OccupancyGrid& grid, float x, float y) {
 }
 
 
-//// Checks for collision along the segment [x1,y1]  [x2,y2]
+//// Checks for collision along the segment 
 __device__ bool checkCollisionGPU(const OccupancyGrid& grid,
     float x1, float y1,
     float x2, float y2) {
@@ -90,13 +90,14 @@ __device__ bool checkCollisionGPU(const OccupancyGrid& grid,
 
 
 
+__device__ float distanceSquared2(float x1, float y1, float x2, float y2) {
+    return (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
+}
 
 // Goal check
 __device__ bool isGoalGPU(float x, float y, float goalX, float goalY) {
-    float dx = x - goalX;
-    float dy = y - goalY;
-    float thresh = 0.15f; // threshold
-    return (sqrtf(dx * dx + dy * dy) < thresh);
+    float threshold = 1.00f; //  threshold
+    return distanceSquared2(x, y, goalX, goalY) < threshold * threshold;
 }
 
 
@@ -223,18 +224,14 @@ __device__ void computeVectorGPU(
 extern __shared__ unsigned char s_mem[]; 
 
 
-
-
 // Many threads sample in parallel 
 __global__ void sampleKernel(OccupancyGrid grid, int iter,
     float* sx, float* sy, int numSamples) {
-	unsigned tid = threadIdx.x + blockIdx.x * blockDim.x;
+    unsigned tid = threadIdx.x + blockIdx.x * blockDim.x;
 	if (tid >= numSamples) return; 
 	TreeNode sampled = sampleFreeSpaceGPU(grid, iter + tid);
 	sx[tid] = sampled.x;
-	sy[tid] = sampled.y;
-
-    
+	sy[tid] = sampled.y;   
 }
 
 // 1024 blocks, each block handles one sample
@@ -288,6 +285,7 @@ __global__ void nearestNeighborBatch(
         __syncthreads();
     }
 
+    __syncthreads();
     // thread 0 in the block writes the NN for this sample
      // thread 0 in the block writes the NN for this sample
     if (threadIdx.x == 0) {
@@ -295,6 +293,9 @@ __global__ void nearestNeighborBatch(
         nnIdx[sampleId] = s_idx[0];
     }
 }
+
+
+// Each threads handles one sample to extend and insert
 __global__ void extendAndInsertKernel(
     OccupancyGrid grid,
     const float* sx, const float* sy,
@@ -308,11 +309,12 @@ __global__ void extendAndInsertKernel(
     int* d_goalReached_int, 
     int* d_goalIdx, int numSamples, int iter
 ) {
-	int sId = blockIdx.x * blockDim.x + threadIdx.x;
+	int sId = threadIdx.x + blockIdx.x * blockDim.x;
+
     if (sId >= numSamples) return;
 
     // fast exit if goal already found
-    if (atomicAdd(d_goalReached_int, 0) != 0) return;
+    if (atomicAdd(d_goalReached_int, 0) > 0) return;
 
     int idx = nnIdx[sId];
     if (idx < 0) return;
@@ -326,18 +328,21 @@ __global__ void extendAndInsertKernel(
     float qx = sx[sId];
     float qy = sy[sId];
 
-    // steer toward sample (clipped)
+    // steer toward sample 
     TreeNode proposed = steerGPU({ nx, ny, -1 }, { qx, qy, -1 }, maxStep);
 
-    unsigned seed = (threadIdx.x * 1337u) ^ (iter * 911u);
+    unsigned seed = (sId * 1337u) ^ (iter * 911u);
     thrust::default_random_engine rng(seed);
     thrust::uniform_real_distribution<float> dist01(0.0f, 1.0f);
 
-    if (dist01(rng) < 0.1f) {
-        // 10% bias
+
+    if (dist01(rng) < 0.05f) {
+        // Bias increased to focus on goal sampling
         TreeNode goalNode = { goalX, goalY, -1 };
+       // proposed = steerGPU({ nx, ny, -1 }, goalNode, maxStep); 
         proposed = goalNode;
     }
+ 
     float px = proposed.x;
     float py = proposed.y;
 
@@ -347,7 +352,6 @@ __global__ void extendAndInsertKernel(
 
     int newIdx = atomicAdd(d_size, 1);
     if (newIdx >= maxNodes) {
-     
         atomicSub(d_size, 1);
         return;
     }
@@ -402,6 +406,11 @@ std::vector<TreeNode> gpuRRT(
     d_grid.resolution = h_grid.resolution;
     d_grid.origin_x = h_grid.origin_x;
     d_grid.origin_y = h_grid.origin_y;
+    //printf("Grid metadata:\n");
+    //printf("  width=%d height=%d\n", h_grid.width, h_grid.height);
+    //printf("  origin=(%f, %f)\n", h_grid.origin_x, h_grid.origin_y);
+    //printf("  resolution=%f\n", h_grid.resolution);
+
 
    
     // Device flags and counters
@@ -418,18 +427,10 @@ std::vector<TreeNode> gpuRRT(
     cudaMemcpy(d_size, &h_size, sizeof(int), cudaMemcpyHostToDevice);
     cudaMemcpy(d_goalIdx, &h_neg1, sizeof(int), cudaMemcpyHostToDevice);
 
-    // Launch
-    int block = 128;          // power of two
-    int gridSize = 64;
-    size_t shmem =
-        sizeof(TreeNode) +          // sampled
-        block * sizeof(float) +     // s_dist
-        block * sizeof(int);        // s_idx
-
 
     // FULLY pRRT 
 	// Setup sx and sy arrays on device
-    int numSamples = 1024;  
+    int numSamples = 256;
 	float* sx;
     float* sy;
 	cudaMalloc(&sx, numSamples * sizeof(float));
@@ -440,16 +441,19 @@ std::vector<TreeNode> gpuRRT(
     cudaMalloc(&nnIdx, numSamples * sizeof(int));
 
 
-	// Tree storage in SoA format for faster access
+	// Tree storage in structure of arrays format for faster access
     float* d_treeX = nullptr;
     float* d_treeY = nullptr;
     int* d_treeParent = nullptr;
     int* d_goalReached_int = nullptr;
+    cudaMalloc(&d_goalReached_int, sizeof(int));
+    int h_goalFalse = 0;
+    cudaMemcpy(d_goalReached_int, &h_goalFalse, sizeof(int), cudaMemcpyHostToDevice);
+
     cudaMalloc(&d_treeX, static_cast<size_t>(maxNodes) * sizeof(float));
     cudaMalloc(&d_treeY, static_cast<size_t>(maxNodes) * sizeof(float));
     cudaMalloc(&d_treeParent, static_cast<size_t>(maxNodes) * sizeof(int));
-    cudaMalloc(&d_goalReached_int, sizeof(int));
-    
+  
     // initialize root node in SoA
     float h0x = startX;
     float h0y = startY;
@@ -468,16 +472,32 @@ std::vector<TreeNode> gpuRRT(
     timerpRRT().startGpuTimer();
 
 	// Only copy every this iterations
-    int copyIter = 250;
+    int copyIter = 1000;
+    
+
+    // Launch params to test with
+  
+    int block = 256;          // power of two
+
+    size_t shmem =
+        sizeof(TreeNode) +          // sampled
+        block * sizeof(float) +     // s_dist
+        block * sizeof(int);        // s_idx
+
+
+
+    dim3 blockDim(block);
+    dim3 gridDim((numSamples + block - 1) / block);
+
     while (iter < maxIter) {
       
 
 		// Launch sampling kernel to fill sx and sy
 		// Number of threads = numSamples * 256 roughly
-        sampleKernel << <(numSamples + 255) / 256, 256 >> > (d_grid, iter, sx, sy, numSamples);
+        sampleKernel <<<gridDim, blockDim, shmem>>> (d_grid, iter, sx, sy, numSamples);
 
-
-        nearestNeighborBatch << <numSamples, 128, shmem >> > (
+		//// Nearest neighbor per block 
+        nearestNeighborBatch << <blockDim, block, shmem >> > (
             d_grid,
             sx, sy,
             numSamples,
@@ -485,7 +505,9 @@ std::vector<TreeNode> gpuRRT(
             d_size,
             nnIdx);
 
-        extendAndInsertKernel << <(numSamples + 255) / 256, 256 >> > (
+
+		//// Extend and insert
+        extendAndInsertKernel << <gridDim, blockDim, shmem >> > (
             d_grid,
             sx, sy,
             nnIdx,
@@ -508,14 +530,19 @@ std::vector<TreeNode> gpuRRT(
 		}
    
 
-        if (h_goal) break;
+        if (h_goal > 0) break;      
     
     
         iter++;
     }
+
+
     timerpRRT().endGpuTimer();
 
-
+    int h_goalInt1 = 0;
+    int h_size_int1 = 0;
+    cudaMemcpy(&h_goalInt1, d_goalReached_int, sizeof(int), cudaMemcpyDeviceToHost);
+    cudaMemcpy(&h_size_int1, d_size, sizeof(int), cudaMemcpyDeviceToHost);
 
 
     // Wait and fetch SoA results
@@ -546,6 +573,8 @@ std::vector<TreeNode> gpuRRT(
             std::reverse(path.begin(), path.end());
         }
     }
+    // Print size of tree
+	printf("RRT Tree Size: %d nodes\n", h_size_int);
 
 
 

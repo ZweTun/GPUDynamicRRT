@@ -19,6 +19,8 @@
 
 #include "common.h"
 
+const int TRIALS = 50;
+
 void inflateObstacles(
     std::vector<int>& grid,
     int width,
@@ -61,25 +63,19 @@ void inflateObstacles(
 }
 
 
-//OccupancyGrid makeGrid(const std::vector<int>& visual, int W, int H, float resolution)
-//{
-//    OccupancyGrid g;
-//    g.width = W;
-//    g.height = H;
-//    g.resolution = resolution;
-//    g.origin_x = 0;
-//    g.origin_y = 0;
-//
-//    // allocate exact size
-//    uint8_t* buf = new uint8_t[W * H];
-//
-//    for (int i = 0; i < W * H; i++) {
-//        buf[i] = (uint8_t)visual[i];
-//    }
-//
-//    g.data = buf;
-//    return g;
-//}
+
+float computeCost(const std::vector<TreeNode>& path) {
+    if (path.size() < 2) return 0.0f;
+
+    float cost = 0.0f;
+    for (int i = 0; i < path.size() - 1; i++) {
+        float dx = path[i + 1].x - path[i].x;
+        float dy = path[i + 1].y - path[i].y;
+        cost += sqrtf(dx * dx + dy * dy);
+    }
+    return cost;
+}
+
 
 OccupancyGrid makeGrid(const std::vector<int>& visual, int W, int H, float resolution, float inflation_m = 1.00)
 {
@@ -153,7 +149,6 @@ int main(int argc, char* argv[]) {
     auto gpuPath = launchRRT(gridEmpty, startX, startY, goalX, goalY, maxIter, maxNodes, maxStep);
     printElapsedTimeGPU("(CUDA measured)");
     printf("GPU path length: %zu\n", gpuPath.size());
-
     printCmpPath(cpuPath, gpuPath);
 
     // GPU pRRT
@@ -163,6 +158,7 @@ int main(int argc, char* argv[]) {
     printElapsedTimepRRT("(CUDA measured)");
 	printf("pRRT path length: %zu\n", pRRTPath.size());
 	printCmpPath(cpuPath, pRRTPath);
+   // printPath(pRRTPath);
 
     //
     // Test 2: Maze
@@ -255,7 +251,7 @@ int main(int argc, char* argv[]) {
      height = 60;
 	 width = 120;
 	 startX = 5;
-	 startY = 45;
+	 startY = 30;
 	 goalX = 115;
 	 goalY = 30;
 
@@ -274,6 +270,8 @@ int main(int argc, char* argv[]) {
 		 }
      }
 
+
+
     OccupancyGrid gridCorridor = makeGrid(bigCorridor, width, height, resolution);
     
     printDesc("CPU RRT (corridor)");
@@ -283,14 +281,14 @@ int main(int argc, char* argv[]) {
     timerCPU().endCpuTimer();
     printElapsedTimeCPU("(std::chrono measured)");
     printf("CPU path length: %zu\n", cpuCorr.size());
-
+    
     printDesc("GPU RRT (corridor)");
     zeroTimerGPU();
 
     auto gpuCorr = launchRRT(gridCorridor, startX, startY, goalX, goalY, maxIter, maxNodes, maxStep);
     printElapsedTimeGPU("(CUDA measured)");
     printf("GPU path length: %zu\n", gpuCorr.size());
-
+   // printPath(gpuCorr);
 
     printCmpPath(cpuCorr, gpuCorr);
    // printPath(gpuCorr);
@@ -302,6 +300,7 @@ int main(int argc, char* argv[]) {
     printElapsedTimepRRT("(CUDA measured)");
     printf("pRRT path length: %zu\n", pRRTCorr.size());
     printCmpPath(cpuCorr, pRRTCorr);
+
     printPath(pRRTCorr);
     //printPath(gpuCorr);
 
@@ -362,7 +361,7 @@ int main(int argc, char* argv[]) {
     printf("pRRT path length: %zu\n", pRRTRand.size());
     printCmpPath(cpuRand, pRRTRand);
 
-
+     //printPath(pRRTRand);
 
 
 

@@ -141,43 +141,7 @@ __device__ bool checkCollision(OccupancyGrid* grid, float x1, float y1, float x2
 }
 
 
-/*__device__ bool checkCollision(OccupancyGrid* grid, float x1, float y1, float x2, float y2) {
-    float gx1 = (x1 - grid->origin_x) / grid->resolution;
-    float gy1 = (y1 - grid->origin_y) / grid->resolution;
-    float gx2 = (x2 - grid->origin_x) / grid->resolution;
-    float gy2 = (y2 - grid->origin_y) / grid->resolution;
 
-    int x = (int)floorf(gx1);
-    int y = (int)floorf(gy1);
-    int endX = (int)floorf(gx2);
-    int endY = (int)floorf(gy2);
-
-    int stepX = (gx2 > gx1) ? 1 : -1;
-    int stepY = (gy2 > gy1) ? 1 : -1;
-
-    float tMaxX = fabsf((floorf(gx1 + (stepX > 0 ? 1 : 0)) - gx1) / (gx2 - gx1));
-    float tMaxY = fabsf((floorf(gy1 + (stepY > 0 ? 1 : 0)) - gy1) / (gy2 - gy1));
-
-    float tDeltaX = fabsf(1.0f / (gx2 - gx1));
-    float tDeltaY = fabsf(1.0f / (gy2 - gy1));
-
-    while (x != endX || y != endY) {
-        int idx = y * grid->width + x;
-        if (idx < 0 || idx >= grid->width * grid->height) return true;
-        if (grid->data[idx] != 0) return true;
-
-        if (tMaxX < tMaxY) {
-            tMaxX += tDeltaX;
-            x += stepX;
-        }
-        else {
-            tMaxY += tDeltaY;
-            y += stepY;
-        }
-    }
-
-    return false;
-} */
 
 // Kernels
 __global__ void kernInitTree(TreeNode* tree, int max_nodes, float start_x, float start_y) {
@@ -346,7 +310,8 @@ std::vector<TreeNode> launchRRT(const OccupancyGrid& h_grid,
             int goalIndex = h_results[tid];
             TreeNode* treeBase = &h_allTrees[tid * maxNodes];
 			
-            
+            // Print tree size
+			printf("Thread %d found RRT Path, tree size = %d\n", tid, goalIndex + 1);
             return findFinalPath(treeBase, goalIndex);
             
 			//return path; // Return the found path

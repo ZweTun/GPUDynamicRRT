@@ -15,7 +15,7 @@ bool checkCollisionCPU(OccupancyGrid* grid, float x1, float y1, float x2, float 
 
 bool isPointFreeCPU(const OccupancyGrid& grid, float x, float y);
 
-int nearestNeighborCPU(const std::vector<TreeNode>& tree, float x, float y);
+int nearestNeighborCPU(const std::vector<TreeNode>& tree, float x, float y, int size);
 
 TreeNode steerCPU(const TreeNode& from, const TreeNode& to, float maxStep);
 
