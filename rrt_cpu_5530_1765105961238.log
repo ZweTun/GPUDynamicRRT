@@ -1,0 +1,1822 @@
+[INFO] [1765105962.505566211] [rrt_cpu]: Running in real mode
+[INFO] [1765105962.538067078] [rrt_cpu]: Visualization is disabled
+[INFO] [1765105962.570054050] [rrt_cpu]: No global waypoint CSV specified, using default path: /home/nvidia/f1tenth_ws/install/dynamic_rrt/share/dynamic_rrt/resource/skirkanich_lobby.csv
+[INFO] [1765105962.584541646] [rrt_cpu]: Loaded 60 global waypoints from CSV
+[WARN] [1765105962.866578570] [rrt_cpu]: Cannot run planning before receiving initial map and pose
+[WARN] [1765105963.166431801] [rrt_cpu]: Cannot run planning before receiving initial map and pose
+[WARN] [1765105963.469434862] [rrt_cpu]: Cannot run planning before receiving initial map and pose
+[WARN] [1765105963.566505329] [rrt_cpu]: No local waypoints to publish
+[WARN] [1765105963.766432027] [rrt_cpu]: Cannot run planning before receiving initial map and pose
+[WARN] [1765105963.907435113] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105963.919332758] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105963.921035018] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105963.929905588] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105963.936811782] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105963.991661107] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[INFO] [1765105964.014053789] [rrt_cpu]: Received initial occupancy grid map
+[INFO] [1765105964.014249183] [rrt_cpu]: Map frame ID: map
+[INFO] [1765105964.014358849] [rrt_cpu]: Map resolution: 0.050 [m/cell]
+[INFO] [1765105964.014430530] [rrt_cpu]: Map size: width=433, height=601 [cells]
+[INFO] [1765105964.014502530] [rrt_cpu]: Map origin position: x=-4.760, y=-8.770, z=0.000 [m]
+[INFO] [1765105964.014574051] [rrt_cpu]: Map origin orientation: x=0.000, y=0.000, z=0.000, w=1.000
+[INFO] [1765105964.177698040] [rrt_cpu]: Occupancy grid value distribution:
+[INFO] [1765105964.180014644] [rrt_cpu]:   Value -1: count = 1232, percentage = 0.5%
+[INFO] [1765105964.182795061] [rrt_cpu]:   Value 0: count = 239797, percentage = 92.1%
+[INFO] [1765105964.184676811] [rrt_cpu]:   Value 100: count = 19204, percentage = 7.4%
+[INFO] [1765105964.187548973] [rrt_cpu]: Obstacle inflation radius set to 4 [cells]
+[WARN] [1765105964.337967403] [rrt_cpu]: Cannot run planning before receiving initial map and pose
+[WARN] [1765105964.340422248] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105964.342747652] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105964.344716827] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105964.346930901] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105964.348878508] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105964.367036740] [rrt_cpu]: Cannot run planning before receiving initial map and pose
+[WARN] [1765105964.387456023] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105964.460297690] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105964.523309064] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105964.566580906] [rrt_cpu]: No local waypoints to publish
+[WARN] [1765105964.591138543] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105964.654084891] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105964.666410126] [rrt_cpu]: Cannot run planning before receiving initial map and pose
+[WARN] [1765105964.726173301] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105964.790298576] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105964.854776431] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105964.920410588] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105964.966463936] [rrt_cpu]: Cannot run planning before receiving initial map and pose
+[WARN] [1765105964.987894047] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105965.054866235] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105965.120765003] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105965.187566694] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105965.255871315] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105965.266482289] [rrt_cpu]: Cannot run planning before receiving initial map and pose
+[WARN] [1765105965.319800715] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105965.386992779] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105965.455947039] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105965.524807186] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105965.566495618] [rrt_cpu]: Cannot run planning before receiving initial map and pose
+[WARN] [1765105965.566921639] [rrt_cpu]: No local waypoints to publish
+[WARN] [1765105965.587751487] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105965.653777489] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105965.719604992] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105965.792202143] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105965.853746748] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105965.866490227] [rrt_cpu]: Cannot run planning before receiving initial map and pose
+[WARN] [1765105965.920183474] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105965.990423414] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105966.053837320] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105966.125543869] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105966.166450276] [rrt_cpu]: Cannot run planning before receiving initial map and pose
+[WARN] [1765105966.189443221] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105966.254255352] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105966.321011027] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105966.387448137] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105966.453489531] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105966.466774585] [rrt_cpu]: Cannot run planning before receiving initial map and pose
+[WARN] [1765105966.530797074] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105966.566475067] [rrt_cpu]: No local waypoints to publish
+[WARN] [1765105966.587721240] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105966.653736937] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105966.720011133] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105966.766491302] [rrt_cpu]: Cannot run planning before receiving initial map and pose
+[WARN] [1765105966.788862449] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105966.853016972] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105966.920407982] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105966.987128327] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105967.052988599] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105967.066485079] [rrt_cpu]: Cannot run planning before receiving initial map and pose
+[WARN] [1765105967.119958580] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105967.189708625] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105967.254543509] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105967.320085184] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105967.366754636] [rrt_cpu]: Cannot run planning before receiving initial map and pose
+[WARN] [1765105967.390140354] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105967.453567380] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105967.519635910] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105967.566506900] [rrt_cpu]: No local waypoints to publish
+[WARN] [1765105967.587510190] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105967.654241288] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105967.666531770] [rrt_cpu]: Cannot run planning before receiving initial map and pose
+[WARN] [1765105967.721253957] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105967.786520270] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105967.853884911] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105967.920017602] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105967.966942576] [rrt_cpu]: Cannot run planning before receiving initial map and pose
+[WARN] [1765105967.986866077] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105968.053020016] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105968.120181807] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105968.187070571] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105968.253891910] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105968.266560029] [rrt_cpu]: Cannot run planning before receiving initial map and pose
+[WARN] [1765105968.322116593] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105968.388009249] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105968.456456144] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105968.520014692] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105968.567405624] [rrt_cpu]: Cannot run planning before receiving initial map and pose
+[WARN] [1765105968.571729131] [rrt_cpu]: No local waypoints to publish
+[WARN] [1765105968.587688265] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105968.653651930] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105968.720214194] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105968.787790262] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105968.853987401] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105968.866517086] [rrt_cpu]: Cannot run planning before receiving initial map and pose
+[WARN] [1765105968.920616034] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105968.986680724] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105969.053678097] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105969.121677978] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105969.166838579] [rrt_cpu]: Cannot run planning before receiving initial map and pose
+[WARN] [1765105969.187578922] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105969.258092433] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105969.320140371] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105969.387274865] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105969.453502085] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105969.466514656] [rrt_cpu]: Cannot run planning before receiving initial map and pose
+[WARN] [1765105969.520797606] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105969.567598579] [rrt_cpu]: No local waypoints to publish
+[WARN] [1765105969.587663873] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105969.659778875] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105969.721321080] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[WARN] [1765105969.766508497] [rrt_cpu]: Cannot run planning before receiving initial map and pose
+[WARN] [1765105969.787052454] [rrt_cpu]: Cannot process LaserScan message before receiving initial map and pose
+[INFO] [1765105969.830248615] [rrt_cpu]: Received first PoseStamped message with frame ID: /map
+[INFO] [1765105970.177397449] [rrt_cpu]: Selected global waypoint at (0.117, 6.093) as local planning goal
+[INFO] [1765105970.208171512] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765105970.208375258] [rrt_cpu]: RRT planning completed in 30.80 ms, found 0 waypoints
+[WARN] [1765105970.397736615] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765105970.566557279] [rrt_cpu]: No local waypoints to publish
+[WARN] [1765105970.697430068] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765105971.008569226] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765105971.295926628] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765105971.594514117] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765105971.599310654] [rrt_cpu]: No local waypoints to publish
+[WARN] [1765105971.892455261] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765105972.183321602] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765105972.492083643] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765105972.566815284] [rrt_cpu]: No local waypoints to publish
+[WARN] [1765105972.803401939] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765105973.087228067] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765105973.402385353] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765105973.570277750] [rrt_cpu]: No local waypoints to publish
+[WARN] [1765105973.704100014] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765105973.985048188] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765105974.296855674] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765105974.591363402] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765105974.591558092] [rrt_cpu]: No local waypoints to publish
+[WARN] [1765105974.882452465] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765105975.189255539] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765105975.488703517] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765105975.566780126] [rrt_cpu]: No local waypoints to publish
+[WARN] [1765105975.800337209] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765105976.093707259] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765105976.396673967] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765105976.566700726] [rrt_cpu]: No local waypoints to publish
+[WARN] [1765105976.697156422] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765105976.994524312] [rrt_cpu]: No valid global waypoint found within range
+[INFO] [1765105977.294718635] [rrt_cpu]: Selected global waypoint at (-0.198, 5.190) as local planning goal
+[INFO] [1765105977.311106190] [rrt_cpu]: RRT worker 0 found a path with 34 waypoints (tree size: 314)
+[INFO] [1765105977.311347313] [rrt_cpu]: RRT planning completed in 16.41 ms, found 34 waypoints
+[INFO] [1765105977.597927362] [rrt_cpu]: Selected global waypoint at (-0.198, 5.190) as local planning goal
+[INFO] [1765105977.601230570] [rrt_cpu]: RRT worker 0 found a path with 36 waypoints (tree size: 81)
+[INFO] [1765105977.601436812] [rrt_cpu]: RRT planning completed in 3.33 ms, found 36 waypoints
+[INFO] [1765105977.601884625] [rrt_cpu]: Published 36 local waypoints
+[INFO] [1765105977.885821731] [rrt_cpu]: Selected global waypoint at (-0.198, 5.190) as local planning goal
+[INFO] [1765105977.901213531] [rrt_cpu]: RRT worker 0 found a path with 35 waypoints (tree size: 60)
+[INFO] [1765105977.901414589] [rrt_cpu]: RRT planning completed in 15.35 ms, found 35 waypoints
+[INFO] [1765105978.184286082] [rrt_cpu]: Selected global waypoint at (-0.198, 5.190) as local planning goal
+[INFO] [1765105978.197016954] [rrt_cpu]: RRT worker 0 found a path with 37 waypoints (tree size: 56)
+[INFO] [1765105978.197239836] [rrt_cpu]: RRT planning completed in 12.75 ms, found 37 waypoints
+[INFO] [1765105978.489481969] [rrt_cpu]: Selected global waypoint at (-0.198, 5.190) as local planning goal
+[INFO] [1765105978.510972529] [rrt_cpu]: RRT worker 0 found a path with 39 waypoints (tree size: 430)
+[INFO] [1765105978.511185651] [rrt_cpu]: RRT planning completed in 21.51 ms, found 39 waypoints
+[INFO] [1765105978.567069612] [rrt_cpu]: Published 39 local waypoints
+[INFO] [1765105978.794468253] [rrt_cpu]: Selected global waypoint at (-0.198, 5.190) as local planning goal
+[INFO] [1765105978.801648595] [rrt_cpu]: RRT worker 0 found a path with 34 waypoints (tree size: 70)
+[INFO] [1765105978.801851093] [rrt_cpu]: RRT planning completed in 7.08 ms, found 34 waypoints
+[INFO] [1765105979.100920219] [rrt_cpu]: Selected global waypoint at (-0.198, 5.190) as local planning goal
+[INFO] [1765105979.121364014] [rrt_cpu]: RRT worker 0 found a path with 38 waypoints (tree size: 291)
+[INFO] [1765105979.121592721] [rrt_cpu]: RRT planning completed in 19.37 ms, found 38 waypoints
+[INFO] [1765105979.386576802] [rrt_cpu]: Selected global waypoint at (-0.198, 5.190) as local planning goal
+[INFO] [1765105979.394772611] [rrt_cpu]: RRT worker 0 found a path with 35 waypoints (tree size: 120)
+[INFO] [1765105979.394954661] [rrt_cpu]: RRT planning completed in 5.99 ms, found 35 waypoints
+[INFO] [1765105979.567146054] [rrt_cpu]: Published 35 local waypoints
+[INFO] [1765105979.690406112] [rrt_cpu]: Selected global waypoint at (-0.198, 5.190) as local planning goal
+[INFO] [1765105979.703446331] [rrt_cpu]: RRT worker 0 found a path with 35 waypoints (tree size: 60)
+[INFO] [1765105979.703638942] [rrt_cpu]: RRT planning completed in 7.03 ms, found 35 waypoints
+[INFO] [1765105979.985449462] [rrt_cpu]: Selected global waypoint at (-0.198, 5.190) as local planning goal
+[INFO] [1765105979.998885238] [rrt_cpu]: RRT worker 0 found a path with 34 waypoints (tree size: 64)
+[INFO] [1765105979.999202554] [rrt_cpu]: RRT planning completed in 13.53 ms, found 34 waypoints
+[INFO] [1765105980.282513124] [rrt_cpu]: Selected global waypoint at (-0.198, 5.190) as local planning goal
+[INFO] [1765105980.289388950] [rrt_cpu]: RRT worker 0 found a path with 39 waypoints (tree size: 80)
+[INFO] [1765105980.289580473] [rrt_cpu]: RRT planning completed in 4.05 ms, found 39 waypoints
+[INFO] [1765105980.587172493] [rrt_cpu]: Selected global waypoint at (-0.198, 5.190) as local planning goal
+[INFO] [1765105980.606395218] [rrt_cpu]: RRT worker 0 found a path with 43 waypoints (tree size: 300)
+[INFO] [1765105980.606694997] [rrt_cpu]: RRT planning completed in 17.22 ms, found 43 waypoints
+[INFO] [1765105980.607061402] [rrt_cpu]: Published 43 local waypoints
+[INFO] [1765105980.882004065] [rrt_cpu]: Selected global waypoint at (-0.198, 5.190) as local planning goal
+[INFO] [1765105980.890080001] [rrt_cpu]: RRT worker 0 found a path with 36 waypoints (tree size: 141)
+[INFO] [1765105980.890272707] [rrt_cpu]: RRT planning completed in 4.20 ms, found 36 waypoints
+[INFO] [1765105981.206484533] [rrt_cpu]: Selected global waypoint at (-0.198, 5.190) as local planning goal
+[INFO] [1765105981.221567304] [rrt_cpu]: RRT worker 0 found a path with 34 waypoints (tree size: 58)
+[INFO] [1765105981.221776203] [rrt_cpu]: RRT planning completed in 15.05 ms, found 34 waypoints
+[INFO] [1765105981.493815471] [rrt_cpu]: Selected global waypoint at (-0.198, 5.190) as local planning goal
+[INFO] [1765105981.513385176] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 50)
+[INFO] [1765105981.513603611] [rrt_cpu]: RRT planning completed in 10.11 ms, found 32 waypoints
+[INFO] [1765105981.567328122] [rrt_cpu]: Published 32 local waypoints
+[INFO] [1765105981.817425273] [rrt_cpu]: Selected global waypoint at (0.117, 6.093) as local planning goal
+[INFO] [1765105981.824231658] [rrt_cpu]: RRT worker 0 found a path with 38 waypoints (tree size: 90)
+[INFO] [1765105981.824438989] [rrt_cpu]: RRT planning completed in 6.82 ms, found 38 waypoints
+[INFO] [1765105982.094976703] [rrt_cpu]: Selected global waypoint at (0.117, 6.093) as local planning goal
+[INFO] [1765105982.102900861] [rrt_cpu]: RRT worker 0 found a path with 41 waypoints (tree size: 159)
+[INFO] [1765105982.103093408] [rrt_cpu]: RRT planning completed in 7.92 ms, found 41 waypoints
+[INFO] [1765105982.394943728] [rrt_cpu]: Selected global waypoint at (0.054, 6.744) as local planning goal
+[INFO] [1765105982.405294731] [rrt_cpu]: RRT worker 0 found a path with 40 waypoints (tree size: 98)
+[INFO] [1765105982.405487533] [rrt_cpu]: RRT planning completed in 8.44 ms, found 40 waypoints
+[INFO] [1765105982.566987182] [rrt_cpu]: Published 40 local waypoints
+[INFO] [1765105982.691341974] [rrt_cpu]: Selected global waypoint at (0.054, 6.744) as local planning goal
+[INFO] [1765105982.713212986] [rrt_cpu]: RRT worker 0 found a path with 35 waypoints (tree size: 50)
+[INFO] [1765105982.713385884] [rrt_cpu]: RRT planning completed in 8.53 ms, found 35 waypoints
+[INFO] [1765105983.033700575] [rrt_cpu]: Selected global waypoint at (0.054, 6.744) as local planning goal
+[INFO] [1765105983.042648617] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 62)
+[INFO] [1765105983.042853356] [rrt_cpu]: RRT planning completed in 7.61 ms, found 32 waypoints
+[INFO] [1765105983.301313743] [rrt_cpu]: Selected global waypoint at (0.054, 6.744) as local planning goal
+[INFO] [1765105983.322210983] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 58)
+[INFO] [1765105983.322418922] [rrt_cpu]: RRT planning completed in 15.35 ms, found 32 waypoints
+[INFO] [1765105983.599910927] [rrt_cpu]: Selected global waypoint at (0.054, 6.744) as local planning goal
+[INFO] [1765105983.619140820] [rrt_cpu]: RRT worker 0 found a path with 28 waypoints (tree size: 43)
+[INFO] [1765105983.619344246] [rrt_cpu]: RRT planning completed in 16.29 ms, found 28 waypoints
+[INFO] [1765105983.620629286] [rrt_cpu]: Published 28 local waypoints
+[INFO] [1765105983.886184573] [rrt_cpu]: Selected global waypoint at (-0.093, 7.647) as local planning goal
+[INFO] [1765105983.902388702] [rrt_cpu]: RRT worker 0 found a path with 30 waypoints (tree size: 53)
+[INFO] [1765105983.902647009] [rrt_cpu]: RRT planning completed in 16.20 ms, found 30 waypoints
+[INFO] [1765105984.205079439] [rrt_cpu]: Selected global waypoint at (-0.093, 7.647) as local planning goal
+[INFO] [1765105984.215420426] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 53)
+[INFO] [1765105984.215633484] [rrt_cpu]: RRT planning completed in 7.18 ms, found 31 waypoints
+[INFO] [1765105984.482201552] [rrt_cpu]: Selected global waypoint at (-0.093, 7.647) as local planning goal
+[INFO] [1765105984.497293251] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 149)
+[INFO] [1765105984.497493893] [rrt_cpu]: RRT planning completed in 10.67 ms, found 32 waypoints
+[INFO] [1765105984.566958304] [rrt_cpu]: Published 32 local waypoints
+[INFO] [1765105984.803410077] [rrt_cpu]: Selected global waypoint at (-0.198, 8.488) as local planning goal
+[INFO] [1765105984.811405436] [rrt_cpu]: RRT worker 0 found a path with 34 waypoints (tree size: 58)
+[INFO] [1765105984.811604606] [rrt_cpu]: RRT planning completed in 7.99 ms, found 34 waypoints
+[INFO] [1765105985.095349934] [rrt_cpu]: Selected global waypoint at (-0.198, 8.488) as local planning goal
+[INFO] [1765105985.102580772] [rrt_cpu]: RRT worker 0 found a path with 36 waypoints (tree size: 59)
+[INFO] [1765105985.102878920] [rrt_cpu]: RRT planning completed in 4.85 ms, found 36 waypoints
+[INFO] [1765105985.418388657] [rrt_cpu]: Selected global waypoint at (-0.198, 8.488) as local planning goal
+[INFO] [1765105985.451028533] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765105985.451253624] [rrt_cpu]: RRT planning completed in 27.11 ms, found 0 waypoints
+[WARN] [1765105985.567209020] [rrt_cpu]: No local waypoints to publish
+[INFO] [1765105985.687370097] [rrt_cpu]: Selected global waypoint at (-0.198, 8.488) as local planning goal
+[INFO] [1765105985.751675182] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765105985.751879249] [rrt_cpu]: RRT planning completed in 64.32 ms, found 0 waypoints
+[INFO] [1765105986.005494074] [rrt_cpu]: Selected global waypoint at (-0.304, 9.349) as local planning goal
+[INFO] [1765105986.015961718] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 74)
+[INFO] [1765105986.016188249] [rrt_cpu]: RRT planning completed in 10.50 ms, found 31 waypoints
+[INFO] [1765105986.294293510] [rrt_cpu]: Selected global waypoint at (-0.304, 9.349) as local planning goal
+[INFO] [1765105986.343946612] [rrt_cpu]: RRT worker 0 found a path with 39 waypoints (tree size: 292)
+[INFO] [1765105986.344162359] [rrt_cpu]: RRT planning completed in 49.33 ms, found 39 waypoints
+[INFO] [1765105986.582652044] [rrt_cpu]: Selected global waypoint at (-0.304, 9.349) as local planning goal
+[INFO] [1765105986.636699855] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765105986.636927474] [rrt_cpu]: RRT planning completed in 52.03 ms, found 0 waypoints
+[WARN] [1765105986.637048723] [rrt_cpu]: No local waypoints to publish
+[INFO] [1765105986.884925848] [rrt_cpu]: Selected global waypoint at (-0.304, 9.349) as local planning goal
+[INFO] [1765105986.907376867] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 185)
+[INFO] [1765105986.907605606] [rrt_cpu]: RRT planning completed in 19.98 ms, found 32 waypoints
+[INFO] [1765105987.184447876] [rrt_cpu]: Selected global waypoint at (-0.304, 9.349) as local planning goal
+[INFO] [1765105987.185921557] [rrt_cpu]: RRT worker 0 found a path with 26 waypoints (tree size: 50)
+[INFO] [1765105987.186098711] [rrt_cpu]: RRT planning completed in 1.37 ms, found 26 waypoints
+[INFO] [1765105987.503753946] [rrt_cpu]: Selected global waypoint at (-0.388, 10.420) as local planning goal
+[INFO] [1765105987.554302708] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765105987.554512566] [rrt_cpu]: RRT planning completed in 43.63 ms, found 0 waypoints
+[WARN] [1765105987.566735944] [rrt_cpu]: No local waypoints to publish
+[INFO] [1765105987.802931746] [rrt_cpu]: Selected global waypoint at (-0.388, 10.420) as local planning goal
+[INFO] [1765105987.829465981] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765105987.829664576] [rrt_cpu]: RRT planning completed in 24.14 ms, found 0 waypoints
+[INFO] [1765105988.105855382] [rrt_cpu]: Selected global waypoint at (-0.388, 10.420) as local planning goal
+[INFO] [1765105988.121105323] [rrt_cpu]: RRT worker 0 found a path with 27 waypoints (tree size: 37)
+[INFO] [1765105988.121300621] [rrt_cpu]: RRT planning completed in 10.51 ms, found 27 waypoints
+[INFO] [1765105988.394388318] [rrt_cpu]: Selected global waypoint at (-0.409, 11.260) as local planning goal
+[INFO] [1765105988.405535267] [rrt_cpu]: RRT worker 0 found a path with 29 waypoints (tree size: 37)
+[INFO] [1765105988.405737797] [rrt_cpu]: RRT planning completed in 7.46 ms, found 29 waypoints
+[INFO] [1765105988.567204742] [rrt_cpu]: Published 29 local waypoints
+[INFO] [1765105988.708134579] [rrt_cpu]: Selected global waypoint at (-0.409, 11.260) as local planning goal
+[INFO] [1765105988.719794461] [rrt_cpu]: RRT worker 0 found a path with 29 waypoints (tree size: 41)
+[INFO] [1765105988.719982944] [rrt_cpu]: RRT planning completed in 11.58 ms, found 29 waypoints
+[INFO] [1765105989.000020899] [rrt_cpu]: Selected global waypoint at (-0.409, 11.260) as local planning goal
+[INFO] [1765105989.023780446] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765105989.024368101] [rrt_cpu]: RRT planning completed in 16.14 ms, found 0 waypoints
+[INFO] [1765105989.292951808] [rrt_cpu]: Selected global waypoint at (-0.409, 11.260) as local planning goal
+[INFO] [1765105989.324723034] [rrt_cpu]: RRT worker 0 found a path with 25 waypoints (tree size: 90)
+[INFO] [1765105989.333286688] [rrt_cpu]: RRT planning completed in 34.25 ms, found 25 waypoints
+[INFO] [1765105989.610415617] [rrt_cpu]: Selected global waypoint at (-0.535, 12.331) as local planning goal
+[INFO] [1765105989.631696062] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765105989.631910369] [rrt_cpu]: RRT planning completed in 21.11 ms, found 0 waypoints
+[WARN] [1765105989.632033954] [rrt_cpu]: No local waypoints to publish
+[INFO] [1765105989.890428868] [rrt_cpu]: Selected global waypoint at (-0.535, 12.331) as local planning goal
+[INFO] [1765105989.917271396] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765105989.917479526] [rrt_cpu]: RRT planning completed in 26.81 ms, found 0 waypoints
+[INFO] [1765105990.188089722] [rrt_cpu]: Selected global waypoint at (-0.535, 12.331) as local planning goal
+[INFO] [1765105990.195631251] [rrt_cpu]: RRT worker 0 found a path with 27 waypoints (tree size: 51)
+[INFO] [1765105990.195850262] [rrt_cpu]: RRT planning completed in 7.56 ms, found 27 waypoints
+[INFO] [1765105990.507655347] [rrt_cpu]: Selected global waypoint at (-0.619, 13.108) as local planning goal
+[INFO] [1765105990.526195056] [rrt_cpu]: RRT worker 0 found a path with 29 waypoints (tree size: 38)
+[INFO] [1765105990.530337601] [rrt_cpu]: RRT planning completed in 19.79 ms, found 29 waypoints
+[INFO] [1765105990.567178424] [rrt_cpu]: Published 29 local waypoints
+[INFO] [1765105990.794877100] [rrt_cpu]: Selected global waypoint at (-0.619, 13.108) as local planning goal
+[INFO] [1765105990.821144453] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765105990.821376040] [rrt_cpu]: RRT planning completed in 20.76 ms, found 0 waypoints
+[INFO] [1765105991.085064457] [rrt_cpu]: Selected global waypoint at (-0.619, 13.108) as local planning goal
+[INFO] [1765105991.108669538] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765105991.108976453] [rrt_cpu]: RRT planning completed in 21.38 ms, found 0 waypoints
+[INFO] [1765105991.407235426] [rrt_cpu]: Selected global waypoint at (-0.619, 13.108) as local planning goal
+[INFO] [1765105991.424239756] [rrt_cpu]: RRT worker 0 found a path with 25 waypoints (tree size: 76)
+[INFO] [1765105991.424447918] [rrt_cpu]: RRT planning completed in 16.82 ms, found 25 waypoints
+[INFO] [1765105991.567024847] [rrt_cpu]: Published 25 local waypoints
+[INFO] [1765105991.740833154] [rrt_cpu]: Selected global waypoint at (-0.703, 14.117) as local planning goal
+[INFO] [1765105991.750800441] [rrt_cpu]: RRT worker 0 found a path with 28 waypoints (tree size: 36)
+[INFO] [1765105991.751002491] [rrt_cpu]: RRT planning completed in 9.93 ms, found 28 waypoints
+[INFO] [1765105991.989845813] [rrt_cpu]: Selected global waypoint at (-0.703, 14.117) as local planning goal
+[INFO] [1765105991.999074147] [rrt_cpu]: RRT worker 0 found a path with 28 waypoints (tree size: 33)
+[INFO] [1765105991.999264229] [rrt_cpu]: RRT planning completed in 9.22 ms, found 28 waypoints
+[INFO] [1765105992.299871997] [rrt_cpu]: Selected global waypoint at (-0.703, 14.117) as local planning goal
+[INFO] [1765105992.312674581] [rrt_cpu]: RRT worker 0 found a path with 25 waypoints (tree size: 27)
+[INFO] [1765105992.312866072] [rrt_cpu]: RRT planning completed in 12.80 ms, found 25 waypoints
+[INFO] [1765105992.581680374] [rrt_cpu]: Selected global waypoint at (-0.808, 14.915) as local planning goal
+[INFO] [1765105992.585776806] [rrt_cpu]: RRT worker 0 found a path with 28 waypoints (tree size: 37)
+[INFO] [1765105992.585948137] [rrt_cpu]: RRT planning completed in 1.72 ms, found 28 waypoints
+[INFO] [1765105992.586959893] [rrt_cpu]: Published 28 local waypoints
+[INFO] [1765105992.886225277] [rrt_cpu]: Selected global waypoint at (-0.808, 14.915) as local planning goal
+[INFO] [1765105992.898215564] [rrt_cpu]: RRT worker 0 found a path with 26 waypoints (tree size: 36)
+[INFO] [1765105992.898473775] [rrt_cpu]: RRT planning completed in 3.60 ms, found 26 waypoints
+[INFO] [1765105993.185767272] [rrt_cpu]: Selected global waypoint at (-0.808, 14.915) as local planning goal
+[INFO] [1765105993.204483303] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765105993.204676009] [rrt_cpu]: RRT planning completed in 18.64 ms, found 0 waypoints
+[INFO] [1765105993.493627223] [rrt_cpu]: Selected global waypoint at (-0.892, 15.755) as local planning goal
+[INFO] [1765105993.504775964] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765105993.504962334] [rrt_cpu]: RRT planning completed in 11.11 ms, found 0 waypoints
+[WARN] [1765105993.566783229] [rrt_cpu]: No local waypoints to publish
+[INFO] [1765105993.789388310] [rrt_cpu]: Selected global waypoint at (-0.892, 15.755) as local planning goal
+[INFO] [1765105993.797279124] [rrt_cpu]: RRT worker 1 found a path with 28 waypoints (tree size: 38)
+[INFO] [1765105993.797517846] [rrt_cpu]: RRT planning completed in 7.92 ms, found 28 waypoints
+[INFO] [1765105994.087123308] [rrt_cpu]: Selected global waypoint at (-0.892, 15.755) as local planning goal
+[INFO] [1765105994.092671886] [rrt_cpu]: RRT worker 0 found a path with 27 waypoints (tree size: 71)
+[INFO] [1765105994.092855568] [rrt_cpu]: RRT planning completed in 3.05 ms, found 27 waypoints
+[INFO] [1765105994.394085552] [rrt_cpu]: Selected global waypoint at (-0.892, 15.755) as local planning goal
+[INFO] [1765105994.410849527] [rrt_cpu]: RRT worker 0 found a path with 23 waypoints (tree size: 27)
+[INFO] [1765105994.411121818] [rrt_cpu]: RRT planning completed in 12.95 ms, found 23 waypoints
+[INFO] [1765105994.566951352] [rrt_cpu]: Published 23 local waypoints
+[INFO] [1765105994.688740545] [rrt_cpu]: Selected global waypoint at (-0.976, 16.805) as local planning goal
+[INFO] [1765105994.696528702] [rrt_cpu]: RRT worker 0 found a path with 28 waypoints (tree size: 52)
+[INFO] [1765105994.698999547] [rrt_cpu]: RRT planning completed in 7.86 ms, found 28 waypoints
+[INFO] [1765105994.991013709] [rrt_cpu]: Selected global waypoint at (-0.976, 16.805) as local planning goal
+[INFO] [1765105995.005407448] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765105995.005659707] [rrt_cpu]: RRT planning completed in 9.69 ms, found 0 waypoints
+[INFO] [1765105995.285399579] [rrt_cpu]: Selected global waypoint at (-0.745, 17.414) as local planning goal
+[INFO] [1765105995.294972077] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 110)
+[INFO] [1765105995.295345458] [rrt_cpu]: RRT planning completed in 9.74 ms, found 31 waypoints
+[INFO] [1765105995.585095337] [rrt_cpu]: Selected global waypoint at (0.306, 17.582) as local planning goal
+[INFO] [1765105995.590755180] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 36)
+[INFO] [1765105995.590973071] [rrt_cpu]: RRT planning completed in 2.29 ms, found 32 waypoints
+[INFO] [1765105995.591271890] [rrt_cpu]: Published 32 local waypoints
+[INFO] [1765105995.897804241] [rrt_cpu]: Selected global waypoint at (0.306, 17.582) as local planning goal
+[INFO] [1765105995.904647203] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 97)
+[INFO] [1765105995.904847845] [rrt_cpu]: RRT planning completed in 4.03 ms, found 32 waypoints
+[INFO] [1765105996.197591232] [rrt_cpu]: Selected global waypoint at (1.293, 17.708) as local planning goal
+[INFO] [1765105996.206733260] [rrt_cpu]: RRT worker 0 found a path with 37 waypoints (tree size: 57)
+[INFO] [1765105996.208042236] [rrt_cpu]: RRT planning completed in 6.23 ms, found 37 waypoints
+[INFO] [1765105996.484798969] [rrt_cpu]: Selected global waypoint at (1.293, 17.708) as local planning goal
+[INFO] [1765105996.497433999] [rrt_cpu]: RRT worker 0 found a path with 35 waypoints (tree size: 97)
+[INFO] [1765105996.497679858] [rrt_cpu]: RRT planning completed in 8.38 ms, found 35 waypoints
+[INFO] [1765105996.567079659] [rrt_cpu]: Published 35 local waypoints
+[INFO] [1765105996.784294052] [rrt_cpu]: Selected global waypoint at (1.293, 17.708) as local planning goal
+[INFO] [1765105996.789190878] [rrt_cpu]: RRT worker 0 found a path with 33 waypoints (tree size: 48)
+[INFO] [1765105996.790753232] [rrt_cpu]: RRT planning completed in 2.65 ms, found 33 waypoints
+[INFO] [1765105997.095243703] [rrt_cpu]: Selected global waypoint at (2.490, 17.855) as local planning goal
+[INFO] [1765105997.107280774] [rrt_cpu]: RRT worker 0 found a path with 43 waypoints (tree size: 86)
+[INFO] [1765105997.109467072] [rrt_cpu]: RRT planning completed in 14.01 ms, found 43 waypoints
+[INFO] [1765105997.403148358] [rrt_cpu]: Selected global waypoint at (2.490, 17.855) as local planning goal
+[INFO] [1765105997.422072935] [rrt_cpu]: RRT worker 0 found a path with 37 waypoints (tree size: 64)
+[INFO] [1765105997.429695106] [rrt_cpu]: RRT planning completed in 20.61 ms, found 37 waypoints
+[INFO] [1765105997.567101093] [rrt_cpu]: Published 37 local waypoints
+[INFO] [1765105997.689747768] [rrt_cpu]: Selected global waypoint at (2.490, 17.855) as local planning goal
+[INFO] [1765105997.703048246] [rrt_cpu]: RRT worker 0 found a path with 34 waypoints (tree size: 51)
+[INFO] [1765105997.703250040] [rrt_cpu]: RRT planning completed in 6.65 ms, found 34 waypoints
+[INFO] [1765105997.995175593] [rrt_cpu]: Selected global waypoint at (2.490, 17.855) as local planning goal
+[INFO] [1765105998.011334058] [rrt_cpu]: RRT worker 0 found a path with 35 waypoints (tree size: 64)
+[INFO] [1765105998.011541516] [rrt_cpu]: RRT planning completed in 11.40 ms, found 35 waypoints
+[INFO] [1765105998.283119531] [rrt_cpu]: Selected global waypoint at (2.490, 17.855) as local planning goal
+[INFO] [1765105998.294414769] [rrt_cpu]: RRT worker 0 found a path with 33 waypoints (tree size: 61)
+[INFO] [1765105998.294816950] [rrt_cpu]: RRT planning completed in 9.32 ms, found 33 waypoints
+[INFO] [1765105998.583504705] [rrt_cpu]: Selected global waypoint at (2.490, 17.855) as local planning goal
+[INFO] [1765105998.597995533] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 168)
+[INFO] [1765105998.598217424] [rrt_cpu]: RRT planning completed in 11.75 ms, found 32 waypoints
+[INFO] [1765105998.602189503] [rrt_cpu]: Published 32 local waypoints
+[INFO] [1765105998.889381720] [rrt_cpu]: Selected global waypoint at (2.490, 17.855) as local planning goal
+[INFO] [1765105998.911590464] [rrt_cpu]: RRT worker 0 found a path with 34 waypoints (tree size: 84)
+[INFO] [1765105998.911835395] [rrt_cpu]: RRT planning completed in 22.24 ms, found 34 waypoints
+[INFO] [1765105999.194021408] [rrt_cpu]: Selected global waypoint at (3.498, 17.939) as local planning goal
+[INFO] [1765105999.207579201] [rrt_cpu]: RRT worker 0 found a path with 35 waypoints (tree size: 152)
+[INFO] [1765105999.207775939] [rrt_cpu]: RRT planning completed in 9.29 ms, found 35 waypoints
+[INFO] [1765105999.490836075] [rrt_cpu]: Selected global waypoint at (3.498, 17.939) as local planning goal
+[INFO] [1765105999.500817154] [rrt_cpu]: RRT worker 0 found a path with 34 waypoints (tree size: 138)
+[INFO] [1765105999.501384488] [rrt_cpu]: RRT planning completed in 7.82 ms, found 34 waypoints
+[INFO] [1765105999.567144247] [rrt_cpu]: Published 34 local waypoints
+[INFO] [1765105999.782286518] [rrt_cpu]: Selected global waypoint at (3.498, 17.939) as local planning goal
+[INFO] [1765105999.790045843] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 63)
+[INFO] [1765105999.792313870] [rrt_cpu]: RRT planning completed in 5.59 ms, found 31 waypoints
+[INFO] [1765106000.089962979] [rrt_cpu]: Selected global waypoint at (3.498, 17.939) as local planning goal
+[INFO] [1765106000.099252465] [rrt_cpu]: RRT worker 0 found a path with 27 waypoints (tree size: 55)
+[INFO] [1765106000.108339037] [rrt_cpu]: RRT planning completed in 18.16 ms, found 27 waypoints
+[INFO] [1765106000.383721577] [rrt_cpu]: Selected global waypoint at (3.498, 17.939) as local planning goal
+[INFO] [1765106000.387674392] [rrt_cpu]: RRT worker 0 found a path with 27 waypoints (tree size: 50)
+[INFO] [1765106000.388075933] [rrt_cpu]: RRT planning completed in 1.35 ms, found 27 waypoints
+[INFO] [1765106000.567109231] [rrt_cpu]: Published 27 local waypoints
+[INFO] [1765106000.684930153] [rrt_cpu]: Selected global waypoint at (4.443, 18.066) as local planning goal
+[INFO] [1765106000.690874032] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106000.691071442] [rrt_cpu]: RRT planning completed in 3.78 ms, found 0 waypoints
+[INFO] [1765106000.985758724] [rrt_cpu]: Selected global waypoint at (4.443, 18.066) as local planning goal
+[INFO] [1765106000.990082103] [rrt_cpu]: RRT worker 0 found a path with 26 waypoints (tree size: 37)
+[INFO] [1765106000.992260177] [rrt_cpu]: RRT planning completed in 3.07 ms, found 26 waypoints
+[INFO] [1765106001.290546958] [rrt_cpu]: Selected global waypoint at (4.443, 18.066) as local planning goal
+[INFO] [1765106001.303867596] [rrt_cpu]: RRT worker 0 found a path with 26 waypoints (tree size: 35)
+[INFO] [1765106001.304699862] [rrt_cpu]: RRT planning completed in 11.79 ms, found 26 waypoints
+[INFO] [1765106001.584741018] [rrt_cpu]: Selected global waypoint at (4.443, 18.066) as local planning goal
+[INFO] [1765106001.589205999] [rrt_cpu]: RRT worker 0 found a path with 25 waypoints (tree size: 32)
+[INFO] [1765106001.589408433] [rrt_cpu]: RRT planning completed in 0.88 ms, found 25 waypoints
+[INFO] [1765106001.592961980] [rrt_cpu]: Published 25 local waypoints
+[INFO] [1765106001.900756681] [rrt_cpu]: Selected global waypoint at (4.443, 18.066) as local planning goal
+[INFO] [1765106001.927006658] [rrt_cpu]: RRT worker 0 found a path with 25 waypoints (tree size: 35)
+[INFO] [1765106001.927214372] [rrt_cpu]: RRT planning completed in 26.27 ms, found 25 waypoints
+[INFO] [1765106002.192341110] [rrt_cpu]: Selected global waypoint at (5.431, 18.171) as local planning goal
+[INFO] [1765106002.203593948] [rrt_cpu]: RRT worker 0 found a path with 29 waypoints (tree size: 35)
+[INFO] [1765106002.203833791] [rrt_cpu]: RRT planning completed in 11.29 ms, found 29 waypoints
+[INFO] [1765106002.488343832] [rrt_cpu]: Selected global waypoint at (5.431, 18.171) as local planning goal
+[INFO] [1765106002.499078488] [rrt_cpu]: RRT worker 0 found a path with 28 waypoints (tree size: 30)
+[INFO] [1765106002.499372283] [rrt_cpu]: RRT planning completed in 5.97 ms, found 28 waypoints
+[INFO] [1765106002.568148141] [rrt_cpu]: Published 28 local waypoints
+[INFO] [1765106002.793548935] [rrt_cpu]: Selected global waypoint at (5.431, 18.171) as local planning goal
+[INFO] [1765106002.795452317] [rrt_cpu]: RRT worker 0 found a path with 25 waypoints (tree size: 31)
+[INFO] [1765106002.795690848] [rrt_cpu]: RRT planning completed in 1.79 ms, found 25 waypoints
+[INFO] [1765106003.108457609] [rrt_cpu]: Selected global waypoint at (6.397, 18.234) as local planning goal
+[INFO] [1765106003.113007711] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 49)
+[INFO] [1765106003.113192578] [rrt_cpu]: RRT planning completed in 2.01 ms, found 31 waypoints
+[INFO] [1765106003.392435132] [rrt_cpu]: Selected global waypoint at (6.565, 17.498) as local planning goal
+[INFO] [1765106003.399151212] [rrt_cpu]: RRT worker 0 found a path with 29 waypoints (tree size: 38)
+[INFO] [1765106003.403557632] [rrt_cpu]: RRT planning completed in 10.70 ms, found 29 waypoints
+[INFO] [1765106003.567173050] [rrt_cpu]: Published 29 local waypoints
+[INFO] [1765106003.688506302] [rrt_cpu]: Selected global waypoint at (6.733, 16.553) as local planning goal
+[INFO] [1765106003.703846804] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 41)
+[INFO] [1765106003.704095799] [rrt_cpu]: RRT planning completed in 13.51 ms, found 32 waypoints
+[INFO] [1765106003.988280268] [rrt_cpu]: Selected global waypoint at (6.733, 16.553) as local planning goal
+[INFO] [1765106003.994749593] [rrt_cpu]: RRT worker 0 found a path with 34 waypoints (tree size: 166)
+[INFO] [1765106003.994920091] [rrt_cpu]: RRT planning completed in 3.88 ms, found 34 waypoints
+[INFO] [1765106004.298054418] [rrt_cpu]: Selected global waypoint at (6.733, 16.553) as local planning goal
+[INFO] [1765106004.327411887] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106004.328085175] [rrt_cpu]: RRT planning completed in 17.24 ms, found 0 waypoints
+[INFO] [1765106004.583952859] [rrt_cpu]: Selected global waypoint at (6.922, 15.524) as local planning goal
+[INFO] [1765106004.596836052] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106004.598130340] [rrt_cpu]: RRT planning completed in 13.98 ms, found 0 waypoints
+[WARN] [1765106004.598257733] [rrt_cpu]: No local waypoints to publish
+[INFO] [1765106004.890038420] [rrt_cpu]: Selected global waypoint at (6.922, 15.524) as local planning goal
+[INFO] [1765106004.907153888] [rrt_cpu]: RRT worker 1 found a path with 32 waypoints (tree size: 85)
+[INFO] [1765106004.907348386] [rrt_cpu]: RRT planning completed in 17.08 ms, found 32 waypoints
+[INFO] [1765106005.198177094] [rrt_cpu]: Selected global waypoint at (6.922, 15.524) as local planning goal
+[INFO] [1765106005.215431924] [rrt_cpu]: RRT worker 0 found a path with 34 waypoints (tree size: 82)
+[INFO] [1765106005.215707287] [rrt_cpu]: RRT planning completed in 17.32 ms, found 34 waypoints
+[INFO] [1765106005.486737839] [rrt_cpu]: Selected global waypoint at (7.069, 14.579) as local planning goal
+[INFO] [1765106005.497935828] [rrt_cpu]: RRT worker 0 found a path with 36 waypoints (tree size: 69)
+[INFO] [1765106005.500654165] [rrt_cpu]: RRT planning completed in 10.20 ms, found 36 waypoints
+[INFO] [1765106005.567233869] [rrt_cpu]: Published 36 local waypoints
+[INFO] [1765106005.797995558] [rrt_cpu]: Selected global waypoint at (7.069, 14.579) as local planning goal
+[INFO] [1765106005.804977721] [rrt_cpu]: RRT worker 0 found a path with 35 waypoints (tree size: 53)
+[INFO] [1765106005.805209116] [rrt_cpu]: RRT planning completed in 7.03 ms, found 35 waypoints
+[INFO] [1765106006.088466662] [rrt_cpu]: Selected global waypoint at (7.069, 14.579) as local planning goal
+[INFO] [1765106006.093010972] [rrt_cpu]: RRT worker 0 found a path with 33 waypoints (tree size: 60)
+[INFO] [1765106006.093183102] [rrt_cpu]: RRT planning completed in 1.69 ms, found 33 waypoints
+[INFO] [1765106006.400661672] [rrt_cpu]: Selected global waypoint at (7.069, 14.579) as local planning goal
+[INFO] [1765106006.406920787] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 76)
+[INFO] [1765106006.408980779] [rrt_cpu]: RRT planning completed in 8.13 ms, found 32 waypoints
+[INFO] [1765106006.567218630] [rrt_cpu]: Published 32 local waypoints
+[INFO] [1765106006.686467728] [rrt_cpu]: Selected global waypoint at (7.069, 14.579) as local planning goal
+[INFO] [1765106006.688954318] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 73)
+[INFO] [1765106006.689223921] [rrt_cpu]: RRT planning completed in 2.35 ms, found 32 waypoints
+[INFO] [1765106006.984436617] [rrt_cpu]: Selected global waypoint at (7.153, 13.676) as local planning goal
+[INFO] [1765106006.989784169] [rrt_cpu]: RRT worker 0 found a path with 39 waypoints (tree size: 81)
+[INFO] [1765106006.989963211] [rrt_cpu]: RRT planning completed in 5.32 ms, found 39 waypoints
+[INFO] [1765106007.283512751] [rrt_cpu]: Selected global waypoint at (7.153, 13.676) as local planning goal
+[INFO] [1765106007.293038913] [rrt_cpu]: RRT worker 0 found a path with 35 waypoints (tree size: 93)
+[INFO] [1765106007.293260291] [rrt_cpu]: RRT planning completed in 9.53 ms, found 35 waypoints
+[INFO] [1765106007.588717982] [rrt_cpu]: Selected global waypoint at (7.153, 13.676) as local planning goal
+[INFO] [1765106007.596007189] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106007.596187383] [rrt_cpu]: RRT planning completed in 6.02 ms, found 0 waypoints
+[WARN] [1765106007.596298520] [rrt_cpu]: No local waypoints to publish
+[INFO] [1765106007.890314690] [rrt_cpu]: Selected global waypoint at (7.153, 13.676) as local planning goal
+[INFO] [1765106007.896265193] [rrt_cpu]: RRT worker 0 found a path with 29 waypoints (tree size: 54)
+[INFO] [1765106007.896452619] [rrt_cpu]: RRT planning completed in 3.75 ms, found 29 waypoints
+[INFO] [1765106008.217482454] [rrt_cpu]: Selected global waypoint at (7.153, 13.676) as local planning goal
+[INFO] [1765106008.223223035] [rrt_cpu]: RRT worker 0 found a path with 35 waypoints (tree size: 68)
+[INFO] [1765106008.223422717] [rrt_cpu]: RRT planning completed in 3.63 ms, found 35 waypoints
+[INFO] [1765106008.485785614] [rrt_cpu]: Selected global waypoint at (7.153, 13.676) as local planning goal
+[INFO] [1765106008.493491594] [rrt_cpu]: RRT worker 0 found a path with 29 waypoints (tree size: 37)
+[INFO] [1765106008.493698189] [rrt_cpu]: RRT planning completed in 7.59 ms, found 29 waypoints
+[INFO] [1765106008.567176855] [rrt_cpu]: Published 29 local waypoints
+[INFO] [1765106008.797101670] [rrt_cpu]: Selected global waypoint at (7.321, 12.688) as local planning goal
+[INFO] [1765106008.805748429] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 47)
+[INFO] [1765106008.805956175] [rrt_cpu]: RRT planning completed in 7.83 ms, found 31 waypoints
+[INFO] [1765106009.102440919] [rrt_cpu]: Selected global waypoint at (7.321, 12.688) as local planning goal
+[INFO] [1765106009.106515687] [rrt_cpu]: RRT worker 0 found a path with 29 waypoints (tree size: 46)
+[INFO] [1765106009.106826091] [rrt_cpu]: RRT planning completed in 4.12 ms, found 29 waypoints
+[INFO] [1765106009.401403995] [rrt_cpu]: Selected global waypoint at (7.321, 12.688) as local planning goal
+[INFO] [1765106009.417813055] [rrt_cpu]: RRT worker 0 found a path with 27 waypoints (tree size: 32)
+[INFO] [1765106009.420576704] [rrt_cpu]: RRT planning completed in 14.52 ms, found 27 waypoints
+[INFO] [1765106009.568100635] [rrt_cpu]: Published 27 local waypoints
+[INFO] [1765106009.701200842] [rrt_cpu]: Selected global waypoint at (7.321, 12.688) as local planning goal
+[INFO] [1765106009.704433809] [rrt_cpu]: RRT worker 0 found a path with 27 waypoints (tree size: 129)
+[INFO] [1765106009.704634963] [rrt_cpu]: RRT planning completed in 2.61 ms, found 27 waypoints
+[INFO] [1765106009.988505348] [rrt_cpu]: Selected global waypoint at (7.321, 12.688) as local planning goal
+[INFO] [1765106009.999934124] [rrt_cpu]: RRT worker 1 found a path with 24 waypoints (tree size: 31)
+[INFO] [1765106010.000172047] [rrt_cpu]: RRT planning completed in 8.36 ms, found 24 waypoints
+[INFO] [1765106010.296750679] [rrt_cpu]: Selected global waypoint at (7.468, 11.533) as local planning goal
+[INFO] [1765106010.305054618] [rrt_cpu]: RRT worker 0 found a path with 40 waypoints (tree size: 126)
+[INFO] [1765106010.305246716] [rrt_cpu]: RRT planning completed in 8.30 ms, found 40 waypoints
+[INFO] [1765106010.588929451] [rrt_cpu]: Selected global waypoint at (7.468, 11.533) as local planning goal
+[INFO] [1765106010.600848889] [rrt_cpu]: RRT worker 0 found a path with 28 waypoints (tree size: 35)
+[INFO] [1765106010.616624757] [rrt_cpu]: RRT planning completed in 23.65 ms, found 28 waypoints
+[INFO] [1765106010.630779805] [rrt_cpu]: Published 28 local waypoints
+[INFO] [1765106010.905036732] [rrt_cpu]: Selected global waypoint at (7.468, 11.533) as local planning goal
+[INFO] [1765106010.913915750] [rrt_cpu]: RRT worker 0 found a path with 26 waypoints (tree size: 39)
+[INFO] [1765106010.914156360] [rrt_cpu]: RRT planning completed in 8.86 ms, found 26 waypoints
+[INFO] [1765106011.188342566] [rrt_cpu]: Selected global waypoint at (7.468, 11.533) as local planning goal
+[INFO] [1765106011.195628797] [rrt_cpu]: RRT worker 0 found a path with 27 waypoints (tree size: 135)
+[INFO] [1765106011.195822239] [rrt_cpu]: RRT planning completed in 4.19 ms, found 27 waypoints
+[INFO] [1765106011.486294655] [rrt_cpu]: Selected global waypoint at (7.468, 11.533) as local planning goal
+[INFO] [1765106011.491202681] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 53)
+[INFO] [1765106011.491385916] [rrt_cpu]: RRT planning completed in 1.77 ms, found 31 waypoints
+[INFO] [1765106011.567217538] [rrt_cpu]: Published 31 local waypoints
+[INFO] [1765106011.790188030] [rrt_cpu]: Selected global waypoint at (7.468, 11.533) as local planning goal
+[INFO] [1765106011.797041936] [rrt_cpu]: RRT worker 0 found a path with 24 waypoints (tree size: 33)
+[INFO] [1765106011.797212594] [rrt_cpu]: RRT planning completed in 4.75 ms, found 24 waypoints
+[INFO] [1765106012.097247363] [rrt_cpu]: Selected global waypoint at (7.615, 10.252) as local planning goal
+[INFO] [1765106012.110649795] [rrt_cpu]: RRT worker 0 found a path with 30 waypoints (tree size: 105)
+[INFO] [1765106012.110859109] [rrt_cpu]: RRT planning completed in 13.35 ms, found 30 waypoints
+[INFO] [1765106012.396305513] [rrt_cpu]: Selected global waypoint at (7.615, 10.252) as local planning goal
+[INFO] [1765106012.414958375] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106012.415155114] [rrt_cpu]: RRT planning completed in 18.65 ms, found 0 waypoints
+[WARN] [1765106012.567017912] [rrt_cpu]: No local waypoints to publish
+[INFO] [1765106012.683734885] [rrt_cpu]: Selected global waypoint at (7.615, 10.252) as local planning goal
+[INFO] [1765106012.693554746] [rrt_cpu]: RRT worker 0 found a path with 26 waypoints (tree size: 42)
+[INFO] [1765106012.693714844] [rrt_cpu]: RRT planning completed in 9.78 ms, found 26 waypoints
+[INFO] [1765106012.994582871] [rrt_cpu]: Selected global waypoint at (7.615, 10.252) as local planning goal
+[INFO] [1765106012.999907830] [rrt_cpu]: RRT worker 0 found a path with 25 waypoints (tree size: 36)
+[INFO] [1765106013.000109145] [rrt_cpu]: RRT planning completed in 2.76 ms, found 25 waypoints
+[INFO] [1765106013.283851912] [rrt_cpu]: Selected global waypoint at (7.615, 10.252) as local planning goal
+[INFO] [1765106013.306437589] [rrt_cpu]: RRT worker 0 found a path with 23 waypoints (tree size: 37)
+[INFO] [1765106013.306695736] [rrt_cpu]: RRT planning completed in 16.26 ms, found 23 waypoints
+[INFO] [1765106013.591443732] [rrt_cpu]: Selected global waypoint at (7.783, 9.034) as local planning goal
+[INFO] [1765106013.610564311] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106013.610873339] [rrt_cpu]: RRT planning completed in 19.09 ms, found 0 waypoints
+[WARN] [1765106013.611010972] [rrt_cpu]: No local waypoints to publish
+[INFO] [1765106013.900297806] [rrt_cpu]: Selected global waypoint at (7.783, 9.034) as local planning goal
+[INFO] [1765106013.911042702] [rrt_cpu]: RRT worker 0 found a path with 33 waypoints (tree size: 172)
+[INFO] [1765106013.911260240] [rrt_cpu]: RRT planning completed in 10.20 ms, found 33 waypoints
+[INFO] [1765106014.187788298] [rrt_cpu]: Selected global waypoint at (7.783, 9.034) as local planning goal
+[INFO] [1765106014.205657279] [rrt_cpu]: RRT worker 0 found a path with 30 waypoints (tree size: 126)
+[INFO] [1765106014.205896450] [rrt_cpu]: RRT planning completed in 17.92 ms, found 30 waypoints
+[INFO] [1765106014.491744810] [rrt_cpu]: Selected global waypoint at (7.783, 9.034) as local planning goal
+[INFO] [1765106014.495544856] [rrt_cpu]: RRT worker 0 found a path with 27 waypoints (tree size: 38)
+[INFO] [1765106014.495733018] [rrt_cpu]: RRT planning completed in 1.65 ms, found 27 waypoints
+[INFO] [1765106014.567253101] [rrt_cpu]: Published 27 local waypoints
+[INFO] [1765106014.804770902] [rrt_cpu]: Selected global waypoint at (7.783, 9.034) as local planning goal
+[INFO] [1765106014.807320821] [rrt_cpu]: RRT worker 0 found a path with 23 waypoints (tree size: 26)
+[INFO] [1765106014.810140822] [rrt_cpu]: RRT planning completed in 5.16 ms, found 23 waypoints
+[INFO] [1765106015.091087333] [rrt_cpu]: Selected global waypoint at (7.909, 7.878) as local planning goal
+[INFO] [1765106015.092251859] [rrt_cpu]: RRT worker 0 found a path with 30 waypoints (tree size: 44)
+[INFO] [1765106015.092403796] [rrt_cpu]: RRT planning completed in 1.08 ms, found 30 waypoints
+[INFO] [1765106015.385068430] [rrt_cpu]: Selected global waypoint at (7.909, 7.878) as local planning goal
+[INFO] [1765106015.387956145] [rrt_cpu]: RRT worker 0 found a path with 29 waypoints (tree size: 38)
+[INFO] [1765106015.388133075] [rrt_cpu]: RRT planning completed in 2.85 ms, found 29 waypoints
+[INFO] [1765106015.568607158] [rrt_cpu]: Published 29 local waypoints
+[INFO] [1765106015.717006203] [rrt_cpu]: Selected global waypoint at (7.909, 7.878) as local planning goal
+[INFO] [1765106015.728187904] [rrt_cpu]: RRT worker 0 found a path with 26 waypoints (tree size: 33)
+[INFO] [1765106015.728441699] [rrt_cpu]: RRT planning completed in 11.22 ms, found 26 waypoints
+[INFO] [1765106015.987941554] [rrt_cpu]: Selected global waypoint at (8.266, 7.290) as local planning goal
+[INFO] [1765106015.998098315] [rrt_cpu]: RRT worker 0 found a path with 28 waypoints (tree size: 74)
+[INFO] [1765106015.998345166] [rrt_cpu]: RRT planning completed in 7.61 ms, found 28 waypoints
+[INFO] [1765106016.282690949] [rrt_cpu]: Selected global waypoint at (8.833, 6.807) as local planning goal
+[INFO] [1765106016.303835457] [rrt_cpu]: RRT worker 0 found a path with 36 waypoints (tree size: 97)
+[INFO] [1765106016.304050147] [rrt_cpu]: RRT planning completed in 20.85 ms, found 36 waypoints
+[INFO] [1765106016.590515347] [rrt_cpu]: Selected global waypoint at (8.833, 6.807) as local planning goal
+[INFO] [1765106016.597432453] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 36)
+[INFO] [1765106016.597675208] [rrt_cpu]: RRT planning completed in 3.59 ms, found 31 waypoints
+[INFO] [1765106016.597977804] [rrt_cpu]: Published 31 local waypoints
+[INFO] [1765106016.882756328] [rrt_cpu]: Selected global waypoint at (9.779, 6.912) as local planning goal
+[INFO] [1765106016.887699587] [rrt_cpu]: RRT worker 0 found a path with 39 waypoints (tree size: 60)
+[INFO] [1765106016.889860700] [rrt_cpu]: RRT planning completed in 5.61 ms, found 39 waypoints
+[INFO] [1765106017.183676484] [rrt_cpu]: Selected global waypoint at (10.577, 6.870) as local planning goal
+[INFO] [1765106017.191701379] [rrt_cpu]: RRT worker 0 found a path with 43 waypoints (tree size: 289)
+[INFO] [1765106017.191954822] [rrt_cpu]: RRT planning completed in 5.56 ms, found 43 waypoints
+[INFO] [1765106017.486358933] [rrt_cpu]: Selected global waypoint at (10.577, 6.870) as local planning goal
+[INFO] [1765106017.490573255] [rrt_cpu]: RRT worker 0 found a path with 40 waypoints (tree size: 135)
+[INFO] [1765106017.490843882] [rrt_cpu]: RRT planning completed in 2.22 ms, found 40 waypoints
+[INFO] [1765106017.567367737] [rrt_cpu]: Published 40 local waypoints
+[INFO] [1765106017.795831127] [rrt_cpu]: Selected global waypoint at (10.577, 6.870) as local planning goal
+[INFO] [1765106017.817409335] [rrt_cpu]: RRT worker 0 found a path with 38 waypoints (tree size: 68)
+[INFO] [1765106017.817606810] [rrt_cpu]: RRT planning completed in 19.24 ms, found 38 waypoints
+[INFO] [1765106018.085643630] [rrt_cpu]: Selected global waypoint at (10.577, 6.870) as local planning goal
+[INFO] [1765106018.093461643] [rrt_cpu]: RRT worker 0 found a path with 37 waypoints (tree size: 58)
+[INFO] [1765106018.093799664] [rrt_cpu]: RRT planning completed in 2.76 ms, found 37 waypoints
+[INFO] [1765106018.383119778] [rrt_cpu]: Selected global waypoint at (11.123, 6.219) as local planning goal
+[INFO] [1765106018.392457265] [rrt_cpu]: RRT worker 0 found a path with 40 waypoints (tree size: 264)
+[INFO] [1765106018.392651539] [rrt_cpu]: RRT planning completed in 7.01 ms, found 40 waypoints
+[INFO] [1765106018.567409010] [rrt_cpu]: Published 40 local waypoints
+[INFO] [1765106018.684255232] [rrt_cpu]: Selected global waypoint at (11.123, 6.219) as local planning goal
+[INFO] [1765106018.694089269] [rrt_cpu]: RRT worker 0 found a path with 40 waypoints (tree size: 194)
+[INFO] [1765106018.694298584] [rrt_cpu]: RRT planning completed in 9.80 ms, found 40 waypoints
+[INFO] [1765106019.000207407] [rrt_cpu]: Selected global waypoint at (11.123, 6.219) as local planning goal
+[INFO] [1765106019.006691036] [rrt_cpu]: RRT worker 0 found a path with 45 waypoints (tree size: 292)
+[INFO] [1765106019.006887358] [rrt_cpu]: RRT planning completed in 3.13 ms, found 45 waypoints
+[INFO] [1765106019.304755766] [rrt_cpu]: Selected global waypoint at (11.123, 6.219) as local planning goal
+[INFO] [1765106019.320274159] [rrt_cpu]: RRT worker 0 found a path with 41 waypoints (tree size: 410)
+[INFO] [1765106019.320541458] [rrt_cpu]: RRT planning completed in 9.00 ms, found 41 waypoints
+[INFO] [1765106019.598082616] [rrt_cpu]: Selected global waypoint at (11.123, 6.219) as local planning goal
+[INFO] [1765106019.604419491] [rrt_cpu]: RRT worker 0 found a path with 42 waypoints (tree size: 156)
+[INFO] [1765106019.604610437] [rrt_cpu]: RRT planning completed in 4.28 ms, found 42 waypoints
+[INFO] [1765106019.604979338] [rrt_cpu]: Published 42 local waypoints
+[INFO] [1765106019.902540638] [rrt_cpu]: Selected global waypoint at (11.375, 5.148) as local planning goal
+[INFO] [1765106019.916739559] [rrt_cpu]: RRT worker 0 found a path with 37 waypoints (tree size: 308)
+[INFO] [1765106019.916935465] [rrt_cpu]: RRT planning completed in 14.03 ms, found 37 waypoints
+[INFO] [1765106020.224742071] [rrt_cpu]: Selected global waypoint at (11.375, 5.148) as local planning goal
+[INFO] [1765106020.259425652] [rrt_cpu]: RRT worker 1 found a path with 38 waypoints (tree size: 293)
+[INFO] [1765106020.261977202] [rrt_cpu]: RRT planning completed in 32.43 ms, found 38 waypoints
+[INFO] [1765106020.493052015] [rrt_cpu]: Selected global waypoint at (11.375, 5.148) as local planning goal
+[INFO] [1765106020.520177874] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 167)
+[INFO] [1765106020.520376564] [rrt_cpu]: RRT planning completed in 27.11 ms, found 31 waypoints
+[INFO] [1765106020.568567793] [rrt_cpu]: Published 31 local waypoints
+[INFO] [1765106020.812950221] [rrt_cpu]: Selected global waypoint at (11.375, 5.148) as local planning goal
+[INFO] [1765106020.826347116] [rrt_cpu]: RRT worker 0 found a path with 29 waypoints (tree size: 88)
+[INFO] [1765106020.826545199] [rrt_cpu]: RRT planning completed in 13.38 ms, found 29 waypoints
+[INFO] [1765106021.089187107] [rrt_cpu]: Selected global waypoint at (11.375, 5.148) as local planning goal
+[INFO] [1765106021.123817087] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 360)
+[INFO] [1765106021.126120795] [rrt_cpu]: RRT planning completed in 33.51 ms, found 32 waypoints
+[INFO] [1765106021.394698134] [rrt_cpu]: Selected global waypoint at (11.480, 3.972) as local planning goal
+[INFO] [1765106021.399603216] [rrt_cpu]: RRT worker 0 found a path with 33 waypoints (tree size: 92)
+[INFO] [1765106021.399807027] [rrt_cpu]: RRT planning completed in 2.44 ms, found 33 waypoints
+[INFO] [1765106021.567868770] [rrt_cpu]: Published 33 local waypoints
+[INFO] [1765106021.694156928] [rrt_cpu]: Selected global waypoint at (11.480, 3.972) as local planning goal
+[INFO] [1765106021.698384115] [rrt_cpu]: RRT worker 0 found a path with 34 waypoints (tree size: 284)
+[INFO] [1765106021.698676406] [rrt_cpu]: RRT planning completed in 3.40 ms, found 34 waypoints
+[INFO] [1765106022.001843757] [rrt_cpu]: Selected global waypoint at (11.480, 3.972) as local planning goal
+[INFO] [1765106022.029294964] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106022.029502870] [rrt_cpu]: RRT planning completed in 23.31 ms, found 0 waypoints
+[INFO] [1765106022.291817351] [rrt_cpu]: Selected global waypoint at (9.421, 2.312) as local planning goal
+[INFO] [1765106022.300599279] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106022.306377332] [rrt_cpu]: RRT planning completed in 14.38 ms, found 0 waypoints
+[INFO] [1765106022.592075707] [rrt_cpu]: Selected global waypoint at (9.421, 2.312) as local planning goal
+[INFO] [1765106022.605570139] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106022.605778718] [rrt_cpu]: RRT planning completed in 13.42 ms, found 0 waypoints
+[WARN] [1765106022.605900895] [rrt_cpu]: No local waypoints to publish
+[INFO] [1765106022.891556742] [rrt_cpu]: Selected global waypoint at (9.421, 2.312) as local planning goal
+[INFO] [1765106022.910978157] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106022.915074205] [rrt_cpu]: RRT planning completed in 23.30 ms, found 0 waypoints
+[INFO] [1765106023.184672933] [rrt_cpu]: Selected global waypoint at (9.421, 2.312) as local planning goal
+[INFO] [1765106023.191521302] [rrt_cpu]: RRT worker 0 found a path with 40 waypoints (tree size: 150)
+[INFO] [1765106023.192675172] [rrt_cpu]: RRT planning completed in 5.60 ms, found 40 waypoints
+[INFO] [1765106023.487034450] [rrt_cpu]: Selected global waypoint at (8.665, 2.039) as local planning goal
+[INFO] [1765106023.503562103] [rrt_cpu]: RRT worker 0 found a path with 42 waypoints (tree size: 607)
+[INFO] [1765106023.503802874] [rrt_cpu]: RRT planning completed in 13.87 ms, found 42 waypoints
+[INFO] [1765106023.567553488] [rrt_cpu]: Published 42 local waypoints
+[INFO] [1765106023.792214337] [rrt_cpu]: Selected global waypoint at (8.665, 2.039) as local planning goal
+[INFO] [1765106023.806999921] [rrt_cpu]: RRT worker 0 found a path with 37 waypoints (tree size: 126)
+[INFO] [1765106023.807197075] [rrt_cpu]: RRT planning completed in 14.78 ms, found 37 waypoints
+[INFO] [1765106024.090398140] [rrt_cpu]: Selected global waypoint at (8.665, 2.039) as local planning goal
+[INFO] [1765106024.114121398] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106024.114342489] [rrt_cpu]: RRT planning completed in 19.23 ms, found 0 waypoints
+[INFO] [1765106024.401237934] [rrt_cpu]: Selected global waypoint at (8.056, 1.682) as local planning goal
+[INFO] [1765106024.408086560] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106024.408285730] [rrt_cpu]: RRT planning completed in 3.85 ms, found 0 waypoints
+[WARN] [1765106024.567592873] [rrt_cpu]: No local waypoints to publish
+[INFO] [1765106024.690869380] [rrt_cpu]: Selected global waypoint at (8.056, 1.682) as local planning goal
+[INFO] [1765106024.714724512] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106024.715230150] [rrt_cpu]: RRT planning completed in 24.16 ms, found 0 waypoints
+[INFO] [1765106024.990663090] [rrt_cpu]: Selected global waypoint at (8.056, 1.682) as local planning goal
+[INFO] [1765106025.010829922] [rrt_cpu]: RRT worker 0 found a path with 37 waypoints (tree size: 349)
+[INFO] [1765106025.011053957] [rrt_cpu]: RRT planning completed in 15.51 ms, found 37 waypoints
+[INFO] [1765106025.305829688] [rrt_cpu]: Selected global waypoint at (8.056, 1.682) as local planning goal
+[INFO] [1765106025.323191430] [rrt_cpu]: RRT worker 0 found a path with 40 waypoints (tree size: 383)
+[INFO] [1765106025.323384105] [rrt_cpu]: RRT planning completed in 17.32 ms, found 40 waypoints
+[INFO] [1765106025.584713134] [rrt_cpu]: Selected global waypoint at (8.056, 1.682) as local planning goal
+[INFO] [1765106025.604229270] [rrt_cpu]: RRT worker 1 found a path with 43 waypoints (tree size: 190)
+[INFO] [1765106025.604471961] [rrt_cpu]: RRT planning completed in 15.33 ms, found 43 waypoints
+[INFO] [1765106025.604855677] [rrt_cpu]: Published 43 local waypoints
+[INFO] [1765106025.890020126] [rrt_cpu]: Selected global waypoint at (8.056, 1.682) as local planning goal
+[INFO] [1765106025.934496751] [rrt_cpu]: RRT worker 0 found a path with 80 waypoints (tree size: 336)
+[INFO] [1765106025.938802338] [rrt_cpu]: RRT planning completed in 44.42 ms, found 80 waypoints
+[INFO] [1765106026.188075448] [rrt_cpu]: Selected global waypoint at (8.056, 1.682) as local planning goal
+[INFO] [1765106026.223663071] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106026.223893954] [rrt_cpu]: RRT planning completed in 33.65 ms, found 0 waypoints
+[INFO] [1765106026.483229967] [rrt_cpu]: Selected global waypoint at (8.056, 1.682) as local planning goal
+[INFO] [1765106026.511164028] [rrt_cpu]: RRT worker 0 found a path with 78 waypoints (tree size: 535)
+[INFO] [1765106026.511370910] [rrt_cpu]: RRT planning completed in 21.05 ms, found 78 waypoints
+[INFO] [1765106026.567674236] [rrt_cpu]: Published 78 local waypoints
+[INFO] [1765106026.787896952] [rrt_cpu]: Selected global waypoint at (7.447, 1.283) as local planning goal
+[INFO] [1765106026.807764452] [rrt_cpu]: RRT worker 0 found a path with 81 waypoints (tree size: 263)
+[INFO] [1765106026.807965415] [rrt_cpu]: RRT planning completed in 19.75 ms, found 81 waypoints
+[INFO] [1765106027.090486760] [rrt_cpu]: Selected global waypoint at (7.447, 1.283) as local planning goal
+[INFO] [1765106027.101676205] [rrt_cpu]: RRT worker 0 found a path with 74 waypoints (tree size: 615)
+[INFO] [1765106027.101884111] [rrt_cpu]: RRT planning completed in 11.13 ms, found 74 waypoints
+[INFO] [1765106027.397537517] [rrt_cpu]: Selected global waypoint at (7.447, 1.283) as local planning goal
+[INFO] [1765106027.414645880] [rrt_cpu]: RRT worker 0 found a path with 62 waypoints (tree size: 145)
+[INFO] [1765106027.419903255] [rrt_cpu]: RRT planning completed in 17.83 ms, found 62 waypoints
+[INFO] [1765106027.567722901] [rrt_cpu]: Published 62 local waypoints
+[INFO] [1765106027.698915374] [rrt_cpu]: Selected global waypoint at (6.817, 0.863) as local planning goal
+[INFO] [1765106027.767783489] [rrt_cpu]: RRT worker 0 found a path with 83 waypoints (tree size: 916)
+[INFO] [1765106027.767996100] [rrt_cpu]: RRT planning completed in 66.71 ms, found 83 waypoints
+[INFO] [1765106027.987874044] [rrt_cpu]: Selected global waypoint at (6.817, 0.863) as local planning goal
+[INFO] [1765106028.034230371] [rrt_cpu]: RRT worker 0 found a path with 66 waypoints (tree size: 422)
+[INFO] [1765106028.034472934] [rrt_cpu]: RRT planning completed in 46.37 ms, found 66 waypoints
+[INFO] [1765106028.294302841] [rrt_cpu]: Selected global waypoint at (6.817, 0.863) as local planning goal
+[INFO] [1765106028.298797167] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106028.299004945] [rrt_cpu]: RRT planning completed in 4.47 ms, found 0 waypoints
+[INFO] [1765106028.586284779] [rrt_cpu]: Selected global waypoint at (6.817, 0.863) as local planning goal
+[INFO] [1765106028.597112140] [rrt_cpu]: RRT worker 0 found a path with 74 waypoints (tree size: 168)
+[INFO] [1765106028.597319182] [rrt_cpu]: RRT planning completed in 10.83 ms, found 74 waypoints
+[INFO] [1765106028.597824084] [rrt_cpu]: Published 74 local waypoints
+[INFO] [1765106028.883455770] [rrt_cpu]: Selected global waypoint at (6.817, 0.863) as local planning goal
+[INFO] [1765106028.949108679] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106028.949306858] [rrt_cpu]: RRT planning completed in 65.64 ms, found 0 waypoints
+[INFO] [1765106029.188072930] [rrt_cpu]: Selected global waypoint at (6.817, 0.863) as local planning goal
+[INFO] [1765106029.278307764] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106029.278511798] [rrt_cpu]: RRT planning completed in 90.21 ms, found 0 waypoints
+[INFO] [1765106029.484452808] [rrt_cpu]: Selected global waypoint at (6.817, 0.863) as local planning goal
+[INFO] [1765106029.528492692] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106029.528691223] [rrt_cpu]: RRT planning completed in 41.84 ms, found 0 waypoints
+[WARN] [1765106029.567276130] [rrt_cpu]: No local waypoints to publish
+[INFO] [1765106029.783544271] [rrt_cpu]: Selected global waypoint at (6.817, 0.863) as local planning goal
+[INFO] [1765106029.846154519] [rrt_cpu]: RRT worker 1 found a path with 78 waypoints (tree size: 940)
+[INFO] [1765106029.846373882] [rrt_cpu]: RRT planning completed in 59.30 ms, found 78 waypoints
+[INFO] [1765106030.085605144] [rrt_cpu]: Selected global waypoint at (5.998, 0.632) as local planning goal
+[INFO] [1765106030.168172558] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106030.168433554] [rrt_cpu]: RRT planning completed in 82.61 ms, found 0 waypoints
+[WARN] [1765106030.397473526] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106030.567361212] [rrt_cpu]: No local waypoints to publish
+[WARN] [1765106030.690299058] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106031.000099512] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106031.305555306] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106031.584784708] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106031.589524348] [rrt_cpu]: No local waypoints to publish
+[WARN] [1765106031.897686926] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106032.183446102] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106032.495514103] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106032.568591868] [rrt_cpu]: No local waypoints to publish
+[WARN] [1765106032.785097260] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106033.108354417] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106033.382165643] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106033.567261477] [rrt_cpu]: No local waypoints to publish
+[WARN] [1765106033.699314472] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106033.988188533] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106034.305622709] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106034.622233100] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106034.626471390] [rrt_cpu]: No local waypoints to publish
+[WARN] [1765106034.916442360] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106035.207936164] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106035.496422252] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106035.567596891] [rrt_cpu]: No local waypoints to publish
+[INFO] [1765106035.787057261] [rrt_cpu]: Selected global waypoint at (6.817, 0.863) as local planning goal
+[INFO] [1765106035.898431226] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106035.898698878] [rrt_cpu]: RRT planning completed in 105.31 ms, found 0 waypoints
+[WARN] [1765106036.098419654] [rrt_cpu]: No valid global waypoint found within range
+[INFO] [1765106036.406208659] [rrt_cpu]: Selected global waypoint at (6.817, 0.863) as local planning goal
+[INFO] [1765106036.436850592] [rrt_cpu]: RRT worker 0 found a path with 36 waypoints (tree size: 364)
+[INFO] [1765106036.437061026] [rrt_cpu]: RRT planning completed in 30.40 ms, found 36 waypoints
+[INFO] [1765106036.567661140] [rrt_cpu]: Published 36 local waypoints
+[INFO] [1765106036.698099876] [rrt_cpu]: Selected global waypoint at (6.817, 0.863) as local planning goal
+[INFO] [1765106036.708252285] [rrt_cpu]: RRT worker 0 found a path with 38 waypoints (tree size: 257)
+[INFO] [1765106036.708466239] [rrt_cpu]: RRT planning completed in 9.92 ms, found 38 waypoints
+[INFO] [1765106037.003481461] [rrt_cpu]: Selected global waypoint at (6.817, 0.863) as local planning goal
+[INFO] [1765106037.023761702] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106037.027831191] [rrt_cpu]: RRT planning completed in 24.13 ms, found 0 waypoints
+[INFO] [1765106037.287682186] [rrt_cpu]: Selected global waypoint at (5.998, 0.632) as local planning goal
+[INFO] [1765106037.292680742] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106037.292984297] [rrt_cpu]: RRT planning completed in 5.10 ms, found 0 waypoints
+[INFO] [1765106037.590900258] [rrt_cpu]: Selected global waypoint at (5.998, 0.632) as local planning goal
+[INFO] [1765106037.597540561] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106037.597721491] [rrt_cpu]: RRT planning completed in 5.86 ms, found 0 waypoints
+[WARN] [1765106037.597827540] [rrt_cpu]: No local waypoints to publish
+[INFO] [1765106037.884948428] [rrt_cpu]: Selected global waypoint at (5.998, 0.632) as local planning goal
+[INFO] [1765106037.890646256] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106037.890902867] [rrt_cpu]: RRT planning completed in 5.74 ms, found 0 waypoints
+[INFO] [1765106038.203434809] [rrt_cpu]: Selected global waypoint at (5.998, 0.632) as local planning goal
+[INFO] [1765106038.246152117] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106038.246361015] [rrt_cpu]: RRT planning completed in 26.14 ms, found 0 waypoints
+[INFO] [1765106038.495736142] [rrt_cpu]: Selected global waypoint at (5.998, 0.632) as local planning goal
+[INFO] [1765106038.505599428] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106038.505811910] [rrt_cpu]: RRT planning completed in 5.86 ms, found 0 waypoints
+[WARN] [1765106038.567335906] [rrt_cpu]: No local waypoints to publish
+[INFO] [1765106038.790486433] [rrt_cpu]: Selected global waypoint at (5.998, 0.632) as local planning goal
+[INFO] [1765106038.810346701] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106038.815067717] [rrt_cpu]: RRT planning completed in 24.20 ms, found 0 waypoints
+[INFO] [1765106039.102789380] [rrt_cpu]: Selected global waypoint at (5.998, 0.632) as local planning goal
+[INFO] [1765106039.129753829] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106039.129962760] [rrt_cpu]: RRT planning completed in 24.86 ms, found 0 waypoints
+[INFO] [1765106039.418164876] [rrt_cpu]: Selected global waypoint at (5.998, 0.632) as local planning goal
+[INFO] [1765106039.439367272] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106039.450992499] [rrt_cpu]: RRT planning completed in 29.36 ms, found 0 waypoints
+[WARN] [1765106039.567325499] [rrt_cpu]: No local waypoints to publish
+[INFO] [1765106039.688807904] [rrt_cpu]: Selected global waypoint at (5.998, 0.632) as local planning goal
+[INFO] [1765106039.697159651] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106039.697415206] [rrt_cpu]: RRT planning completed in 8.37 ms, found 0 waypoints
+[INFO] [1765106039.996612398] [rrt_cpu]: Selected global waypoint at (5.998, 0.632) as local planning goal
+[INFO] [1765106040.000323802] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106040.000518492] [rrt_cpu]: RRT planning completed in 3.66 ms, found 0 waypoints
+[INFO] [1765106040.293957727] [rrt_cpu]: Selected global waypoint at (5.998, 0.632) as local planning goal
+[INFO] [1765106040.303746676] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106040.303932086] [rrt_cpu]: RRT planning completed in 9.77 ms, found 0 waypoints
+[INFO] [1765106040.582960334] [rrt_cpu]: Selected global waypoint at (5.998, 0.632) as local planning goal
+[INFO] [1765106040.593812847] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106040.594063250] [rrt_cpu]: RRT planning completed in 4.87 ms, found 0 waypoints
+[WARN] [1765106040.594703321] [rrt_cpu]: No local waypoints to publish
+[INFO] [1765106040.903117550] [rrt_cpu]: Selected global waypoint at (5.998, 0.632) as local planning goal
+[INFO] [1765106040.911024525] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106040.911230991] [rrt_cpu]: RRT planning completed in 4.35 ms, found 0 waypoints
+[INFO] [1765106041.190149061] [rrt_cpu]: Selected global waypoint at (6.817, 0.863) as local planning goal
+[INFO] [1765106041.207509812] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 48)
+[INFO] [1765106041.207718678] [rrt_cpu]: RRT planning completed in 17.21 ms, found 31 waypoints
+[INFO] [1765106041.513304970] [rrt_cpu]: Selected global waypoint at (6.817, 0.863) as local planning goal
+[INFO] [1765106041.543752564] [rrt_cpu]: RRT worker 0 found a path with 39 waypoints (tree size: 384)
+[INFO] [1765106041.544562558] [rrt_cpu]: RRT planning completed in 27.47 ms, found 39 waypoints
+[INFO] [1765106041.568231927] [rrt_cpu]: Published 39 local waypoints
+[INFO] [1765106041.824486976] [rrt_cpu]: Selected global waypoint at (7.447, 1.283) as local planning goal
+[INFO] [1765106041.840860803] [rrt_cpu]: RRT worker 0 found a path with 47 waypoints (tree size: 321)
+[INFO] [1765106041.841965392] [rrt_cpu]: RRT planning completed in 13.42 ms, found 47 waypoints
+[INFO] [1765106042.091903693] [rrt_cpu]: Selected global waypoint at (7.447, 1.283) as local planning goal
+[INFO] [1765106042.106280056] [rrt_cpu]: RRT worker 0 found a path with 39 waypoints (tree size: 62)
+[INFO] [1765106042.106651133] [rrt_cpu]: RRT planning completed in 14.52 ms, found 39 waypoints
+[INFO] [1765106042.419553895] [rrt_cpu]: Selected global waypoint at (7.447, 1.283) as local planning goal
+[INFO] [1765106042.462878859] [rrt_cpu]: RRT worker 0 found a path with 39 waypoints (tree size: 245)
+[INFO] [1765106042.466786905] [rrt_cpu]: RRT planning completed in 37.27 ms, found 39 waypoints
+[INFO] [1765106042.571252532] [rrt_cpu]: Published 39 local waypoints
+[INFO] [1765106042.712641638] [rrt_cpu]: Selected global waypoint at (7.447, 1.283) as local planning goal
+[INFO] [1765106042.781345431] [rrt_cpu]: RRT worker 0 found a path with 40 waypoints (tree size: 1256)
+[INFO] [1765106042.781575642] [rrt_cpu]: RRT planning completed in 66.65 ms, found 40 waypoints
+[INFO] [1765106042.987636846] [rrt_cpu]: Selected global waypoint at (7.447, 1.283) as local planning goal
+[INFO] [1765106043.089562410] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106043.089769197] [rrt_cpu]: RRT planning completed in 96.90 ms, found 0 waypoints
+[INFO] [1765106043.306916004] [rrt_cpu]: Selected global waypoint at (6.817, 0.863) as local planning goal
+[INFO] [1765106043.344415970] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 417)
+[INFO] [1765106043.344642373] [rrt_cpu]: RRT planning completed in 21.88 ms, found 32 waypoints
+[INFO] [1765106043.594306239] [rrt_cpu]: Selected global waypoint at (6.817, 0.863) as local planning goal
+[INFO] [1765106043.608441959] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106043.608644650] [rrt_cpu]: RRT planning completed in 10.26 ms, found 0 waypoints
+[WARN] [1765106043.608792203] [rrt_cpu]: No local waypoints to publish
+[INFO] [1765106043.895353661] [rrt_cpu]: Selected global waypoint at (6.817, 0.863) as local planning goal
+[INFO] [1765106043.905315187] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106043.905512214] [rrt_cpu]: RRT planning completed in 6.70 ms, found 0 waypoints
+[INFO] [1765106044.205581415] [rrt_cpu]: Selected global waypoint at (5.998, 0.632) as local planning goal
+[INFO] [1765106044.217920410] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106044.218100828] [rrt_cpu]: RRT planning completed in 12.32 ms, found 0 waypoints
+[INFO] [1765106044.494572501] [rrt_cpu]: Selected global waypoint at (5.998, 0.632) as local planning goal
+[INFO] [1765106044.518841686] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106044.519052249] [rrt_cpu]: RRT planning completed in 17.66 ms, found 0 waypoints
+[WARN] [1765106044.567848285] [rrt_cpu]: No local waypoints to publish
+[INFO] [1765106044.789484682] [rrt_cpu]: Selected global waypoint at (5.242, 0.506) as local planning goal
+[INFO] [1765106044.809332950] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 63)
+[INFO] [1765106044.809543353] [rrt_cpu]: RRT planning completed in 17.14 ms, found 32 waypoints
+[INFO] [1765106045.123757843] [rrt_cpu]: Selected global waypoint at (5.242, 0.506) as local planning goal
+[INFO] [1765106045.146161853] [rrt_cpu]: RRT worker 0 found a path with 33 waypoints (tree size: 183)
+[INFO] [1765106045.146398912] [rrt_cpu]: RRT planning completed in 22.39 ms, found 33 waypoints
+[INFO] [1765106045.383712199] [rrt_cpu]: Selected global waypoint at (5.242, 0.506) as local planning goal
+[INFO] [1765106045.387335859] [rrt_cpu]: RRT worker 0 found a path with 27 waypoints (tree size: 60)
+[INFO] [1765106045.387487924] [rrt_cpu]: RRT planning completed in 1.27 ms, found 27 waypoints
+[INFO] [1765106045.568186202] [rrt_cpu]: Published 27 local waypoints
+[INFO] [1765106045.693856433] [rrt_cpu]: Selected global waypoint at (4.464, 0.380) as local planning goal
+[INFO] [1765106045.739624882] [rrt_cpu]: RRT worker 0 found a path with 30 waypoints (tree size: 459)
+[INFO] [1765106045.739828852] [rrt_cpu]: RRT planning completed in 43.67 ms, found 30 waypoints
+[INFO] [1765106045.988738405] [rrt_cpu]: Selected global waypoint at (4.464, 0.380) as local planning goal
+[INFO] [1765106046.000192366] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 59)
+[INFO] [1765106046.000397840] [rrt_cpu]: RRT planning completed in 9.54 ms, found 32 waypoints
+[INFO] [1765106046.292517475] [rrt_cpu]: Selected global waypoint at (4.464, 0.380) as local planning goal
+[INFO] [1765106046.294174775] [rrt_cpu]: RRT worker 0 found a path with 30 waypoints (tree size: 135)
+[INFO] [1765106046.294358937] [rrt_cpu]: RRT planning completed in 1.62 ms, found 30 waypoints
+[INFO] [1765106046.596275105] [rrt_cpu]: Selected global waypoint at (4.464, 0.380) as local planning goal
+[INFO] [1765106046.612023580] [rrt_cpu]: RRT worker 0 found a path with 26 waypoints (tree size: 58)
+[INFO] [1765106046.612268863] [rrt_cpu]: RRT planning completed in 15.78 ms, found 26 waypoints
+[INFO] [1765106046.618303911] [rrt_cpu]: Published 26 local waypoints
+[INFO] [1765106046.894348923] [rrt_cpu]: Selected global waypoint at (3.582, 0.275) as local planning goal
+[INFO] [1765106046.911203972] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 64)
+[INFO] [1765106046.911422982] [rrt_cpu]: RRT planning completed in 10.35 ms, found 31 waypoints
+[INFO] [1765106047.181708310] [rrt_cpu]: Selected global waypoint at (3.582, 0.275) as local planning goal
+[INFO] [1765106047.189743029] [rrt_cpu]: RRT worker 0 found a path with 33 waypoints (tree size: 78)
+[INFO] [1765106047.189957656] [rrt_cpu]: RRT planning completed in 5.53 ms, found 33 waypoints
+[INFO] [1765106047.494917540] [rrt_cpu]: Selected global waypoint at (3.582, 0.275) as local planning goal
+[INFO] [1765106047.520492980] [rrt_cpu]: RRT worker 0 found a path with 30 waypoints (tree size: 96)
+[INFO] [1765106047.520704375] [rrt_cpu]: RRT planning completed in 25.58 ms, found 30 waypoints
+[INFO] [1765106047.567920969] [rrt_cpu]: Published 30 local waypoints
+[INFO] [1765106047.789737336] [rrt_cpu]: Selected global waypoint at (2.847, 0.191) as local planning goal
+[INFO] [1765106047.792178357] [rrt_cpu]: RRT worker 0 found a path with 35 waypoints (tree size: 52)
+[INFO] [1765106047.792343959] [rrt_cpu]: RRT planning completed in 2.22 ms, found 35 waypoints
+[INFO] [1765106048.083314108] [rrt_cpu]: Selected global waypoint at (2.847, 0.191) as local planning goal
+[INFO] [1765106048.111752559] [rrt_cpu]: RRT worker 0 found a path with 33 waypoints (tree size: 86)
+[INFO] [1765106048.111984113] [rrt_cpu]: RRT planning completed in 11.84 ms, found 33 waypoints
+[INFO] [1765106048.394833494] [rrt_cpu]: Selected global waypoint at (2.847, 0.191) as local planning goal
+[INFO] [1765106048.403479933] [rrt_cpu]: RRT worker 0 found a path with 29 waypoints (tree size: 60)
+[INFO] [1765106048.407118920] [rrt_cpu]: RRT planning completed in 12.11 ms, found 29 waypoints
+[INFO] [1765106048.567675935] [rrt_cpu]: Published 29 local waypoints
+[INFO] [1765106048.692844816] [rrt_cpu]: Selected global waypoint at (2.175, 0.128) as local planning goal
+[INFO] [1765106048.714285295] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 96)
+[INFO] [1765106048.717088208] [rrt_cpu]: RRT planning completed in 21.70 ms, found 31 waypoints
+[INFO] [1765106048.988832465] [rrt_cpu]: Selected global waypoint at (2.175, 0.128) as local planning goal
+[INFO] [1765106049.028570442] [rrt_cpu]: RRT worker 0 found a path with 28 waypoints (tree size: 44)
+[INFO] [1765106049.028828749] [rrt_cpu]: RRT planning completed in 28.97 ms, found 28 waypoints
+[INFO] [1765106049.291548002] [rrt_cpu]: Selected global waypoint at (2.175, 0.128) as local planning goal
+[INFO] [1765106049.302497829] [rrt_cpu]: RRT worker 0 found a path with 28 waypoints (tree size: 35)
+[INFO] [1765106049.302782856] [rrt_cpu]: RRT planning completed in 10.10 ms, found 28 waypoints
+[INFO] [1765106049.616688446] [rrt_cpu]: Selected global waypoint at (2.175, 0.128) as local planning goal
+[INFO] [1765106049.631130346] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 157)
+[INFO] [1765106049.631339981] [rrt_cpu]: RRT planning completed in 14.42 ms, found 32 waypoints
+[INFO] [1765106049.631728177] [rrt_cpu]: Published 32 local waypoints
+[INFO] [1765106049.897299369] [rrt_cpu]: Selected global waypoint at (1.503, 0.023) as local planning goal
+[INFO] [1765106049.923706147] [rrt_cpu]: RRT worker 0 found a path with 29 waypoints (tree size: 58)
+[INFO] [1765106049.926288546] [rrt_cpu]: RRT planning completed in 23.11 ms, found 29 waypoints
+[INFO] [1765106050.193244362] [rrt_cpu]: Selected global waypoint at (1.503, 0.023) as local planning goal
+[INFO] [1765106050.216610784] [rrt_cpu]: RRT worker 0 found a path with 29 waypoints (tree size: 194)
+[INFO] [1765106050.216817666] [rrt_cpu]: RRT planning completed in 17.17 ms, found 29 waypoints
+[INFO] [1765106050.502547081] [rrt_cpu]: Selected global waypoint at (1.503, 0.023) as local planning goal
+[INFO] [1765106050.513903281] [rrt_cpu]: RRT worker 0 found a path with 25 waypoints (tree size: 140)
+[INFO] [1765106050.514558904] [rrt_cpu]: RRT planning completed in 11.76 ms, found 25 waypoints
+[INFO] [1765106050.567747089] [rrt_cpu]: Published 25 local waypoints
+[INFO] [1765106050.797789730] [rrt_cpu]: Selected global waypoint at (0.474, 0.002) as local planning goal
+[INFO] [1765106050.813190777] [rrt_cpu]: RRT worker 0 found a path with 29 waypoints (tree size: 304)
+[INFO] [1765106050.813433820] [rrt_cpu]: RRT planning completed in 15.43 ms, found 29 waypoints
+[INFO] [1765106051.084099184] [rrt_cpu]: Selected global waypoint at (0.474, 0.002) as local planning goal
+[INFO] [1765106051.110406345] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 172)
+[INFO] [1765106051.110658604] [rrt_cpu]: RRT planning completed in 13.73 ms, found 32 waypoints
+[INFO] [1765106051.392441636] [rrt_cpu]: Selected global waypoint at (0.474, 0.002) as local planning goal
+[INFO] [1765106051.399430135] [rrt_cpu]: RRT worker 0 found a path with 28 waypoints (tree size: 53)
+[INFO] [1765106051.399675674] [rrt_cpu]: RRT planning completed in 4.30 ms, found 28 waypoints
+[INFO] [1765106051.568247952] [rrt_cpu]: Published 28 local waypoints
+[INFO] [1765106051.691808302] [rrt_cpu]: Selected global waypoint at (-0.472, 0.527) as local planning goal
+[INFO] [1765106051.710534925] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 231)
+[INFO] [1765106051.710847920] [rrt_cpu]: RRT planning completed in 16.14 ms, found 31 waypoints
+[INFO] [1765106051.992699338] [rrt_cpu]: Selected global waypoint at (-0.472, 0.527) as local planning goal
+[INFO] [1765106052.037965060] [rrt_cpu]: RRT worker 0 found a path with 34 waypoints (tree size: 74)
+[INFO] [1765106052.038169670] [rrt_cpu]: RRT planning completed in 45.29 ms, found 34 waypoints
+[INFO] [1765106052.283133449] [rrt_cpu]: Selected global waypoint at (-0.472, 0.527) as local planning goal
+[INFO] [1765106052.340735702] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106052.340977881] [rrt_cpu]: RRT planning completed in 55.49 ms, found 0 waypoints
+[INFO] [1765106052.611040806] [rrt_cpu]: Selected global waypoint at (-0.934, 1.514) as local planning goal
+[INFO] [1765106052.621974760] [rrt_cpu]: RRT worker 0 found a path with 34 waypoints (tree size: 46)
+[INFO] [1765106052.622203403] [rrt_cpu]: RRT planning completed in 10.81 ms, found 34 waypoints
+[INFO] [1765106052.622560431] [rrt_cpu]: Published 34 local waypoints
+[INFO] [1765106052.900153269] [rrt_cpu]: Selected global waypoint at (-0.934, 1.514) as local planning goal
+[INFO] [1765106052.919105015] [rrt_cpu]: RRT worker 0 found a path with 33 waypoints (tree size: 154)
+[INFO] [1765106052.919306489] [rrt_cpu]: RRT planning completed in 18.76 ms, found 33 waypoints
+[INFO] [1765106053.201296500] [rrt_cpu]: Selected global waypoint at (-1.207, 2.459) as local planning goal
+[INFO] [1765106053.216827501] [rrt_cpu]: RRT worker 0 found a path with 35 waypoints (tree size: 50)
+[INFO] [1765106053.217065840] [rrt_cpu]: RRT planning completed in 15.57 ms, found 35 waypoints
+[INFO] [1765106053.482968011] [rrt_cpu]: Selected global waypoint at (-1.207, 2.459) as local planning goal
+[INFO] [1765106053.487547170] [rrt_cpu]: RRT worker 0 found a path with 30 waypoints (tree size: 59)
+[INFO] [1765106053.487778084] [rrt_cpu]: RRT planning completed in 1.50 ms, found 30 waypoints
+[INFO] [1765106053.567777884] [rrt_cpu]: Published 30 local waypoints
+[INFO] [1765106053.793691484] [rrt_cpu]: Selected global waypoint at (-1.207, 2.459) as local planning goal
+[INFO] [1765106053.828811293] [rrt_cpu]: RRT worker 0 found a path with 28 waypoints (tree size: 66)
+[INFO] [1765106053.831879234] [rrt_cpu]: RRT planning completed in 38.01 ms, found 28 waypoints
+[INFO] [1765106054.093456650] [rrt_cpu]: Selected global waypoint at (-1.207, 2.459) as local planning goal
+[INFO] [1765106054.106301667] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 99)
+[INFO] [1765106054.112005671] [rrt_cpu]: RRT planning completed in 18.31 ms, found 31 waypoints
+[INFO] [1765106054.392887604] [rrt_cpu]: Selected global waypoint at (-1.438, 3.573) as local planning goal
+[INFO] [1765106054.407257279] [rrt_cpu]: RRT worker 0 found a path with 34 waypoints (tree size: 104)
+[INFO] [1765106054.410943627] [rrt_cpu]: RRT planning completed in 17.81 ms, found 34 waypoints
+[INFO] [1765106054.567873174] [rrt_cpu]: Published 34 local waypoints
+[INFO] [1765106054.697586045] [rrt_cpu]: Selected global waypoint at (-1.438, 3.573) as local planning goal
+[INFO] [1765106054.713976416] [rrt_cpu]: RRT worker 0 found a path with 34 waypoints (tree size: 76)
+[INFO] [1765106054.714258692] [rrt_cpu]: RRT planning completed in 11.09 ms, found 34 waypoints
+[INFO] [1765106054.987683608] [rrt_cpu]: Selected global waypoint at (-1.438, 3.573) as local planning goal
+[INFO] [1765106054.994152101] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 131)
+[INFO] [1765106054.994338760] [rrt_cpu]: RRT planning completed in 4.11 ms, found 31 waypoints
+[INFO] [1765106055.286543548] [rrt_cpu]: Selected global waypoint at (-1.438, 3.573) as local planning goal
+[INFO] [1765106055.293016969] [rrt_cpu]: RRT worker 0 found a path with 30 waypoints (tree size: 44)
+[INFO] [1765106055.293228139] [rrt_cpu]: RRT planning completed in 3.24 ms, found 30 waypoints
+[INFO] [1765106055.596987817] [rrt_cpu]: Selected global waypoint at (-1.060, 4.917) as local planning goal
+[INFO] [1765106055.606868191] [rrt_cpu]: RRT worker 0 found a path with 35 waypoints (tree size: 91)
+[INFO] [1765106055.607095201] [rrt_cpu]: RRT planning completed in 7.65 ms, found 35 waypoints
+[INFO] [1765106055.607761833] [rrt_cpu]: Published 35 local waypoints
+[INFO] [1765106055.905487071] [rrt_cpu]: Selected global waypoint at (-1.060, 4.917) as local planning goal
+[INFO] [1765106055.929788448] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106055.930058212] [rrt_cpu]: RRT planning completed in 24.35 ms, found 0 waypoints
+[INFO] [1765106056.189597939] [rrt_cpu]: Selected global waypoint at (-0.198, 5.190) as local planning goal
+[INFO] [1765106056.203016595] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106056.203244918] [rrt_cpu]: RRT planning completed in 13.42 ms, found 0 waypoints
+[INFO] [1765106056.499713021] [rrt_cpu]: Selected global waypoint at (-0.198, 5.190) as local planning goal
+[INFO] [1765106056.507160885] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106056.507472537] [rrt_cpu]: RRT planning completed in 7.10 ms, found 0 waypoints
+[WARN] [1765106056.567719814] [rrt_cpu]: No local waypoints to publish
+[INFO] [1765106056.816007920] [rrt_cpu]: Selected global waypoint at (-0.198, 5.190) as local planning goal
+[INFO] [1765106056.838415994] [rrt_cpu]: RRT worker 0 found a path with 34 waypoints (tree size: 59)
+[INFO] [1765106056.838685565] [rrt_cpu]: RRT planning completed in 19.64 ms, found 34 waypoints
+[INFO] [1765106057.098894357] [rrt_cpu]: Selected global waypoint at (0.117, 6.093) as local planning goal
+[INFO] [1765106057.114251404] [rrt_cpu]: RRT worker 0 found a path with 42 waypoints (tree size: 172)
+[INFO] [1765106057.114489359] [rrt_cpu]: RRT planning completed in 15.37 ms, found 42 waypoints
+[INFO] [1765106057.401925578] [rrt_cpu]: Selected global waypoint at (0.117, 6.093) as local planning goal
+[INFO] [1765106057.406750788] [rrt_cpu]: RRT worker 0 found a path with 43 waypoints (tree size: 135)
+[INFO] [1765106057.406964678] [rrt_cpu]: RRT planning completed in 4.83 ms, found 43 waypoints
+[INFO] [1765106057.567874849] [rrt_cpu]: Published 43 local waypoints
+[INFO] [1765106057.694471235] [rrt_cpu]: Selected global waypoint at (0.117, 6.093) as local planning goal
+[INFO] [1765106057.709632087] [rrt_cpu]: RRT worker 0 found a path with 39 waypoints (tree size: 69)
+[INFO] [1765106057.712790845] [rrt_cpu]: RRT planning completed in 18.06 ms, found 39 waypoints
+[INFO] [1765106057.995585569] [rrt_cpu]: Selected global waypoint at (0.054, 6.744) as local planning goal
+[INFO] [1765106058.007513871] [rrt_cpu]: RRT worker 0 found a path with 35 waypoints (tree size: 279)
+[INFO] [1765106058.007734065] [rrt_cpu]: RRT planning completed in 8.93 ms, found 35 waypoints
+[INFO] [1765106058.289109125] [rrt_cpu]: Selected global waypoint at (0.054, 6.744) as local planning goal
+[INFO] [1765106058.328871998] [rrt_cpu]: RRT worker 0 found a path with 42 waypoints (tree size: 269)
+[INFO] [1765106058.329134913] [rrt_cpu]: RRT planning completed in 34.28 ms, found 42 waypoints
+[INFO] [1765106058.602091568] [rrt_cpu]: Selected global waypoint at (0.054, 6.744) as local planning goal
+[INFO] [1765106058.625326885] [rrt_cpu]: RRT worker 0 found a path with 36 waypoints (tree size: 111)
+[INFO] [1765106058.625517415] [rrt_cpu]: RRT planning completed in 23.08 ms, found 36 waypoints
+[INFO] [1765106058.625831915] [rrt_cpu]: Published 36 local waypoints
+[INFO] [1765106058.898861563] [rrt_cpu]: Selected global waypoint at (0.054, 6.744) as local planning goal
+[INFO] [1765106058.912038616] [rrt_cpu]: RRT worker 0 found a path with 34 waypoints (tree size: 168)
+[INFO] [1765106058.914244626] [rrt_cpu]: RRT planning completed in 11.28 ms, found 34 waypoints
+[INFO] [1765106059.199729910] [rrt_cpu]: Selected global waypoint at (-0.093, 7.647) as local planning goal
+[INFO] [1765106059.214793162] [rrt_cpu]: RRT worker 0 found a path with 37 waypoints (tree size: 62)
+[INFO] [1765106059.215035789] [rrt_cpu]: RRT planning completed in 10.65 ms, found 37 waypoints
+[INFO] [1765106059.481995573] [rrt_cpu]: Selected global waypoint at (-0.093, 7.647) as local planning goal
+[INFO] [1765106059.494732492] [rrt_cpu]: RRT worker 0 found a path with 39 waypoints (tree size: 197)
+[INFO] [1765106059.494934126] [rrt_cpu]: RRT planning completed in 8.27 ms, found 39 waypoints
+[INFO] [1765106059.567873714] [rrt_cpu]: Published 39 local waypoints
+[INFO] [1765106059.809581838] [rrt_cpu]: Selected global waypoint at (-0.093, 7.647) as local planning goal
+[INFO] [1765106059.837259127] [rrt_cpu]: RRT worker 0 found a path with 35 waypoints (tree size: 134)
+[INFO] [1765106059.837467482] [rrt_cpu]: RRT planning completed in 27.69 ms, found 35 waypoints
+[INFO] [1765106060.086048295] [rrt_cpu]: Selected global waypoint at (-0.093, 7.647) as local planning goal
+[INFO] [1765106060.102973040] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 60)
+[INFO] [1765106060.103219411] [rrt_cpu]: RRT planning completed in 11.61 ms, found 31 waypoints
+[INFO] [1765106060.392107232] [rrt_cpu]: Selected global waypoint at (-0.093, 7.647) as local planning goal
+[INFO] [1765106060.395132612] [rrt_cpu]: RRT worker 0 found a path with 30 waypoints (tree size: 47)
+[INFO] [1765106060.395313158] [rrt_cpu]: RRT planning completed in 3.02 ms, found 30 waypoints
+[INFO] [1765106060.567797930] [rrt_cpu]: Published 30 local waypoints
+[INFO] [1765106060.711993406] [rrt_cpu]: Selected global waypoint at (-0.198, 8.488) as local planning goal
+[INFO] [1765106060.721612688] [rrt_cpu]: RRT worker 0 found a path with 35 waypoints (tree size: 63)
+[INFO] [1765106060.721816082] [rrt_cpu]: RRT planning completed in 7.06 ms, found 35 waypoints
+[INFO] [1765106060.992175651] [rrt_cpu]: Selected global waypoint at (-0.198, 8.488) as local planning goal
+[INFO] [1765106061.014180713] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 39)
+[INFO] [1765106061.020441427] [rrt_cpu]: RRT planning completed in 24.31 ms, found 31 waypoints
+[INFO] [1765106061.290021658] [rrt_cpu]: Selected global waypoint at (-0.198, 8.488) as local planning goal
+[INFO] [1765106061.299273768] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106061.300249940] [rrt_cpu]: RRT planning completed in 7.63 ms, found 0 waypoints
+[INFO] [1765106061.591556094] [rrt_cpu]: Selected global waypoint at (-0.198, 8.488) as local planning goal
+[INFO] [1765106061.612021681] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106061.613865127] [rrt_cpu]: RRT planning completed in 19.86 ms, found 0 waypoints
+[WARN] [1765106061.614030153] [rrt_cpu]: No local waypoints to publish
+[INFO] [1765106061.887653792] [rrt_cpu]: Selected global waypoint at (-0.304, 9.349) as local planning goal
+[INFO] [1765106061.891536110] [rrt_cpu]: RRT worker 0 found a path with 34 waypoints (tree size: 90)
+[INFO] [1765106061.891709713] [rrt_cpu]: RRT planning completed in 1.80 ms, found 34 waypoints
+[INFO] [1765106062.194642660] [rrt_cpu]: Selected global waypoint at (-0.304, 9.349) as local planning goal
+[INFO] [1765106062.203460333] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 78)
+[INFO] [1765106062.203665168] [rrt_cpu]: RRT planning completed in 8.80 ms, found 31 waypoints
+[INFO] [1765106062.490245825] [rrt_cpu]: Selected global waypoint at (-0.304, 9.349) as local planning goal
+[INFO] [1765106062.504016933] [rrt_cpu]: RRT worker 0 found a path with 27 waypoints (tree size: 181)
+[INFO] [1765106062.504226632] [rrt_cpu]: RRT planning completed in 13.78 ms, found 27 waypoints
+[INFO] [1765106062.568152672] [rrt_cpu]: Published 27 local waypoints
+[INFO] [1765106062.796080152] [rrt_cpu]: Selected global waypoint at (-0.304, 9.349) as local planning goal
+[INFO] [1765106062.832575018] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106062.832767052] [rrt_cpu]: RRT planning completed in 35.99 ms, found 0 waypoints
+[INFO] [1765106063.093653772] [rrt_cpu]: Selected global waypoint at (-0.388, 10.420) as local planning goal
+[INFO] [1765106063.110926745] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106063.111133820] [rrt_cpu]: RRT planning completed in 14.95 ms, found 0 waypoints
+[INFO] [1765106063.383978122] [rrt_cpu]: Selected global waypoint at (-0.388, 10.420) as local planning goal
+[INFO] [1765106063.397649132] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106063.397883087] [rrt_cpu]: RRT planning completed in 13.09 ms, found 0 waypoints
+[WARN] [1765106063.567659987] [rrt_cpu]: No local waypoints to publish
+[INFO] [1765106063.712827282] [rrt_cpu]: Selected global waypoint at (-0.388, 10.420) as local planning goal
+[INFO] [1765106063.720011464] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106063.721291671] [rrt_cpu]: RRT planning completed in 8.25 ms, found 0 waypoints
+[INFO] [1765106063.997654447] [rrt_cpu]: Selected global waypoint at (-0.388, 10.420) as local planning goal
+[INFO] [1765106064.020982564] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106064.021336200] [rrt_cpu]: RRT planning completed in 23.46 ms, found 0 waypoints
+[INFO] [1765106064.313586717] [rrt_cpu]: Selected global waypoint at (-0.304, 9.349) as local planning goal
+[INFO] [1765106064.356471579] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106064.356718398] [rrt_cpu]: RRT planning completed in 42.92 ms, found 0 waypoints
+[INFO] [1765106064.589972821] [rrt_cpu]: Selected global waypoint at (-0.304, 9.349) as local planning goal
+[INFO] [1765106064.608728532] [rrt_cpu]: RRT worker 0 found a path with 28 waypoints (tree size: 45)
+[INFO] [1765106064.608933335] [rrt_cpu]: RRT planning completed in 14.03 ms, found 28 waypoints
+[INFO] [1765106064.609256699] [rrt_cpu]: Published 28 local waypoints
+[INFO] [1765106064.892650566] [rrt_cpu]: Selected global waypoint at (-0.304, 9.349) as local planning goal
+[INFO] [1765106064.913834594] [rrt_cpu]: RRT worker 0 found a path with 29 waypoints (tree size: 80)
+[INFO] [1765106064.914100741] [rrt_cpu]: RRT planning completed in 19.06 ms, found 29 waypoints
+[INFO] [1765106065.201897157] [rrt_cpu]: Selected global waypoint at (-0.304, 9.349) as local planning goal
+[INFO] [1765106065.224099117] [rrt_cpu]: RRT worker 0 found a path with 28 waypoints (tree size: 193)
+[INFO] [1765106065.224331632] [rrt_cpu]: RRT planning completed in 22.17 ms, found 28 waypoints
+[INFO] [1765106065.485274193] [rrt_cpu]: Selected global waypoint at (-0.304, 9.349) as local planning goal
+[INFO] [1765106065.501794997] [rrt_cpu]: RRT worker 0 found a path with 27 waypoints (tree size: 72)
+[INFO] [1765106065.503571402] [rrt_cpu]: RRT planning completed in 15.57 ms, found 27 waypoints
+[INFO] [1765106065.568112170] [rrt_cpu]: Published 27 local waypoints
+[INFO] [1765106065.786675250] [rrt_cpu]: Selected global waypoint at (-0.388, 10.420) as local planning goal
+[INFO] [1765106065.795576700] [rrt_cpu]: RRT worker 0 found a path with 28 waypoints (tree size: 43)
+[INFO] [1765106065.801126142] [rrt_cpu]: RRT planning completed in 13.55 ms, found 28 waypoints
+[INFO] [1765106066.119515242] [rrt_cpu]: Selected global waypoint at (-0.388, 10.420) as local planning goal
+[INFO] [1765106066.151283780] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 241)
+[INFO] [1765106066.151500775] [rrt_cpu]: RRT planning completed in 29.41 ms, found 31 waypoints
+[INFO] [1765106066.393986475] [rrt_cpu]: Selected global waypoint at (-0.388, 10.420) as local planning goal
+[INFO] [1765106066.444471780] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106066.444677126] [rrt_cpu]: RRT planning completed in 50.45 ms, found 0 waypoints
+[WARN] [1765106066.567916225] [rrt_cpu]: No local waypoints to publish
+[INFO] [1765106066.699632576] [rrt_cpu]: Selected global waypoint at (-0.409, 11.260) as local planning goal
+[INFO] [1765106066.712929886] [rrt_cpu]: RRT worker 0 found a path with 27 waypoints (tree size: 36)
+[INFO] [1765106066.713142656] [rrt_cpu]: RRT planning completed in 13.30 ms, found 27 waypoints
+[INFO] [1765106066.981494393] [rrt_cpu]: Selected global waypoint at (-0.409, 11.260) as local planning goal
+[INFO] [1765106066.991337774] [rrt_cpu]: RRT worker 0 found a path with 28 waypoints (tree size: 38)
+[INFO] [1765106066.993526536] [rrt_cpu]: RRT planning completed in 8.07 ms, found 28 waypoints
+[INFO] [1765106067.296224345] [rrt_cpu]: Selected global waypoint at (-0.409, 11.260) as local planning goal
+[INFO] [1765106067.308653389] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106067.308871888] [rrt_cpu]: RRT planning completed in 7.43 ms, found 0 waypoints
+[INFO] [1765106067.597192566] [rrt_cpu]: Selected global waypoint at (-0.535, 12.331) as local planning goal
+[INFO] [1765106067.601850125] [rrt_cpu]: RRT worker 0 found a path with 28 waypoints (tree size: 31)
+[INFO] [1765106067.602040623] [rrt_cpu]: RRT planning completed in 3.91 ms, found 28 waypoints
+[INFO] [1765106067.602334227] [rrt_cpu]: Published 28 local waypoints
+[INFO] [1765106067.904558238] [rrt_cpu]: Selected global waypoint at (-0.535, 12.331) as local planning goal
+[INFO] [1765106067.912849121] [rrt_cpu]: RRT worker 0 found a path with 27 waypoints (tree size: 73)
+[INFO] [1765106067.916177321] [rrt_cpu]: RRT planning completed in 8.90 ms, found 27 waypoints
+[INFO] [1765106068.200303901] [rrt_cpu]: Selected global waypoint at (-0.535, 12.331) as local planning goal
+[INFO] [1765106068.218561942] [rrt_cpu]: RRT worker 0 found a path with 29 waypoints (tree size: 148)
+[INFO] [1765106068.218966555] [rrt_cpu]: RRT planning completed in 15.22 ms, found 29 waypoints
+[INFO] [1765106068.494448232] [rrt_cpu]: Selected global waypoint at (-0.619, 13.108) as local planning goal
+[INFO] [1765106068.498686587] [rrt_cpu]: RRT worker 0 found a path with 29 waypoints (tree size: 41)
+[INFO] [1765106068.498852285] [rrt_cpu]: RRT planning completed in 1.67 ms, found 29 waypoints
+[INFO] [1765106068.571912834] [rrt_cpu]: Published 29 local waypoints
+[INFO] [1765106068.792687460] [rrt_cpu]: Selected global waypoint at (-0.619, 13.108) as local planning goal
+[INFO] [1765106068.798114821] [rrt_cpu]: RRT worker 0 found a path with 28 waypoints (tree size: 41)
+[INFO] [1765106068.805326619] [rrt_cpu]: RRT planning completed in 9.19 ms, found 28 waypoints
+[INFO] [1765106069.094258184] [rrt_cpu]: Selected global waypoint at (-0.619, 13.108) as local planning goal
+[INFO] [1765106069.101761921] [rrt_cpu]: RRT worker 0 found a path with 27 waypoints (tree size: 36)
+[INFO] [1765106069.101964516] [rrt_cpu]: RRT planning completed in 2.95 ms, found 27 waypoints
+[INFO] [1765106069.402693118] [rrt_cpu]: Selected global waypoint at (-0.619, 13.108) as local planning goal
+[INFO] [1765106069.411198051] [rrt_cpu]: RRT worker 0 found a path with 28 waypoints (tree size: 66)
+[INFO] [1765106069.411373061] [rrt_cpu]: RRT planning completed in 2.44 ms, found 28 waypoints
+[INFO] [1765106069.568150286] [rrt_cpu]: Published 28 local waypoints
+[INFO] [1765106069.714412570] [rrt_cpu]: Selected global waypoint at (-0.703, 14.117) as local planning goal
+[INFO] [1765106069.736756708] [rrt_cpu]: RRT worker 0 found a path with 28 waypoints (tree size: 36)
+[INFO] [1765106069.740454416] [rrt_cpu]: RRT planning completed in 20.56 ms, found 28 waypoints
+[INFO] [1765106069.993148814] [rrt_cpu]: Selected global waypoint at (-0.703, 14.117) as local planning goal
+[INFO] [1765106070.010816768] [rrt_cpu]: RRT worker 0 found a path with 27 waypoints (tree size: 36)
+[INFO] [1765106070.011040547] [rrt_cpu]: RRT planning completed in 12.11 ms, found 27 waypoints
+[INFO] [1765106070.302658160] [rrt_cpu]: Selected global waypoint at (-0.703, 14.117) as local planning goal
+[INFO] [1765106070.328012254] [rrt_cpu]: RRT worker 0 found a path with 27 waypoints (tree size: 51)
+[INFO] [1765106070.328224032] [rrt_cpu]: RRT planning completed in 19.15 ms, found 27 waypoints
+[INFO] [1765106070.596313206] [rrt_cpu]: Selected global waypoint at (-0.808, 14.915) as local planning goal
+[INFO] [1765106070.600953293] [rrt_cpu]: RRT worker 0 found a path with 30 waypoints (tree size: 46)
+[INFO] [1765106070.601132111] [rrt_cpu]: RRT planning completed in 1.52 ms, found 30 waypoints
+[INFO] [1765106070.603474603] [rrt_cpu]: Published 30 local waypoints
+[INFO] [1765106070.898064252] [rrt_cpu]: Selected global waypoint at (-0.808, 14.915) as local planning goal
+[INFO] [1765106070.919682781] [rrt_cpu]: RRT worker 0 found a path with 28 waypoints (tree size: 36)
+[INFO] [1765106070.919891871] [rrt_cpu]: RRT planning completed in 18.35 ms, found 28 waypoints
+[INFO] [1765106071.211034919] [rrt_cpu]: Selected global waypoint at (-0.808, 14.915) as local planning goal
+[INFO] [1765106071.228776154] [rrt_cpu]: RRT worker 0 found a path with 24 waypoints (tree size: 26)
+[INFO] [1765106071.228975261] [rrt_cpu]: RRT planning completed in 17.70 ms, found 24 waypoints
+[INFO] [1765106071.496924592] [rrt_cpu]: Selected global waypoint at (-0.892, 15.755) as local planning goal
+[INFO] [1765106071.504509419] [rrt_cpu]: RRT worker 0 found a path with 30 waypoints (tree size: 51)
+[INFO] [1765106071.504709933] [rrt_cpu]: RRT planning completed in 3.01 ms, found 30 waypoints
+[INFO] [1765106071.570987201] [rrt_cpu]: Published 30 local waypoints
+[INFO] [1765106071.792622606] [rrt_cpu]: Selected global waypoint at (-0.892, 15.755) as local planning goal
+[INFO] [1765106071.798373587] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 65)
+[INFO] [1765106071.798529268] [rrt_cpu]: RRT planning completed in 2.14 ms, found 32 waypoints
+[INFO] [1765106072.088008232] [rrt_cpu]: Selected global waypoint at (-0.892, 15.755) as local planning goal
+[INFO] [1765106072.093403945] [rrt_cpu]: RRT worker 0 found a path with 26 waypoints (tree size: 30)
+[INFO] [1765106072.093611691] [rrt_cpu]: RRT planning completed in 1.29 ms, found 26 waypoints
+[INFO] [1765106072.397423593] [rrt_cpu]: Selected global waypoint at (-0.892, 15.755) as local planning goal
+[INFO] [1765106072.406878074] [rrt_cpu]: RRT worker 0 found a path with 24 waypoints (tree size: 28)
+[INFO] [1765106072.412343547] [rrt_cpu]: RRT planning completed in 14.72 ms, found 24 waypoints
+[INFO] [1765106072.568676863] [rrt_cpu]: Published 24 local waypoints
+[INFO] [1765106072.711523330] [rrt_cpu]: Selected global waypoint at (-0.976, 16.805) as local planning goal
+[INFO] [1765106072.727422783] [rrt_cpu]: RRT worker 0 found a path with 30 waypoints (tree size: 36)
+[INFO] [1765106072.727639074] [rrt_cpu]: RRT planning completed in 15.58 ms, found 30 waypoints
+[INFO] [1765106073.002499624] [rrt_cpu]: Selected global waypoint at (-0.976, 16.805) as local planning goal
+[INFO] [1765106073.008302733] [rrt_cpu]: RRT worker 0 found a path with 26 waypoints (tree size: 31)
+[INFO] [1765106073.008506767] [rrt_cpu]: RRT planning completed in 5.56 ms, found 26 waypoints
+[INFO] [1765106073.290446858] [rrt_cpu]: Selected global waypoint at (-0.745, 17.414) as local planning goal
+[INFO] [1765106073.318748986] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106073.318959773] [rrt_cpu]: RRT planning completed in 28.20 ms, found 0 waypoints
+[INFO] [1765106073.603571351] [rrt_cpu]: Selected global waypoint at (0.306, 17.582) as local planning goal
+[INFO] [1765106073.613352043] [rrt_cpu]: RRT worker 0 found a path with 33 waypoints (tree size: 44)
+[INFO] [1765106073.615497541] [rrt_cpu]: RRT planning completed in 8.58 ms, found 33 waypoints
+[INFO] [1765106073.617097336] [rrt_cpu]: Published 33 local waypoints
+[INFO] [1765106073.898681230] [rrt_cpu]: Selected global waypoint at (0.306, 17.582) as local planning goal
+[INFO] [1765106073.939629557] [rrt_cpu]: RRT worker 0 found a path with 35 waypoints (tree size: 46)
+[INFO] [1765106073.939829527] [rrt_cpu]: RRT planning completed in 38.48 ms, found 35 waypoints
+[INFO] [1765106074.206118679] [rrt_cpu]: Selected global waypoint at (1.293, 17.708) as local planning goal
+[INFO] [1765106074.224839574] [rrt_cpu]: RRT worker 0 found a path with 35 waypoints (tree size: 53)
+[INFO] [1765106074.225030296] [rrt_cpu]: RRT planning completed in 11.33 ms, found 35 waypoints
+[INFO] [1765106074.485193423] [rrt_cpu]: Selected global waypoint at (1.293, 17.708) as local planning goal
+[INFO] [1765106074.489378305] [rrt_cpu]: RRT worker 0 found a path with 39 waypoints (tree size: 46)
+[INFO] [1765106074.489591748] [rrt_cpu]: RRT planning completed in 4.18 ms, found 39 waypoints
+[INFO] [1765106074.568152234] [rrt_cpu]: Published 39 local waypoints
+[INFO] [1765106074.787817152] [rrt_cpu]: Selected global waypoint at (1.293, 17.708) as local planning goal
+[INFO] [1765106074.798326525] [rrt_cpu]: RRT worker 0 found a path with 37 waypoints (tree size: 120)
+[INFO] [1765106074.798526047] [rrt_cpu]: RRT planning completed in 10.51 ms, found 37 waypoints
+[INFO] [1765106075.095990898] [rrt_cpu]: Selected global waypoint at (1.293, 17.708) as local planning goal
+[INFO] [1765106075.111385129] [rrt_cpu]: RRT worker 0 found a path with 34 waypoints (tree size: 44)
+[INFO] [1765106075.111582379] [rrt_cpu]: RRT planning completed in 12.85 ms, found 34 waypoints
+[INFO] [1765106075.385569607] [rrt_cpu]: Selected global waypoint at (2.490, 17.855) as local planning goal
+[INFO] [1765106075.389632791] [rrt_cpu]: RRT worker 0 found a path with 39 waypoints (tree size: 63)
+[INFO] [1765106075.389846906] [rrt_cpu]: RRT planning completed in 1.76 ms, found 39 waypoints
+[INFO] [1765106075.568512071] [rrt_cpu]: Published 39 local waypoints
+[INFO] [1765106075.688862975] [rrt_cpu]: Selected global waypoint at (2.490, 17.855) as local planning goal
+[INFO] [1765106075.695281132] [rrt_cpu]: RRT worker 0 found a path with 39 waypoints (tree size: 78)
+[INFO] [1765106075.695645808] [rrt_cpu]: RRT planning completed in 4.05 ms, found 39 waypoints
+[INFO] [1765106075.994188176] [rrt_cpu]: Selected global waypoint at (2.490, 17.855) as local planning goal
+[INFO] [1765106076.002674741] [rrt_cpu]: RRT worker 0 found a path with 37 waypoints (tree size: 78)
+[INFO] [1765106076.002897399] [rrt_cpu]: RRT planning completed in 2.98 ms, found 37 waypoints
+[INFO] [1765106076.299579777] [rrt_cpu]: Selected global waypoint at (2.490, 17.855) as local planning goal
+[INFO] [1765106076.307936580] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 51)
+[INFO] [1765106076.308185671] [rrt_cpu]: RRT planning completed in 7.27 ms, found 32 waypoints
+[INFO] [1765106076.582032385] [rrt_cpu]: Selected global waypoint at (2.490, 17.855) as local planning goal
+[INFO] [1765106076.593863726] [rrt_cpu]: RRT worker 0 found a path with 29 waypoints (tree size: 46)
+[INFO] [1765106076.596257258] [rrt_cpu]: RRT planning completed in 10.73 ms, found 29 waypoints
+[INFO] [1765106076.604852977] [rrt_cpu]: Published 29 local waypoints
+[INFO] [1765106076.887663989] [rrt_cpu]: Selected global waypoint at (3.498, 17.939) as local planning goal
+[INFO] [1765106076.892767826] [rrt_cpu]: RRT worker 0 found a path with 37 waypoints (tree size: 71)
+[INFO] [1765106076.892949972] [rrt_cpu]: RRT planning completed in 2.91 ms, found 37 waypoints
+[INFO] [1765106077.194422711] [rrt_cpu]: Selected global waypoint at (3.498, 17.939) as local planning goal
+[INFO] [1765106077.210029488] [rrt_cpu]: RRT worker 0 found a path with 37 waypoints (tree size: 78)
+[INFO] [1765106077.210252659] [rrt_cpu]: RRT planning completed in 15.54 ms, found 37 waypoints
+[INFO] [1765106077.481931155] [rrt_cpu]: Selected global waypoint at (3.498, 17.939) as local planning goal
+[INFO] [1765106077.495529205] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 65)
+[INFO] [1765106077.495722647] [rrt_cpu]: RRT planning completed in 12.94 ms, found 31 waypoints
+[INFO] [1765106077.568096500] [rrt_cpu]: Published 31 local waypoints
+[INFO] [1765106077.794369784] [rrt_cpu]: Selected global waypoint at (3.498, 17.939) as local planning goal
+[INFO] [1765106077.801131016] [rrt_cpu]: RRT worker 0 found a path with 29 waypoints (tree size: 49)
+[INFO] [1765106077.801365035] [rrt_cpu]: RRT planning completed in 6.82 ms, found 29 waypoints
+[INFO] [1765106078.085890340] [rrt_cpu]: Selected global waypoint at (3.498, 17.939) as local planning goal
+[INFO] [1765106078.093604960] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 72)
+[INFO] [1765106078.093797122] [rrt_cpu]: RRT planning completed in 7.70 ms, found 31 waypoints
+[INFO] [1765106078.404659989] [rrt_cpu]: Selected global waypoint at (3.498, 17.939) as local planning goal
+[INFO] [1765106078.421792064] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106078.421990243] [rrt_cpu]: RRT planning completed in 17.11 ms, found 0 waypoints
+[WARN] [1765106078.567959307] [rrt_cpu]: No local waypoints to publish
+[INFO] [1765106078.694881873] [rrt_cpu]: Selected global waypoint at (4.443, 18.066) as local planning goal
+[INFO] [1765106078.703689914] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106078.703887804] [rrt_cpu]: RRT planning completed in 4.21 ms, found 0 waypoints
+[INFO] [1765106078.983769918] [rrt_cpu]: Selected global waypoint at (4.443, 18.066) as local planning goal
+[INFO] [1765106078.984769130] [rrt_cpu]: RRT worker 0 found a path with 25 waypoints (tree size: 28)
+[INFO] [1765106078.984937228] [rrt_cpu]: RRT planning completed in 0.96 ms, found 25 waypoints
+[INFO] [1765106079.304935307] [rrt_cpu]: Selected global waypoint at (4.443, 18.066) as local planning goal
+[INFO] [1765106079.315094340] [rrt_cpu]: RRT worker 0 found a path with 27 waypoints (tree size: 139)
+[INFO] [1765106079.315306374] [rrt_cpu]: RRT planning completed in 10.07 ms, found 27 waypoints
+[INFO] [1765106079.598325805] [rrt_cpu]: Selected global waypoint at (4.443, 18.066) as local planning goal
+[INFO] [1765106079.605188511] [rrt_cpu]: RRT worker 0 found a path with 24 waypoints (tree size: 30)
+[INFO] [1765106079.611966480] [rrt_cpu]: RRT planning completed in 12.78 ms, found 24 waypoints
+[INFO] [1765106079.615806877] [rrt_cpu]: Published 24 local waypoints
+[INFO] [1765106079.886662100] [rrt_cpu]: Selected global waypoint at (5.431, 18.171) as local planning goal
+[INFO] [1765106079.888839470] [rrt_cpu]: RRT worker 0 found a path with 27 waypoints (tree size: 30)
+[INFO] [1765106079.889081680] [rrt_cpu]: RRT planning completed in 2.20 ms, found 27 waypoints
+[INFO] [1765106080.192702477] [rrt_cpu]: Selected global waypoint at (5.431, 18.171) as local planning goal
+[INFO] [1765106080.200734348] [rrt_cpu]: RRT worker 0 found a path with 26 waypoints (tree size: 29)
+[INFO] [1765106080.201992667] [rrt_cpu]: RRT planning completed in 2.48 ms, found 26 waypoints
+[INFO] [1765106080.482646790] [rrt_cpu]: Selected global waypoint at (5.431, 18.171) as local planning goal
+[INFO] [1765106080.489536920] [rrt_cpu]: RRT worker 0 found a path with 27 waypoints (tree size: 143)
+[INFO] [1765106080.489709530] [rrt_cpu]: RRT planning completed in 3.00 ms, found 27 waypoints
+[INFO] [1765106080.568019422] [rrt_cpu]: Published 27 local waypoints
+[INFO] [1765106080.793585081] [rrt_cpu]: Selected global waypoint at (5.431, 18.171) as local planning goal
+[INFO] [1765106080.814181870] [rrt_cpu]: RRT worker 0 found a path with 24 waypoints (tree size: 26)
+[INFO] [1765106080.814378897] [rrt_cpu]: RRT planning completed in 12.66 ms, found 24 waypoints
+[INFO] [1765106081.093503849] [rrt_cpu]: Selected global waypoint at (6.397, 18.234) as local planning goal
+[INFO] [1765106081.112504971] [rrt_cpu]: RRT worker 0 found a path with 30 waypoints (tree size: 44)
+[INFO] [1765106081.112769935] [rrt_cpu]: RRT planning completed in 18.93 ms, found 30 waypoints
+[INFO] [1765106081.384767922] [rrt_cpu]: Selected global waypoint at (6.565, 17.498) as local planning goal
+[INFO] [1765106081.390740666] [rrt_cpu]: RRT worker 0 found a path with 36 waypoints (tree size: 190)
+[INFO] [1765106081.390961436] [rrt_cpu]: RRT planning completed in 5.97 ms, found 36 waypoints
+[INFO] [1765106081.568178904] [rrt_cpu]: Published 36 local waypoints
+[INFO] [1765106081.688068171] [rrt_cpu]: Selected global waypoint at (6.733, 16.553) as local planning goal
+[INFO] [1765106081.712952531] [rrt_cpu]: RRT worker 0 found a path with 39 waypoints (tree size: 101)
+[INFO] [1765106081.713148181] [rrt_cpu]: RRT planning completed in 22.24 ms, found 39 waypoints
+[INFO] [1765106081.992118060] [rrt_cpu]: Selected global waypoint at (6.733, 16.553) as local planning goal
+[INFO] [1765106081.994960430] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 55)
+[INFO] [1765106081.995173040] [rrt_cpu]: RRT planning completed in 2.85 ms, found 32 waypoints
+[INFO] [1765106082.291757017] [rrt_cpu]: Selected global waypoint at (6.922, 15.524) as local planning goal
+[INFO] [1765106082.321331993] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106082.321569851] [rrt_cpu]: RRT planning completed in 26.98 ms, found 0 waypoints
+[INFO] [1765106082.591013441] [rrt_cpu]: Selected global waypoint at (6.922, 15.524) as local planning goal
+[INFO] [1765106082.609358075] [rrt_cpu]: RRT worker 0 found a path with 33 waypoints (tree size: 115)
+[INFO] [1765106082.609541917] [rrt_cpu]: RRT planning completed in 14.65 ms, found 33 waypoints
+[INFO] [1765106082.610084900] [rrt_cpu]: Published 33 local waypoints
+[INFO] [1765106082.887865037] [rrt_cpu]: Selected global waypoint at (6.922, 15.524) as local planning goal
+[INFO] [1765106082.889351710] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 62)
+[INFO] [1765106082.889488000] [rrt_cpu]: RRT planning completed in 1.42 ms, found 32 waypoints
+[INFO] [1765106083.187892830] [rrt_cpu]: Selected global waypoint at (7.069, 14.579) as local planning goal
+[INFO] [1765106083.196261506] [rrt_cpu]: RRT worker 0 found a path with 42 waypoints (tree size: 94)
+[INFO] [1765106083.196550469] [rrt_cpu]: RRT planning completed in 6.03 ms, found 42 waypoints
+[INFO] [1765106083.505168701] [rrt_cpu]: Selected global waypoint at (7.069, 14.579) as local planning goal
+[INFO] [1765106083.529181690] [rrt_cpu]: RRT worker 0 found a path with 36 waypoints (tree size: 73)
+[INFO] [1765106083.529380957] [rrt_cpu]: RRT planning completed in 22.17 ms, found 36 waypoints
+[INFO] [1765106083.568669264] [rrt_cpu]: Published 36 local waypoints
+[INFO] [1765106083.794680913] [rrt_cpu]: Selected global waypoint at (7.069, 14.579) as local planning goal
+[INFO] [1765106083.814280186] [rrt_cpu]: RRT worker 0 found a path with 35 waypoints (tree size: 83)
+[INFO] [1765106083.814485820] [rrt_cpu]: RRT planning completed in 16.35 ms, found 35 waypoints
+[INFO] [1765106084.087182953] [rrt_cpu]: Selected global waypoint at (7.069, 14.579) as local planning goal
+[INFO] [1765106084.105859591] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 50)
+[INFO] [1765106084.106076489] [rrt_cpu]: RRT planning completed in 16.60 ms, found 32 waypoints
+[INFO] [1765106084.390526945] [rrt_cpu]: Selected global waypoint at (7.069, 14.579) as local planning goal
+[INFO] [1765106084.393570886] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 47)
+[INFO] [1765106084.393762824] [rrt_cpu]: RRT planning completed in 2.65 ms, found 31 waypoints
+[INFO] [1765106084.569323889] [rrt_cpu]: Published 31 local waypoints
+[INFO] [1765106084.701104400] [rrt_cpu]: Selected global waypoint at (7.153, 13.676) as local planning goal
+[INFO] [1765106084.712669274] [rrt_cpu]: RRT worker 0 found a path with 38 waypoints (tree size: 70)
+[INFO] [1765106084.713022238] [rrt_cpu]: RRT planning completed in 11.71 ms, found 38 waypoints
+[INFO] [1765106084.982566053] [rrt_cpu]: Selected global waypoint at (7.153, 13.676) as local planning goal
+[INFO] [1765106084.986996890] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 61)
+[INFO] [1765106084.987194684] [rrt_cpu]: RRT planning completed in 2.73 ms, found 31 waypoints
+[INFO] [1765106085.297908428] [rrt_cpu]: Selected global waypoint at (7.153, 13.676) as local planning goal
+[INFO] [1765106085.314992216] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 80)
+[INFO] [1765106085.317578070] [rrt_cpu]: RRT planning completed in 19.43 ms, found 31 waypoints
+[INFO] [1765106085.590891498] [rrt_cpu]: Selected global waypoint at (7.153, 13.676) as local planning goal
+[INFO] [1765106085.606374818] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 77)
+[INFO] [1765106085.606667814] [rrt_cpu]: RRT planning completed in 11.33 ms, found 31 waypoints
+[INFO] [1765106085.607002378] [rrt_cpu]: Published 31 local waypoints
+[INFO] [1765106085.884259884] [rrt_cpu]: Selected global waypoint at (7.153, 13.676) as local planning goal
+[INFO] [1765106085.891024445] [rrt_cpu]: RRT worker 0 found a path with 33 waypoints (tree size: 115)
+[INFO] [1765106085.891203327] [rrt_cpu]: RRT planning completed in 6.73 ms, found 33 waypoints
+[INFO] [1765106086.185331210] [rrt_cpu]: Selected global waypoint at (7.153, 13.676) as local planning goal
+[INFO] [1765106086.196541039] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 85)
+[INFO] [1765106086.196716465] [rrt_cpu]: RRT planning completed in 11.21 ms, found 31 waypoints
+[INFO] [1765106086.487044943] [rrt_cpu]: Selected global waypoint at (7.153, 13.676) as local planning goal
+[INFO] [1765106086.505365929] [rrt_cpu]: RRT worker 0 found a path with 29 waypoints (tree size: 49)
+[INFO] [1765106086.505599660] [rrt_cpu]: RRT planning completed in 18.33 ms, found 29 waypoints
+[INFO] [1765106086.568463768] [rrt_cpu]: Published 29 local waypoints
+[INFO] [1765106086.797895490] [rrt_cpu]: Selected global waypoint at (7.153, 13.676) as local planning goal
+[INFO] [1765106086.815779094] [rrt_cpu]: RRT worker 0 found a path with 26 waypoints (tree size: 39)
+[INFO] [1765106086.816079578] [rrt_cpu]: RRT planning completed in 18.01 ms, found 26 waypoints
+[INFO] [1765106087.095899899] [rrt_cpu]: Selected global waypoint at (7.321, 12.688) as local planning goal
+[INFO] [1765106087.104039580] [rrt_cpu]: RRT worker 0 found a path with 30 waypoints (tree size: 48)
+[INFO] [1765106087.104352767] [rrt_cpu]: RRT planning completed in 5.22 ms, found 30 waypoints
+[INFO] [1765106087.391217268] [rrt_cpu]: Selected global waypoint at (7.321, 12.688) as local planning goal
+[INFO] [1765106087.397904772] [rrt_cpu]: RRT worker 0 found a path with 30 waypoints (tree size: 111)
+[INFO] [1765106087.398100678] [rrt_cpu]: RRT planning completed in 3.36 ms, found 30 waypoints
+[INFO] [1765106087.571538070] [rrt_cpu]: Published 30 local waypoints
+[INFO] [1765106087.692778136] [rrt_cpu]: Selected global waypoint at (7.321, 12.688) as local planning goal
+[INFO] [1765106087.710120774] [rrt_cpu]: RRT worker 0 found a path with 28 waypoints (tree size: 87)
+[INFO] [1765106087.711079986] [rrt_cpu]: RRT planning completed in 18.10 ms, found 28 waypoints
+[INFO] [1765106087.988193202] [rrt_cpu]: Selected global waypoint at (7.321, 12.688) as local planning goal
+[INFO] [1765106087.993313999] [rrt_cpu]: RRT worker 0 found a path with 26 waypoints (tree size: 42)
+[INFO] [1765106087.993544818] [rrt_cpu]: RRT planning completed in 5.16 ms, found 26 waypoints
+[INFO] [1765106088.287882496] [rrt_cpu]: Selected global waypoint at (7.321, 12.688) as local planning goal
+[INFO] [1765106088.291110342] [rrt_cpu]: RRT worker 0 found a path with 26 waypoints (tree size: 32)
+[INFO] [1765106088.291310601] [rrt_cpu]: RRT planning completed in 3.19 ms, found 26 waypoints
+[INFO] [1765106088.594125595] [rrt_cpu]: Selected global waypoint at (7.468, 11.533) as local planning goal
+[INFO] [1765106088.614516718] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 54)
+[INFO] [1765106088.614761521] [rrt_cpu]: RRT planning completed in 20.39 ms, found 31 waypoints
+[INFO] [1765106088.615097685] [rrt_cpu]: Published 31 local waypoints
+[INFO] [1765106088.896956110] [rrt_cpu]: Selected global waypoint at (7.468, 11.533) as local planning goal
+[INFO] [1765106088.919703836] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 101)
+[INFO] [1765106088.919904383] [rrt_cpu]: RRT planning completed in 20.50 ms, found 32 waypoints
+[INFO] [1765106089.184921904] [rrt_cpu]: Selected global waypoint at (7.468, 11.533) as local planning goal
+[INFO] [1765106089.205629894] [rrt_cpu]: RRT worker 0 found a path with 28 waypoints (tree size: 158)
+[INFO] [1765106089.205879401] [rrt_cpu]: RRT planning completed in 20.73 ms, found 28 waypoints
+[INFO] [1765106089.492327801] [rrt_cpu]: Selected global waypoint at (7.468, 11.533) as local planning goal
+[INFO] [1765106089.515336043] [rrt_cpu]: RRT worker 0 found a path with 24 waypoints (tree size: 123)
+[INFO] [1765106089.515544173] [rrt_cpu]: RRT planning completed in 22.58 ms, found 24 waypoints
+[INFO] [1765106089.568160991] [rrt_cpu]: Published 24 local waypoints
+[INFO] [1765106089.799399294] [rrt_cpu]: Selected global waypoint at (7.468, 11.533) as local planning goal
+[INFO] [1765106089.817257427] [rrt_cpu]: RRT worker 0 found a path with 24 waypoints (tree size: 36)
+[INFO] [1765106089.817455541] [rrt_cpu]: RRT planning completed in 16.75 ms, found 24 waypoints
+[INFO] [1765106090.089819741] [rrt_cpu]: Selected global waypoint at (7.615, 10.252) as local planning goal
+[INFO] [1765106090.110215184] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106090.110451251] [rrt_cpu]: RRT planning completed in 15.71 ms, found 0 waypoints
+[INFO] [1765106090.386237956] [rrt_cpu]: Selected global waypoint at (7.615, 10.252) as local planning goal
+[INFO] [1765106090.389364137] [rrt_cpu]: RRT worker 0 found a path with 27 waypoints (tree size: 50)
+[INFO] [1765106090.389569995] [rrt_cpu]: RRT planning completed in 2.46 ms, found 27 waypoints
+[INFO] [1765106090.569127971] [rrt_cpu]: Published 27 local waypoints
+[INFO] [1765106090.705343640] [rrt_cpu]: Selected global waypoint at (7.615, 10.252) as local planning goal
+[INFO] [1765106090.731282157] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106090.731582032] [rrt_cpu]: RRT planning completed in 20.81 ms, found 0 waypoints
+[INFO] [1765106090.987184913] [rrt_cpu]: Selected global waypoint at (7.615, 10.252) as local planning goal
+[INFO] [1765106091.012846722] [rrt_cpu]: RRT worker 0 found a path with 26 waypoints (tree size: 34)
+[INFO] [1765106091.013055973] [rrt_cpu]: RRT planning completed in 25.54 ms, found 26 waypoints
+[INFO] [1765106091.288546802] [rrt_cpu]: Selected global waypoint at (7.615, 10.252) as local planning goal
+[INFO] [1765106091.290124293] [rrt_cpu]: RRT worker 0 found a path with 25 waypoints (tree size: 30)
+[INFO] [1765106091.290289639] [rrt_cpu]: RRT planning completed in 0.94 ms, found 25 waypoints
+[INFO] [1765106091.584659893] [rrt_cpu]: Selected global waypoint at (7.615, 10.252) as local planning goal
+[INFO] [1765106091.585853251] [rrt_cpu]: RRT worker 0 found a path with 22 waypoints (tree size: 32)
+[INFO] [1765106091.585989893] [rrt_cpu]: RRT planning completed in 1.10 ms, found 22 waypoints
+[INFO] [1765106091.586260232] [rrt_cpu]: Published 22 local waypoints
+[INFO] [1765106091.890952945] [rrt_cpu]: Selected global waypoint at (7.783, 9.034) as local planning goal
+[INFO] [1765106091.899546647] [rrt_cpu]: RRT worker 0 found a path with 30 waypoints (tree size: 105)
+[INFO] [1765106091.902397401] [rrt_cpu]: RRT planning completed in 8.17 ms, found 30 waypoints
+[INFO] [1765106092.188281858] [rrt_cpu]: Selected global waypoint at (7.783, 9.034) as local planning goal
+[INFO] [1765106092.192864441] [rrt_cpu]: RRT worker 0 found a path with 29 waypoints (tree size: 48)
+[INFO] [1765106092.193031707] [rrt_cpu]: RRT planning completed in 1.71 ms, found 29 waypoints
+[INFO] [1765106092.492485669] [rrt_cpu]: Selected global waypoint at (7.783, 9.034) as local planning goal
+[INFO] [1765106092.508486564] [rrt_cpu]: RRT worker 0 found a path with 28 waypoints (tree size: 50)
+[INFO] [1765106092.510558620] [rrt_cpu]: RRT planning completed in 14.26 ms, found 28 waypoints
+[INFO] [1765106092.568198602] [rrt_cpu]: Published 28 local waypoints
+[INFO] [1765106092.832305904] [rrt_cpu]: Selected global waypoint at (7.783, 9.034) as local planning goal
+[INFO] [1765106092.844669475] [rrt_cpu]: RRT worker 0 found a path with 24 waypoints (tree size: 48)
+[INFO] [1765106092.844857669] [rrt_cpu]: RRT planning completed in 3.75 ms, found 24 waypoints
+[INFO] [1765106093.110779169] [rrt_cpu]: Selected global waypoint at (7.909, 7.878) as local planning goal
+[INFO] [1765106093.135499239] [rrt_cpu]: RRT worker 0 found a path with 29 waypoints (tree size: 47)
+[INFO] [1765106093.137488287] [rrt_cpu]: RRT planning completed in 23.92 ms, found 29 waypoints
+[INFO] [1765106093.387174169] [rrt_cpu]: Selected global waypoint at (7.909, 7.878) as local planning goal
+[INFO] [1765106093.404163971] [rrt_cpu]: RRT worker 0 found a path with 27 waypoints (tree size: 39)
+[INFO] [1765106093.404382438] [rrt_cpu]: RRT planning completed in 12.39 ms, found 27 waypoints
+[INFO] [1765106093.571608811] [rrt_cpu]: Published 27 local waypoints
+[INFO] [1765106093.716704234] [rrt_cpu]: Selected global waypoint at (7.909, 7.878) as local planning goal
+[INFO] [1765106093.725383921] [rrt_cpu]: RRT worker 0 found a path with 27 waypoints (tree size: 46)
+[INFO] [1765106093.725596787] [rrt_cpu]: RRT planning completed in 4.94 ms, found 27 waypoints
+[INFO] [1765106094.012289542] [rrt_cpu]: Selected global waypoint at (8.266, 7.290) as local planning goal
+[INFO] [1765106094.024255925] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106094.026728786] [rrt_cpu]: RRT planning completed in 10.89 ms, found 0 waypoints
+[INFO] [1765106094.287076363] [rrt_cpu]: Selected global waypoint at (8.266, 7.290) as local planning goal
+[INFO] [1765106094.299614848] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106094.299817731] [rrt_cpu]: RRT planning completed in 8.48 ms, found 0 waypoints
+[INFO] [1765106094.590430020] [rrt_cpu]: Selected global waypoint at (8.833, 6.807) as local planning goal
+[INFO] [1765106094.625405764] [rrt_cpu]: RRT worker 0 found a path with 50 waypoints (tree size: 306)
+[INFO] [1765106094.625608295] [rrt_cpu]: RRT planning completed in 30.81 ms, found 50 waypoints
+[INFO] [1765106094.628026564] [rrt_cpu]: Published 50 local waypoints
+[INFO] [1765106094.889214663] [rrt_cpu]: Selected global waypoint at (8.833, 6.807) as local planning goal
+[INFO] [1765106094.905656106] [rrt_cpu]: RRT worker 0 found a path with 34 waypoints (tree size: 364)
+[INFO] [1765106094.905864621] [rrt_cpu]: RRT planning completed in 10.54 ms, found 34 waypoints
+[INFO] [1765106095.189525756] [rrt_cpu]: Selected global waypoint at (9.779, 6.912) as local planning goal
+[INFO] [1765106095.199563763] [rrt_cpu]: RRT worker 0 found a path with 36 waypoints (tree size: 82)
+[INFO] [1765106095.199763221] [rrt_cpu]: RRT planning completed in 5.38 ms, found 36 waypoints
+[INFO] [1765106095.484115404] [rrt_cpu]: Selected global waypoint at (9.779, 6.912) as local planning goal
+[INFO] [1765106095.505108774] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106095.505348265] [rrt_cpu]: RRT planning completed in 13.37 ms, found 0 waypoints
+[WARN] [1765106095.568020082] [rrt_cpu]: No local waypoints to publish
+[INFO] [1765106095.793529261] [rrt_cpu]: Selected global waypoint at (10.577, 6.870) as local planning goal
+[INFO] [1765106095.797114808] [rrt_cpu]: RRT worker 0 found a path with 46 waypoints (tree size: 85)
+[INFO] [1765106095.797282906] [rrt_cpu]: RRT planning completed in 1.45 ms, found 46 waypoints
+[INFO] [1765106096.085771458] [rrt_cpu]: Selected global waypoint at (10.577, 6.870) as local planning goal
+[INFO] [1765106096.115990890] [rrt_cpu]: RRT worker 0 found a path with 41 waypoints (tree size: 272)
+[INFO] [1765106096.116223468] [rrt_cpu]: RRT planning completed in 28.03 ms, found 41 waypoints
+[INFO] [1765106096.395333061] [rrt_cpu]: Selected global waypoint at (10.577, 6.870) as local planning goal
+[INFO] [1765106096.407688600] [rrt_cpu]: RRT worker 0 found a path with 39 waypoints (tree size: 70)
+[INFO] [1765106096.407853690] [rrt_cpu]: RRT planning completed in 12.32 ms, found 39 waypoints
+[INFO] [1765106096.574017683] [rrt_cpu]: Published 39 local waypoints
+[INFO] [1765106096.709111258] [rrt_cpu]: Selected global waypoint at (10.577, 6.870) as local planning goal
+[INFO] [1765106096.739735750] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106096.739951497] [rrt_cpu]: RRT planning completed in 30.62 ms, found 0 waypoints
+[INFO] [1765106097.000394787] [rrt_cpu]: Selected global waypoint at (11.123, 6.219) as local planning goal
+[INFO] [1765106097.022577707] [rrt_cpu]: RRT worker 0 found a path with 38 waypoints (tree size: 347)
+[INFO] [1765106097.022850670] [rrt_cpu]: RRT planning completed in 22.22 ms, found 38 waypoints
+[INFO] [1765106097.298033976] [rrt_cpu]: Selected global waypoint at (11.123, 6.219) as local planning goal
+[INFO] [1765106097.339818249] [rrt_cpu]: RRT worker 0 found a path with 40 waypoints (tree size: 73)
+[INFO] [1765106097.340039500] [rrt_cpu]: RRT planning completed in 38.03 ms, found 40 waypoints
+[INFO] [1765106097.589069663] [rrt_cpu]: Selected global waypoint at (11.123, 6.219) as local planning goal
+[INFO] [1765106097.601885079] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 732)
+[INFO] [1765106097.602059289] [rrt_cpu]: RRT planning completed in 12.77 ms, found 32 waypoints
+[INFO] [1765106097.602368253] [rrt_cpu]: Published 32 local waypoints
+[INFO] [1765106097.884379064] [rrt_cpu]: Selected global waypoint at (11.123, 6.219) as local planning goal
+[INFO] [1765106097.894438992] [rrt_cpu]: RRT worker 0 found a path with 33 waypoints (tree size: 396)
+[INFO] [1765106097.895562781] [rrt_cpu]: RRT planning completed in 8.64 ms, found 33 waypoints
+[INFO] [1765106098.194810821] [rrt_cpu]: Selected global waypoint at (11.375, 5.148) as local planning goal
+[INFO] [1765106098.215329145] [rrt_cpu]: RRT worker 0 found a path with 43 waypoints (tree size: 296)
+[INFO] [1765106098.224039201] [rrt_cpu]: RRT planning completed in 24.78 ms, found 43 waypoints
+[INFO] [1765106098.495174714] [rrt_cpu]: Selected global waypoint at (11.375, 5.148) as local planning goal
+[INFO] [1765106098.506114781] [rrt_cpu]: RRT worker 0 found a path with 39 waypoints (tree size: 83)
+[INFO] [1765106098.508206709] [rrt_cpu]: RRT planning completed in 12.80 ms, found 39 waypoints
+[INFO] [1765106098.568335393] [rrt_cpu]: Published 39 local waypoints
+[INFO] [1765106098.799508063] [rrt_cpu]: Selected global waypoint at (11.375, 5.148) as local planning goal
+[INFO] [1765106098.815304667] [rrt_cpu]: RRT worker 0 found a path with 39 waypoints (tree size: 82)
+[INFO] [1765106098.815525822] [rrt_cpu]: RRT planning completed in 15.82 ms, found 39 waypoints
+[INFO] [1765106099.089387768] [rrt_cpu]: Selected global waypoint at (11.375, 5.148) as local planning goal
+[INFO] [1765106099.121757017] [rrt_cpu]: RRT worker 0 found a path with 37 waypoints (tree size: 878)
+[INFO] [1765106099.124983391] [rrt_cpu]: RRT planning completed in 29.68 ms, found 37 waypoints
+[INFO] [1765106099.398875642] [rrt_cpu]: Selected global waypoint at (11.375, 5.148) as local planning goal
+[INFO] [1765106099.510807309] [rrt_cpu]: RRT worker 1 found a path with 29 waypoints (tree size: 883)
+[INFO] [1765106099.511037936] [rrt_cpu]: RRT planning completed in 111.56 ms, found 29 waypoints
+[INFO] [1765106099.568314041] [rrt_cpu]: Published 29 local waypoints
+[INFO] [1765106099.701322216] [rrt_cpu]: Selected global waypoint at (11.480, 3.972) as local planning goal
+[INFO] [1765106099.707878230] [rrt_cpu]: RRT worker 0 found a path with 40 waypoints (tree size: 104)
+[INFO] [1765106099.708078456] [rrt_cpu]: RRT planning completed in 6.57 ms, found 40 waypoints
+[INFO] [1765106099.992025482] [rrt_cpu]: Selected global waypoint at (11.480, 3.972) as local planning goal
+[INFO] [1765106100.013112005] [rrt_cpu]: RRT worker 0 found a path with 38 waypoints (tree size: 560)
+[INFO] [1765106100.013312903] [rrt_cpu]: RRT planning completed in 21.09 ms, found 38 waypoints
+[INFO] [1765106100.282915279] [rrt_cpu]: Selected global waypoint at (11.081, 2.942) as local planning goal
+[INFO] [1765106100.301070151] [rrt_cpu]: RRT worker 0 found a path with 46 waypoints (tree size: 119)
+[INFO] [1765106100.301318826] [rrt_cpu]: RRT planning completed in 15.34 ms, found 46 waypoints
+[INFO] [1765106100.585790242] [rrt_cpu]: Selected global waypoint at (8.665, 2.039) as local planning goal
+[INFO] [1765106100.609388379] [rrt_cpu]: RRT worker 0 found a path with 59 waypoints (tree size: 453)
+[INFO] [1765106100.609593629] [rrt_cpu]: RRT planning completed in 23.56 ms, found 59 waypoints
+[INFO] [1765106100.609995938] [rrt_cpu]: Published 59 local waypoints
+[INFO] [1765106100.884666854] [rrt_cpu]: Selected global waypoint at (8.665, 2.039) as local planning goal
+[INFO] [1765106100.904281839] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106100.906240806] [rrt_cpu]: RRT planning completed in 21.15 ms, found 0 waypoints
+[INFO] [1765106101.194323242] [rrt_cpu]: Selected global waypoint at (8.665, 2.039) as local planning goal
+[INFO] [1765106101.201237084] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106101.201478175] [rrt_cpu]: RRT planning completed in 6.97 ms, found 0 waypoints
+[INFO] [1765106101.489766629] [rrt_cpu]: Selected global waypoint at (8.665, 2.039) as local planning goal
+[INFO] [1765106101.534355351] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106101.534551961] [rrt_cpu]: RRT planning completed in 42.36 ms, found 0 waypoints
+[WARN] [1765106101.568131817] [rrt_cpu]: No local waypoints to publish
+[INFO] [1765106101.788701321] [rrt_cpu]: Selected global waypoint at (8.665, 2.039) as local planning goal
+[INFO] [1765106101.847181217] [rrt_cpu]: RRT worker 0 found a path with 47 waypoints (tree size: 426)
+[INFO] [1765106101.847383267] [rrt_cpu]: RRT planning completed in 52.62 ms, found 47 waypoints
+[INFO] [1765106102.090992277] [rrt_cpu]: Selected global waypoint at (8.665, 2.039) as local planning goal
+[INFO] [1765106102.108180994] [rrt_cpu]: RRT worker 0 found a path with 49 waypoints (tree size: 230)
+[INFO] [1765106102.108386276] [rrt_cpu]: RRT planning completed in 13.46 ms, found 49 waypoints
+[INFO] [1765106102.396905709] [rrt_cpu]: Selected global waypoint at (8.665, 2.039) as local planning goal
+[INFO] [1765106102.423474921] [rrt_cpu]: RRT worker 0 found a path with 44 waypoints (tree size: 303)
+[INFO] [1765106102.423881230] [rrt_cpu]: RRT planning completed in 23.13 ms, found 44 waypoints
+[INFO] [1765106102.568361572] [rrt_cpu]: Published 44 local waypoints
+[INFO] [1765106102.694406944] [rrt_cpu]: Selected global waypoint at (9.421, 2.312) as local planning goal
+[INFO] [1765106102.738294346] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106102.738525549] [rrt_cpu]: RRT planning completed in 38.94 ms, found 0 waypoints
+[INFO] [1765106103.003627199] [rrt_cpu]: Selected global waypoint at (8.665, 2.039) as local planning goal
+[INFO] [1765106103.025630085] [rrt_cpu]: RRT worker 0 found a path with 43 waypoints (tree size: 353)
+[INFO] [1765106103.025839271] [rrt_cpu]: RRT planning completed in 18.48 ms, found 43 waypoints
+[INFO] [1765106103.323319418] [rrt_cpu]: Selected global waypoint at (8.665, 2.039) as local planning goal
+[INFO] [1765106103.340692969] [rrt_cpu]: RRT worker 0 found a path with 37 waypoints (tree size: 219)
+[INFO] [1765106103.340903083] [rrt_cpu]: RRT planning completed in 10.03 ms, found 37 waypoints
+[INFO] [1765106103.591214605] [rrt_cpu]: Selected global waypoint at (8.665, 2.039) as local planning goal
+[INFO] [1765106103.612332936] [rrt_cpu]: RRT worker 0 found a path with 38 waypoints (tree size: 284)
+[INFO] [1765106103.612617164] [rrt_cpu]: RRT planning completed in 18.39 ms, found 38 waypoints
+[INFO] [1765106103.613247923] [rrt_cpu]: Published 38 local waypoints
+[INFO] [1765106103.888659072] [rrt_cpu]: Selected global waypoint at (8.665, 2.039) as local planning goal
+[INFO] [1765106103.941422900] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106103.941619222] [rrt_cpu]: RRT planning completed in 52.49 ms, found 0 waypoints
+[INFO] [1765106104.197933087] [rrt_cpu]: Selected global waypoint at (8.056, 1.682) as local planning goal
+[INFO] [1765106104.260279269] [rrt_cpu]: RRT worker 0 found a path with 40 waypoints (tree size: 511)
+[INFO] [1765106104.260487431] [rrt_cpu]: RRT planning completed in 61.64 ms, found 40 waypoints
+[INFO] [1765106104.500172811] [rrt_cpu]: Selected global waypoint at (8.056, 1.682) as local planning goal
+[INFO] [1765106104.557797336] [rrt_cpu]: RRT worker 1 found a path with 78 waypoints (tree size: 339)
+[INFO] [1765106104.558029883] [rrt_cpu]: RRT planning completed in 57.65 ms, found 78 waypoints
+[INFO] [1765106104.568514776] [rrt_cpu]: Published 78 local waypoints
+[INFO] [1765106104.786030644] [rrt_cpu]: Selected global waypoint at (8.056, 1.682) as local planning goal
+[INFO] [1765106104.832192249] [rrt_cpu]: RRT worker 1 found a path with 75 waypoints (tree size: 245)
+[INFO] [1765106104.832384667] [rrt_cpu]: RRT planning completed in 46.18 ms, found 75 waypoints
+[INFO] [1765106105.090934847] [rrt_cpu]: Selected global waypoint at (8.056, 1.682) as local planning goal
+[INFO] [1765106105.113372906] [rrt_cpu]: RRT worker 0 found a path with 83 waypoints (tree size: 647)
+[INFO] [1765106105.113564044] [rrt_cpu]: RRT planning completed in 22.33 ms, found 83 waypoints
+[INFO] [1765106105.408962023] [rrt_cpu]: Selected global waypoint at (7.447, 1.283) as local planning goal
+[INFO] [1765106105.428052714] [rrt_cpu]: RRT worker 0 found a path with 72 waypoints (tree size: 369)
+[INFO] [1765106105.428273644] [rrt_cpu]: RRT planning completed in 19.10 ms, found 72 waypoints
+[INFO] [1765106105.569252378] [rrt_cpu]: Published 72 local waypoints
+[INFO] [1765106105.685542145] [rrt_cpu]: Selected global waypoint at (7.447, 1.283) as local planning goal
+[INFO] [1765106105.696557092] [rrt_cpu]: RRT worker 0 found a path with 85 waypoints (tree size: 450)
+[INFO] [1765106105.702320073] [rrt_cpu]: RRT planning completed in 13.63 ms, found 85 waypoints
+[INFO] [1765106105.990241514] [rrt_cpu]: Selected global waypoint at (7.447, 1.283) as local planning goal
+[INFO] [1765106105.997352703] [rrt_cpu]: RRT worker 0 found a path with 75 waypoints (tree size: 308)
+[INFO] [1765106105.997980646] [rrt_cpu]: RRT planning completed in 7.51 ms, found 75 waypoints
+[INFO] [1765106106.294945139] [rrt_cpu]: Selected global waypoint at (7.447, 1.283) as local planning goal
+[INFO] [1765106106.332381936] [rrt_cpu]: RRT worker 0 found a path with 71 waypoints (tree size: 616)
+[INFO] [1765106106.332667828] [rrt_cpu]: RRT planning completed in 28.16 ms, found 71 waypoints
+[INFO] [1765106106.617490256] [rrt_cpu]: Selected global waypoint at (6.817, 0.863) as local planning goal
+[INFO] [1765106106.647107441] [rrt_cpu]: RRT worker 0 found a path with 66 waypoints (tree size: 336)
+[INFO] [1765106106.647341043] [rrt_cpu]: RRT planning completed in 27.12 ms, found 66 waypoints
+[INFO] [1765106106.647808665] [rrt_cpu]: Published 66 local waypoints
+[INFO] [1765106106.894505968] [rrt_cpu]: Selected global waypoint at (6.817, 0.863) as local planning goal
+[INFO] [1765106106.911992800] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106106.912236931] [rrt_cpu]: RRT planning completed in 14.39 ms, found 0 waypoints
+[INFO] [1765106107.190074892] [rrt_cpu]: Selected global waypoint at (6.817, 0.863) as local planning goal
+[INFO] [1765106107.266006324] [rrt_cpu]: RRT worker 0 found a path with 67 waypoints (tree size: 770)
+[INFO] [1765106107.266195254] [rrt_cpu]: RRT planning completed in 75.90 ms, found 67 waypoints
+[INFO] [1765106107.484795327] [rrt_cpu]: Selected global waypoint at (6.817, 0.863) as local planning goal
+[INFO] [1765106107.521769846] [rrt_cpu]: RRT worker 0 found a path with 67 waypoints (tree size: 500)
+[INFO] [1765106107.522026041] [rrt_cpu]: RRT planning completed in 34.82 ms, found 67 waypoints
+[INFO] [1765106107.568547811] [rrt_cpu]: Published 67 local waypoints
+[INFO] [1765106107.812287383] [rrt_cpu]: Selected global waypoint at (6.817, 0.863) as local planning goal
+[INFO] [1765106107.835363433] [rrt_cpu]: RRT worker 0 found a path with 57 waypoints (tree size: 619)
+[INFO] [1765106107.835556203] [rrt_cpu]: RRT planning completed in 15.17 ms, found 57 waypoints
+[WARN] [1765106108.084766784] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106108.387353296] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106108.568503035] [rrt_cpu]: No local waypoints to publish
+[WARN] [1765106108.687489539] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106109.005208775] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106109.295703239] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106109.590709308] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106109.590946751] [rrt_cpu]: No local waypoints to publish
+[WARN] [1765106109.891566104] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106110.193533184] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106110.503591497] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106110.568178409] [rrt_cpu]: No local waypoints to publish
+[WARN] [1765106110.789246767] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106111.111046979] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106111.416120721] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106111.568689320] [rrt_cpu]: No local waypoints to publish
+[WARN] [1765106111.692315079] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106112.018065770] [rrt_cpu]: No valid global waypoint found within range
+[WARN] [1765106112.293851547] [rrt_cpu]: No valid global waypoint found within range
+[INFO] [1765106112.582700712] [rrt_cpu]: Selected global waypoint at (7.447, 1.283) as local planning goal
+[INFO] [1765106112.600809631] [rrt_cpu]: RRT worker 0 found a path with 37 waypoints (tree size: 687)
+[INFO] [1765106112.601009441] [rrt_cpu]: RRT planning completed in 15.99 ms, found 37 waypoints
+[INFO] [1765106112.601355685] [rrt_cpu]: Published 37 local waypoints
+[INFO] [1765106112.895542929] [rrt_cpu]: Selected global waypoint at (7.447, 1.283) as local planning goal
+[INFO] [1765106112.910934344] [rrt_cpu]: RRT worker 0 found a path with 38 waypoints (tree size: 271)
+[INFO] [1765106112.911134955] [rrt_cpu]: RRT planning completed in 4.31 ms, found 38 waypoints
+[INFO] [1765106113.194886427] [rrt_cpu]: Selected global waypoint at (7.447, 1.283) as local planning goal
+[INFO] [1765106113.216665438] [rrt_cpu]: RRT worker 0 found a path with 34 waypoints (tree size: 401)
+[INFO] [1765106113.216882976] [rrt_cpu]: RRT planning completed in 20.12 ms, found 34 waypoints
+[INFO] [1765106113.489530252] [rrt_cpu]: Selected global waypoint at (7.447, 1.283) as local planning goal
+[INFO] [1765106113.503973784] [rrt_cpu]: RRT worker 0 found a path with 38 waypoints (tree size: 375)
+[INFO] [1765106113.504169946] [rrt_cpu]: RRT planning completed in 14.44 ms, found 38 waypoints
+[INFO] [1765106113.568480471] [rrt_cpu]: Published 38 local waypoints
+[INFO] [1765106113.812409933] [rrt_cpu]: Selected global waypoint at (6.817, 0.863) as local planning goal
+[INFO] [1765106113.828386187] [rrt_cpu]: RRT worker 0 found a path with 33 waypoints (tree size: 49)
+[INFO] [1765106113.829087220] [rrt_cpu]: RRT planning completed in 15.98 ms, found 33 waypoints
+[INFO] [1765106114.087053041] [rrt_cpu]: Selected global waypoint at (6.817, 0.863) as local planning goal
+[INFO] [1765106114.100811348] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106114.101033015] [rrt_cpu]: RRT planning completed in 13.77 ms, found 0 waypoints
+[INFO] [1765106114.391817914] [rrt_cpu]: Selected global waypoint at (6.817, 0.863) as local planning goal
+[INFO] [1765106114.399716248] [rrt_cpu]: RRT worker 0 found a path with 30 waypoints (tree size: 61)
+[INFO] [1765106114.400614371] [rrt_cpu]: RRT planning completed in 8.59 ms, found 30 waypoints
+[INFO] [1765106114.570260293] [rrt_cpu]: Published 30 local waypoints
+[INFO] [1765106114.689958517] [rrt_cpu]: Selected global waypoint at (6.817, 0.863) as local planning goal
+[INFO] [1765106114.703734201] [rrt_cpu]: RRT worker 0 found a path with 26 waypoints (tree size: 70)
+[INFO] [1765106114.703891771] [rrt_cpu]: RRT planning completed in 13.62 ms, found 26 waypoints
+[INFO] [1765106114.994064535] [rrt_cpu]: Selected global waypoint at (5.998, 0.632) as local planning goal
+[INFO] [1765106115.004802839] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106115.005014905] [rrt_cpu]: RRT planning completed in 10.75 ms, found 0 waypoints
+[INFO] [1765106115.295364440] [rrt_cpu]: Selected global waypoint at (5.998, 0.632) as local planning goal
+[INFO] [1765106115.308908505] [rrt_cpu]: RRT worker 0 found a path with 36 waypoints (tree size: 72)
+[INFO] [1765106115.309104027] [rrt_cpu]: RRT planning completed in 13.53 ms, found 36 waypoints
+[INFO] [1765106115.595897071] [rrt_cpu]: Selected global waypoint at (5.242, 0.506) as local planning goal
+[INFO] [1765106115.598899187] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 96)
+[INFO] [1765106115.599082965] [rrt_cpu]: RRT planning completed in 2.98 ms, found 32 waypoints
+[INFO] [1765106115.599379704] [rrt_cpu]: Published 32 local waypoints
+[INFO] [1765106115.894222156] [rrt_cpu]: Selected global waypoint at (5.242, 0.506) as local planning goal
+[INFO] [1765106115.910557775] [rrt_cpu]: RRT worker 0 found a path with 42 waypoints (tree size: 206)
+[INFO] [1765106115.913322159] [rrt_cpu]: RRT planning completed in 18.87 ms, found 42 waypoints
+[INFO] [1765106116.191745536] [rrt_cpu]: Selected global waypoint at (5.242, 0.506) as local planning goal
+[INFO] [1765106116.203055462] [rrt_cpu]: RRT worker 0 found a path with 28 waypoints (tree size: 55)
+[INFO] [1765106116.203255145] [rrt_cpu]: RRT planning completed in 11.28 ms, found 28 waypoints
+[INFO] [1765106116.489494550] [rrt_cpu]: Selected global waypoint at (4.464, 0.380) as local planning goal
+[INFO] [1765106116.511392123] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 74)
+[INFO] [1765106116.511614749] [rrt_cpu]: RRT planning completed in 21.79 ms, found 32 waypoints
+[INFO] [1765106116.571082849] [rrt_cpu]: Published 32 local waypoints
+[INFO] [1765106116.786216032] [rrt_cpu]: Selected global waypoint at (4.464, 0.380) as local planning goal
+[INFO] [1765106116.792237384] [rrt_cpu]: RRT worker 0 found a path with 40 waypoints (tree size: 208)
+[INFO] [1765106116.792435498] [rrt_cpu]: RRT planning completed in 3.88 ms, found 40 waypoints
+[INFO] [1765106117.086635542] [rrt_cpu]: Selected global waypoint at (4.464, 0.380) as local planning goal
+[INFO] [1765106117.153565074] [rrt_cpu]: RRT worker 1 found a path with 29 waypoints (tree size: 105)
+[INFO] [1765106117.153764405] [rrt_cpu]: RRT planning completed in 66.91 ms, found 29 waypoints
+[INFO] [1765106117.405622857] [rrt_cpu]: Selected global waypoint at (4.464, 0.380) as local planning goal
+[INFO] [1765106117.420501082] [rrt_cpu]: RRT worker 0 found a path with 27 waypoints (tree size: 136)
+[INFO] [1765106117.420713661] [rrt_cpu]: RRT planning completed in 14.52 ms, found 27 waypoints
+[INFO] [1765106117.568482651] [rrt_cpu]: Published 27 local waypoints
+[INFO] [1765106117.713161908] [rrt_cpu]: Selected global waypoint at (3.582, 0.275) as local planning goal
+[INFO] [1765106117.737878458] [rrt_cpu]: RRT worker 0 found a path with 38 waypoints (tree size: 203)
+[INFO] [1765106117.738100861] [rrt_cpu]: RRT planning completed in 11.67 ms, found 38 waypoints
+[INFO] [1765106118.006048720] [rrt_cpu]: Selected global waypoint at (3.582, 0.275) as local planning goal
+[INFO] [1765106118.016111144] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 116)
+[INFO] [1765106118.016287178] [rrt_cpu]: RRT planning completed in 3.17 ms, found 32 waypoints
+[INFO] [1765106118.292008346] [rrt_cpu]: Selected global waypoint at (3.582, 0.275) as local planning goal
+[INFO] [1765106118.305379417] [rrt_cpu]: RRT worker 0 found a path with 38 waypoints (tree size: 77)
+[INFO] [1765106118.305590076] [rrt_cpu]: RRT planning completed in 13.34 ms, found 38 waypoints
+[INFO] [1765106118.603034447] [rrt_cpu]: Selected global waypoint at (3.582, 0.275) as local planning goal
+[INFO] [1765106118.624467277] [rrt_cpu]: RRT worker 0 found a path with 35 waypoints (tree size: 156)
+[INFO] [1765106118.624707024] [rrt_cpu]: RRT planning completed in 21.47 ms, found 35 waypoints
+[INFO] [1765106118.625102517] [rrt_cpu]: Published 35 local waypoints
+[INFO] [1765106118.886783998] [rrt_cpu]: Selected global waypoint at (3.582, 0.275) as local planning goal
+[INFO] [1765106118.904473969] [rrt_cpu]: RRT worker 0 found a path with 30 waypoints (tree size: 50)
+[INFO] [1765106118.904739156] [rrt_cpu]: RRT planning completed in 14.31 ms, found 30 waypoints
+[INFO] [1765106119.189417455] [rrt_cpu]: Selected global waypoint at (3.582, 0.275) as local planning goal
+[INFO] [1765106119.193933092] [rrt_cpu]: RRT worker 0 found a path with 30 waypoints (tree size: 63)
+[INFO] [1765106119.194125639] [rrt_cpu]: RRT planning completed in 4.47 ms, found 30 waypoints
+[INFO] [1765106119.501514992] [rrt_cpu]: Selected global waypoint at (2.847, 0.191) as local planning goal
+[INFO] [1765106119.508351873] [rrt_cpu]: RRT worker 0 found a path with 29 waypoints (tree size: 46)
+[INFO] [1765106119.508576260] [rrt_cpu]: RRT planning completed in 6.38 ms, found 29 waypoints
+[INFO] [1765106119.568573933] [rrt_cpu]: Published 29 local waypoints
+[INFO] [1765106119.789539122] [rrt_cpu]: Selected global waypoint at (2.175, 0.128) as local planning goal
+[INFO] [1765106119.836086588] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106119.836318655] [rrt_cpu]: RRT planning completed in 46.55 ms, found 0 waypoints
+[INFO] [1765106120.096906619] [rrt_cpu]: Selected global waypoint at (2.175, 0.128) as local planning goal
+[INFO] [1765106120.138732236] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106120.138962319] [rrt_cpu]: RRT planning completed in 41.82 ms, found 0 waypoints
+[INFO] [1765106120.388199012] [rrt_cpu]: Selected global waypoint at (2.175, 0.128) as local planning goal
+[INFO] [1765106120.391904560] [rrt_cpu]: RRT worker 0 found a path with 26 waypoints (tree size: 40)
+[INFO] [1765106120.392131091] [rrt_cpu]: RRT planning completed in 3.72 ms, found 26 waypoints
+[INFO] [1765106120.568789449] [rrt_cpu]: Published 26 local waypoints
+[INFO] [1765106120.695419147] [rrt_cpu]: Selected global waypoint at (1.503, 0.023) as local planning goal
+[INFO] [1765106120.711429386] [rrt_cpu]: RRT worker 0 found a path with 27 waypoints (tree size: 75)
+[INFO] [1765106120.711803662] [rrt_cpu]: RRT planning completed in 10.79 ms, found 27 waypoints
+[INFO] [1765106120.986235727] [rrt_cpu]: Selected global waypoint at (1.503, 0.023) as local planning goal
+[INFO] [1765106121.006510432] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 220)
+[INFO] [1765106121.006795012] [rrt_cpu]: RRT planning completed in 17.63 ms, found 31 waypoints
+[INFO] [1765106121.293798650] [rrt_cpu]: Selected global waypoint at (1.503, 0.023) as local planning goal
+[INFO] [1765106121.302703620] [rrt_cpu]: RRT worker 0 found a path with 28 waypoints (tree size: 51)
+[INFO] [1765106121.302922887] [rrt_cpu]: RRT planning completed in 8.89 ms, found 28 waypoints
+[INFO] [1765106121.589520088] [rrt_cpu]: Selected global waypoint at (1.503, 0.023) as local planning goal
+[INFO] [1765106121.592910561] [rrt_cpu]: RRT worker 0 found a path with 26 waypoints (tree size: 32)
+[INFO] [1765106121.593129923] [rrt_cpu]: RRT planning completed in 3.42 ms, found 26 waypoints
+[INFO] [1765106121.593399782] [rrt_cpu]: Published 26 local waypoints
+[INFO] [1765106121.909104402] [rrt_cpu]: Selected global waypoint at (0.474, 0.002) as local planning goal
+[INFO] [1765106121.933410867] [rrt_cpu]: RRT worker 0 found a path with 29 waypoints (tree size: 47)
+[INFO] [1765106121.935934706] [rrt_cpu]: RRT planning completed in 21.42 ms, found 29 waypoints
+[INFO] [1765106122.187734629] [rrt_cpu]: Selected global waypoint at (0.474, 0.002) as local planning goal
+[INFO] [1765106122.201779212] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 145)
+[INFO] [1765106122.202029903] [rrt_cpu]: RRT planning completed in 11.75 ms, found 31 waypoints
+[INFO] [1765106122.483063935] [rrt_cpu]: Selected global waypoint at (0.474, 0.002) as local planning goal
+[INFO] [1765106122.488545088] [rrt_cpu]: RRT worker 0 found a path with 24 waypoints (tree size: 87)
+[INFO] [1765106122.488747810] [rrt_cpu]: RRT planning completed in 5.45 ms, found 24 waypoints
+[INFO] [1765106122.568567640] [rrt_cpu]: Published 24 local waypoints
+[INFO] [1765106122.789292218] [rrt_cpu]: Selected global waypoint at (-0.472, 0.527) as local planning goal
+[INFO] [1765106122.791720503] [rrt_cpu]: RRT worker 0 found a path with 33 waypoints (tree size: 58)
+[INFO] [1765106122.793236105] [rrt_cpu]: RRT planning completed in 3.08 ms, found 33 waypoints
+[INFO] [1765106123.091155393] [rrt_cpu]: Selected global waypoint at (-0.472, 0.527) as local planning goal
+[INFO] [1765106123.168209974] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106123.168416696] [rrt_cpu]: RRT planning completed in 76.19 ms, found 0 waypoints
+[INFO] [1765106123.400215038] [rrt_cpu]: Selected global waypoint at (-0.472, 0.527) as local planning goal
+[INFO] [1765106123.439204846] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 496)
+[INFO] [1765106123.439599154] [rrt_cpu]: RRT planning completed in 39.03 ms, found 31 waypoints
+[INFO] [1765106123.568581649] [rrt_cpu]: Published 31 local waypoints
+[INFO] [1765106123.702759469] [rrt_cpu]: Selected global waypoint at (-0.934, 1.514) as local planning goal
+[INFO] [1765106123.729885232] [rrt_cpu]: RRT worker 0 found a path with 37 waypoints (tree size: 185)
+[INFO] [1765106123.730086610] [rrt_cpu]: RRT planning completed in 27.10 ms, found 37 waypoints
+[INFO] [1765106123.988045359] [rrt_cpu]: Selected global waypoint at (-0.934, 1.514) as local planning goal
+[INFO] [1765106124.001297197] [rrt_cpu]: RRT worker 0 found a path with 44 waypoints (tree size: 183)
+[INFO] [1765106124.001535888] [rrt_cpu]: RRT planning completed in 10.44 ms, found 44 waypoints
+[INFO] [1765106124.283350696] [rrt_cpu]: Selected global waypoint at (-0.934, 1.514) as local planning goal
+[INFO] [1765106124.302811888] [rrt_cpu]: RRT worker 1 found a path with 36 waypoints (tree size: 115)
+[INFO] [1765106124.303022258] [rrt_cpu]: RRT planning completed in 17.34 ms, found 36 waypoints
+[INFO] [1765106124.592794794] [rrt_cpu]: Selected global waypoint at (-1.207, 2.459) as local planning goal
+[INFO] [1765106124.598754545] [rrt_cpu]: RRT worker 0 found a path with 39 waypoints (tree size: 91)
+[INFO] [1765106124.598932339] [rrt_cpu]: RRT planning completed in 5.63 ms, found 39 waypoints
+[INFO] [1765106124.599289271] [rrt_cpu]: Published 39 local waypoints
+[INFO] [1765106124.883289450] [rrt_cpu]: Selected global waypoint at (-1.207, 2.459) as local planning goal
+[INFO] [1765106124.890083291] [rrt_cpu]: RRT worker 0 found a path with 41 waypoints (tree size: 314)
+[INFO] [1765106124.890284637] [rrt_cpu]: RRT planning completed in 6.77 ms, found 41 waypoints
+[INFO] [1765106125.202651393] [rrt_cpu]: Selected global waypoint at (-1.207, 2.459) as local planning goal
+[INFO] [1765106125.216676008] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 120)
+[INFO] [1765106125.216910955] [rrt_cpu]: RRT planning completed in 3.10 ms, found 32 waypoints
+[INFO] [1765106125.511160951] [rrt_cpu]: Selected global waypoint at (-1.207, 2.459) as local planning goal
+[INFO] [1765106125.531048740] [rrt_cpu]: RRT worker 0 found a path with 26 waypoints (tree size: 136)
+[INFO] [1765106125.536345027] [rrt_cpu]: RRT planning completed in 20.63 ms, found 26 waypoints
+[INFO] [1765106125.568926631] [rrt_cpu]: Published 26 local waypoints
+[INFO] [1765106125.808583594] [rrt_cpu]: Selected global waypoint at (-1.207, 2.459) as local planning goal
+[INFO] [1765106125.828393589] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106125.830935860] [rrt_cpu]: RRT planning completed in 18.93 ms, found 0 waypoints
+[INFO] [1765106126.148171474] [rrt_cpu]: Selected global waypoint at (-1.207, 2.459) as local planning goal
+[INFO] [1765106126.166005478] [rrt_cpu]: All RRT workers failed to find a path
+[INFO] [1765106126.166212840] [rrt_cpu]: RRT planning completed in 15.50 ms, found 0 waypoints
+[INFO] [1765106126.388178809] [rrt_cpu]: Selected global waypoint at (-1.207, 2.459) as local planning goal
+[INFO] [1765106126.402566244] [rrt_cpu]: RRT worker 0 found a path with 25 waypoints (tree size: 210)
+[INFO] [1765106126.403265005] [rrt_cpu]: RRT planning completed in 12.35 ms, found 25 waypoints
+[INFO] [1765106126.568831998] [rrt_cpu]: Published 25 local waypoints
+[INFO] [1765106126.706660294] [rrt_cpu]: Selected global waypoint at (-1.438, 3.573) as local planning goal
+[INFO] [1765106126.712313321] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 192)
+[INFO] [1765106126.712510508] [rrt_cpu]: RRT planning completed in 5.63 ms, found 32 waypoints
+[INFO] [1765106126.999507170] [rrt_cpu]: Selected global waypoint at (-1.438, 3.573) as local planning goal
+[INFO] [1765106127.015468416] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 180)
+[INFO] [1765106127.015739267] [rrt_cpu]: RRT planning completed in 16.05 ms, found 31 waypoints
+[INFO] [1765106127.284114428] [rrt_cpu]: Selected global waypoint at (-1.438, 3.573) as local planning goal
+[INFO] [1765106127.289701726] [rrt_cpu]: RRT worker 0 found a path with 30 waypoints (tree size: 47)
+[INFO] [1765106127.289857920] [rrt_cpu]: RRT planning completed in 1.25 ms, found 30 waypoints
+[INFO] [1765106127.593929858] [rrt_cpu]: Selected global waypoint at (-1.564, 4.455) as local planning goal
+[INFO] [1765106127.596058619] [rrt_cpu]: RRT worker 0 found a path with 28 waypoints (tree size: 53)
+[INFO] [1765106127.596223421] [rrt_cpu]: RRT planning completed in 2.06 ms, found 28 waypoints
+[INFO] [1765106127.596539937] [rrt_cpu]: Published 28 local waypoints
+[INFO] [1765106127.898885902] [rrt_cpu]: Selected global waypoint at (-0.198, 5.190) as local planning goal
+[INFO] [1765106127.910571833] [rrt_cpu]: RRT worker 0 found a path with 48 waypoints (tree size: 283)
+[INFO] [1765106127.910807996] [rrt_cpu]: RRT planning completed in 10.28 ms, found 48 waypoints
+[INFO] [1765106128.188738694] [rrt_cpu]: Selected global waypoint at (-0.198, 5.190) as local planning goal
+[INFO] [1765106128.193221723] [rrt_cpu]: RRT worker 0 found a path with 37 waypoints (tree size: 67)
+[INFO] [1765106128.193385501] [rrt_cpu]: RRT planning completed in 1.96 ms, found 37 waypoints
+[INFO] [1765106128.508434274] [rrt_cpu]: Selected global waypoint at (-0.198, 5.190) as local planning goal
+[INFO] [1765106128.532061691] [rrt_cpu]: RRT worker 0 found a path with 36 waypoints (tree size: 334)
+[INFO] [1765106128.532285245] [rrt_cpu]: RRT planning completed in 23.64 ms, found 36 waypoints
+[INFO] [1765106128.568632046] [rrt_cpu]: Published 36 local waypoints
+[INFO] [1765106128.797314734] [rrt_cpu]: Selected global waypoint at (-0.198, 5.190) as local planning goal
+[INFO] [1765106128.807144387] [rrt_cpu]: RRT worker 0 found a path with 32 waypoints (tree size: 97)
+[INFO] [1765106128.807378278] [rrt_cpu]: RRT planning completed in 9.86 ms, found 32 waypoints
+[INFO] [1765106129.110352858] [rrt_cpu]: Selected global waypoint at (0.117, 6.093) as local planning goal
+[INFO] [1765106129.148577473] [rrt_cpu]: RRT worker 0 found a path with 35 waypoints (tree size: 78)
+[INFO] [1765106129.148894597] [rrt_cpu]: RRT planning completed in 38.33 ms, found 35 waypoints
+[INFO] [1765106129.397334481] [rrt_cpu]: Selected global waypoint at (0.117, 6.093) as local planning goal
+[INFO] [1765106129.410767088] [rrt_cpu]: RRT worker 0 found a path with 38 waypoints (tree size: 71)
+[INFO] [1765106129.412889322] [rrt_cpu]: RRT planning completed in 9.34 ms, found 38 waypoints
+[INFO] [1765106129.570253690] [rrt_cpu]: Published 38 local waypoints
+[INFO] [1765106129.702298781] [rrt_cpu]: Selected global waypoint at (0.117, 6.093) as local planning goal
+[INFO] [1765106129.711294696] [rrt_cpu]: RRT worker 0 found a path with 37 waypoints (tree size: 174)
+[INFO] [1765106129.711531787] [rrt_cpu]: RRT planning completed in 8.97 ms, found 37 waypoints
+[INFO] [1765106130.004028386] [rrt_cpu]: Selected global waypoint at (0.117, 6.093) as local planning goal
+[INFO] [1765106130.010227340] [rrt_cpu]: RRT worker 0 found a path with 35 waypoints (tree size: 53)
+[INFO] [1765106130.010406702] [rrt_cpu]: RRT planning completed in 1.34 ms, found 35 waypoints
+[INFO] [1765106130.296120117] [rrt_cpu]: Selected global waypoint at (0.054, 6.744) as local planning goal
+[INFO] [1765106130.319947153] [rrt_cpu]: RRT worker 0 found a path with 31 waypoints (tree size: 74)
+[INFO] [1765106130.320180660] [rrt_cpu]: RRT planning completed in 19.28 ms, found 31 waypoints
+[INFO] [1765106130.590698470] [rrt_cpu]: Selected global waypoint at (0.054, 6.744) as local planning goal
+[INFO] [1765106130.601406661] [rrt_cpu]: RRT worker 0 found a path with 34 waypoints (tree size: 331)
+[INFO] [1765106130.601607944] [rrt_cpu]: RRT planning completed in 8.40 ms, found 34 waypoints
+[INFO] [1765106130.601923147] [rrt_cpu]: Published 34 local waypoints
+[INFO] [1765106130.896989922] [rrt_cpu]: Selected global waypoint at (0.054, 6.744) as local planning goal
+[INFO] [1765106130.924250822] [rrt_cpu]: RRT worker 0 found a path with 37 waypoints (tree size: 109)
+[INFO] [1765106130.924461513] [rrt_cpu]: RRT planning completed in 26.73 ms, found 37 waypoints
+[INFO] [1765106131.195109084] [rrt_cpu]: Selected global waypoint at (0.054, 6.744) as local planning goal
+[INFO] [1765106131.208038966] [rrt_cpu]: RRT worker 0 found a path with 39 waypoints (tree size: 123)
+[INFO] [1765106131.208240825] [rrt_cpu]: RRT planning completed in 9.05 ms, found 39 waypoints
+[INFO] [1765106131.499111741] [rrt_cpu]: Selected global waypoint at (0.054, 6.744) as local planning goal
+[INFO] [1765106131.529084450] [rrt_cpu]: RRT worker 0 found a path with 39 waypoints (tree size: 81)
+[INFO] [1765106131.529286756] [rrt_cpu]: RRT planning completed in 29.95 ms, found 39 waypoints
+[INFO] [1765106131.568814714] [rrt_cpu]: Published 39 local waypoints
+[INFO] [1765106131.801868943] [rrt_cpu]: Selected global waypoint at (0.054, 6.744) as local planning goal
+[INFO] [1765106131.817646155] [rrt_cpu]: RRT worker 0 found a path with 36 waypoints (tree size: 204)
+[INFO] [1765106131.817857101] [rrt_cpu]: RRT planning completed in 13.28 ms, found 36 waypoints
+[INFO] [1765106132.101266393] [rrt_cpu]: Selected global waypoint at (0.054, 6.744) as local planning goal
+[INFO] [1765106132.110212579] [rrt_cpu]: RRT worker 0 found a path with 35 waypoints (tree size: 82)
+[INFO] [1765106132.110526887] [rrt_cpu]: RRT planning completed in 4.91 ms, found 35 waypoints
+[INFO] [1765106132.385569327] [rrt_cpu]: Selected global waypoint at (0.054, 6.744) as local planning goal
+[INFO] [1765106132.391120017] [rrt_cpu]: RRT worker 0 found a path with 37 waypoints (tree size: 70)
+[INFO] [1765106132.391316948] [rrt_cpu]: RRT planning completed in 3.35 ms, found 37 waypoints
+[INFO] [1765106132.568709106] [rrt_cpu]: Published 37 local waypoints
+[INFO] [1765106132.686583052] [rrt_cpu]: Selected global waypoint at (0.054, 6.744) as local planning goal
+[INFO] [1765106132.698791774] [rrt_cpu]: RRT worker 0 found a path with 36 waypoints (tree size: 152)
+[INFO] [1765106132.699004448] [rrt_cpu]: RRT planning completed in 9.95 ms, found 36 waypoints
+[INFO] [1765106133.013435261] [rrt_cpu]: Selected global waypoint at (0.054, 6.744) as local planning goal
+[INFO] [1765106133.033088199] [rrt_cpu]: RRT worker 0 found a path with 33 waypoints (tree size: 83)
+[INFO] [1765106133.033331818] [rrt_cpu]: RRT planning completed in 16.80 ms, found 33 waypoints
+[INFO] [1765106133.179956762] [rclcpp]: signal_handler(signal_value=2)
