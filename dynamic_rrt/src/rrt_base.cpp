@@ -29,15 +29,15 @@ RRTBase::RRTBase(const std::string& node_name)
     this->declare_parameter<double>("obstacle_margin", 0.15);
     this->declare_parameter<std::string>("global_waypoint_csv", "");
     this->declare_parameter<double>("global_waypoint_max_distance", 5.0);
+    this->declare_parameter<double>("obstacle_lifespan_ms", 1000.0);
+    this->declare_parameter<double>("obstacle_clearance", 0.1);
 
     rclcpp::QoS default_qos(10);
 
     // Create subscriptions.
     if (this->get_parameter("simulation").as_bool()) {
         odometry_subscription_ = this->create_subscription<nav_msgs::msg::Odometry>(
-            "/ego_racecar/odom",
-            default_qos,
-            [this](nav_msgs::msg::Odometry::ConstSharedPtr msg) {
+            "/ego_racecar/odom", default_qos, [this](nav_msgs::msg::Odometry::ConstSharedPtr msg) {
                 RCLCPP_INFO_ONCE(
                     this->get_logger(),
                     "Received first Odometry message with frame ID: %s",
@@ -178,13 +178,18 @@ auto RRTBase::map_callback(nav_msgs::msg::OccupancyGrid::ConstSharedPtr msg) -> 
         obstacle_inflation_radius_
     );
 
+    const auto clock_type = this->get_clock()->get_clock_type();
+    obstacle_timestamps_.resize(map_.data.size(), rclcpp::Time(std::int64_t(0), clock_type));
+
     // Inflate obstacles in the initial occupancy grid.
+    const rclcpp::Time max_time(rclcpp::Time::max().nanoseconds(), clock_type);
     const auto original_map_data = map_.data;
     for (std::int32_t y = 0; y < map_height_; ++y) {
         for (std::int32_t x = 0; x < map_width_; ++x) {
             const auto index = y * map_width_ + x;
             if (original_map_data[index] != 0) {
-                this->inflate_obstacle(x, y);
+                // Obstacles in the initial map never expire.
+                this->inflate_obstacle(x, y, max_time);
             }
         }
     }
@@ -203,8 +208,9 @@ auto RRTBase::scan_callback(sensor_msgs::msg::LaserScan::ConstSharedPtr msg) -> 
         return;
     }
 
-    // TODO: Enable dynamic obstacles once they can expire over time.
-    for (std::size_t i = 0; false && i < msg->ranges.size(); ++i) {
+    const auto obstacle_clearance = this->get_parameter("obstacle_clearance").as_double();
+    const auto current_time = this->get_clock()->now();
+    for (std::size_t i = 0; i < msg->ranges.size(); ++i) {
         const auto range = msg->ranges[i];
         if (!std::isfinite(range)) {
             continue;
@@ -212,13 +218,19 @@ auto RRTBase::scan_callback(sensor_msgs::msg::LaserScan::ConstSharedPtr msg) -> 
         const auto angle = msg->angle_min + i * msg->angle_increment;
         const auto obstacle_x = pose_->position.x + range * std::cos(pose_->yaw + angle);
         const auto obstacle_y = pose_->position.y + range * std::sin(pose_->yaw + angle);
+        const auto delta_x = obstacle_x - pose_->position.x;
+        const auto delta_y = obstacle_y - pose_->position.y;
+        const auto distance_squared = delta_x * delta_x + delta_y * delta_y;
+        if (distance_squared < obstacle_clearance * obstacle_clearance) {
+            continue;
+        }
         const auto grid_x = static_cast<std::int32_t>(
             (obstacle_x - map_.info.origin.position.x) / map_.info.resolution
         );
         const auto grid_y = static_cast<std::int32_t>(
             (obstacle_y - map_.info.origin.position.y) / map_.info.resolution
         );
-        this->inflate_obstacle(grid_x, grid_y);
+        this->inflate_obstacle(grid_x, grid_y, current_time);
     }
 
     if (map_publisher_ != nullptr) {
@@ -234,6 +246,22 @@ auto RRTBase::run_planning() -> void {
         return;
     }
     local_waypoints_.clear();
+
+    // Expire old obstacles.
+    const auto obstacle_lifespan_ms = this->get_parameter("obstacle_lifespan_ms").as_double();
+    const auto current_time = this->get_clock()->now();
+    const rclcpp::Time zero_time(std::int64_t(0), this->get_clock()->get_clock_type());
+    for (std::int32_t y = 0; y < map_height_; ++y) {
+        for (std::int32_t x = 0; x < map_width_; ++x) {
+            const auto index = y * map_width_ + x;
+            const auto timestamp = obstacle_timestamps_[index];
+            const auto age_ms = (current_time - timestamp).seconds() * 1000.0;
+            if (age_ms > obstacle_lifespan_ms) {
+                map_.data[index] = 0;
+                obstacle_timestamps_[index] = zero_time;
+            }
+        }
+    }
 
     // Select a global waypoint as the local planning goal.
     const auto max_distance =
@@ -271,8 +299,17 @@ auto RRTBase::run_planning() -> void {
         position->y = (position->y - map_.info.origin.position.y) / map_.info.resolution;
     }
 
+    const auto rrt_start_time = this->get_clock()->now();
     const auto grid_waypoints =
         this->plan_rrt(start_pose, goal_position, map_width_, map_height_, map_.data);
+    const auto rrt_end_time = this->get_clock()->now();
+    const auto rrt_duration_ms = (rrt_end_time - rrt_start_time).seconds() * 1000.0;
+    RCLCPP_INFO(
+        this->get_logger(),
+        "RRT planning completed in %.2f ms, found %zu waypoints",
+        rrt_duration_ms,
+        grid_waypoints.size()
+    );
     if (grid_waypoints.empty()) {
         return;
     }
@@ -281,10 +318,12 @@ auto RRTBase::run_planning() -> void {
     local_waypoints_.clear();
     local_waypoints_.reserve(grid_waypoints.size());
     for (const auto& waypoint : grid_waypoints) {
-        local_waypoints_.push_back(Point2D{
-            static_cast<float>(waypoint.x * map_.info.resolution + map_.info.origin.position.x),
-            static_cast<float>(waypoint.y * map_.info.resolution + map_.info.origin.position.y)
-        });
+        local_waypoints_.push_back(
+            Point2D{
+                static_cast<float>(waypoint.x * map_.info.resolution + map_.info.origin.position.x),
+                static_cast<float>(waypoint.y * map_.info.resolution + map_.info.origin.position.y)
+            }
+        );
     }
 }
 
@@ -326,7 +365,7 @@ auto RRTBase::load_global_waypoints() -> bool {
     auto csv_path = this->get_parameter("global_waypoint_csv").as_string();
     if (csv_path.empty()) {
         csv_path = ament_index_cpp::get_package_share_directory("dynamic_rrt");
-        csv_path += "/resource/levine1.csv";
+        csv_path += "/resource/skirkanich_lobby.csv";
         RCLCPP_INFO(
             this->get_logger(),
             "No global waypoint CSV specified, using default path: %s",
@@ -394,7 +433,7 @@ auto RRTBase::update_pose(const geometry_msgs::msg::Pose& pose) -> void {
     };
 }
 
-auto RRTBase::inflate_obstacle(std::int32_t x, std::int32_t y) -> void {
+auto RRTBase::inflate_obstacle(std::int32_t x, std::int32_t y, rclcpp::Time time) -> void {
     const auto y_min = std::clamp(y - obstacle_inflation_radius_, 0, map_height_ - 1);
     const auto y_max = std::clamp(y + obstacle_inflation_radius_, 0, map_height_ - 1);
     const auto x_min = std::clamp(x - obstacle_inflation_radius_, 0, map_width_ - 1);
@@ -409,6 +448,8 @@ auto RRTBase::inflate_obstacle(std::int32_t x, std::int32_t y) -> void {
             }
             const auto neighbor_index = neighbor_y * map_width_ + neighbor_x;
             map_.data[neighbor_index] = OCCUPANCY_GRID_OCCUPIED;
+            auto& timestamp = obstacle_timestamps_[neighbor_index];
+            timestamp = std::max(timestamp, time);
         }
     }
 }

@@ -48,7 +48,7 @@ private:
 
     auto load_global_waypoints() -> bool;
     auto update_pose(const geometry_msgs::msg::Pose& pose) -> void;
-    auto inflate_obstacle(std::int32_t x, std::int32_t y) -> void;
+    auto inflate_obstacle(std::int32_t x, std::int32_t y, rclcpp::Time time) -> void;
     auto publish_global_waypoints(std::int32_t selected_index) -> void;
 
     // Subscriptions
@@ -77,6 +77,7 @@ private:
 
     // States
     nav_msgs::msg::OccupancyGrid map_;
+    std::vector<rclcpp::Time> obstacle_timestamps_;
     std::optional<Pose2D> pose_;
     std::vector<Point2D> local_waypoints_;
 };

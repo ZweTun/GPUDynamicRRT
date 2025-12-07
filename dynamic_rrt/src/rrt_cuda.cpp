@@ -78,7 +78,9 @@ auto RRTCuda::plan_rrt(
     state.goal_tolerance = goal_tolerance_cells_;
 
     const auto seed = std::uniform_int_distribution<unsigned long long>()(random_engine_);
-    return plan_rrt_cuda(state, threads_per_block_, seed);
+    return plan_rrt_cuda(state, threads_per_block_, seed, [this](const std::string& message) {
+        RCLCPP_INFO(this->get_logger(), "%s", message.c_str());
+    });
 }
 
 }  // namespace dynamic_rrt

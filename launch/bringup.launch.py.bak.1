@@ -18,7 +18,7 @@ def generate_launch_description() -> None:
             parameters=[
                 {
                     "simulation": False,
-                    "enable_visualization": False,
+                    "enable_visualization": True,
                     "planning_interval_ms": 300,
                     "waypoint_publish_interval_ms": 1000,
                     "obstacle_margin": 0.2,
@@ -27,10 +27,10 @@ def generate_launch_description() -> None:
                     "obstacle_lifespan_ms": 500.0,
                     "obstacle_clearance": 0.2,
 
-                    "num_workers": 32,
-                    "max_iterations": 2000,
-                    "max_nodes_per_tree": 2000,
-                    "threads_per_block": 16,
+                    "num_workers": 64,
+                    "max_iterations": 5000,
+                    "max_nodes_per_tree": 5000,
+                    "threads_per_block": 32,
                     "sample_forward_min_m": 0.5,
                     "sample_forward_max_m": 8.0,
                     "sample_lateral_range_m": 5.0,
@@ -48,8 +48,8 @@ def generate_launch_description() -> None:
             parameters=[
                 {
                     "simulation": False,
-                    "enable_visualization": False,
-                    "planning_interval_ms": 300,
+                    "enable_visualization": True,
+                    "planning_interval_ms": 100,
                     "waypoint_publish_interval_ms": 1000,
                     "obstacle_margin": 0.2,
                     "global_waypoint_csv": "",
@@ -57,9 +57,9 @@ def generate_launch_description() -> None:
                     "obstacle_lifespan_ms": 500.0,
                     "obstacle_clearance": 0.2,
 
-                    "num_workers": 2,
-                    "max_iterations": 2000,
-                    "max_nodes_per_tree": 2000,
+                    "num_workers": 1,
+                    "max_iterations": 20000,
+                    "max_nodes_per_tree": 20000,
                     "sample_forward_min_m": 0.5,
                     "sample_forward_max_m": 8.0,
                     "sample_lateral_range_m": 5.0,
