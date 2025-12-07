@@ -16,7 +16,13 @@ class PurePursuit(Node):
 
     def __init__(self):
         super().__init__("pure_pursuit_node")
-        self.sim = True
+        self.declare_parameter("simulation", False)
+        self.declare_parameter('lookahead_distance', 1.0)
+        self.declare_parameter('steering_gain', 0.5)
+        self.declare_parameter('speed', 1.5)
+
+        self.sim = self.get_parameter("simulation").get_parameter_value().bool_value
+        self.speed = self.get_parameter('speed').get_parameter_value().double_value
 
         # Subscribe to the correct odometry topic
         odom_topic = "/ego_racecar/odom" if self.sim else "/pf/viz/inferred_pose"
@@ -33,8 +39,8 @@ class PurePursuit(Node):
         self.drive_pub = self.create_publisher(AckermannDriveStamped, "/drive", 10)
 
         # Parameters for lookahead distance and control gain
-        self.L = 0.7
-        self.P = 0.5
+        self.L = self.get_parameter('lookahead_distance').get_parameter_value().double_value
+        self.P = self.get_parameter('steering_gain').get_parameter_value().double_value
 
         # Initialize empty waypoints
         self.waypoints = np.array([])
@@ -98,7 +104,7 @@ class PurePursuit(Node):
 
         # Publish drive command
         drive_msg = AckermannDriveStamped()
-        drive_msg.drive.speed = 1.0
+        drive_msg.drive.speed = self.speed
         drive_msg.drive.steering_angle = steering_angle
         self.drive_pub.publish(drive_msg)
 

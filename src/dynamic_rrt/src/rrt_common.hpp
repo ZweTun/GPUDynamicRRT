@@ -48,8 +48,9 @@ struct OccupancyGridView {
         return this->data[grid_y * this->width + grid_x] == 0;
     }
 
-    DYNAMIC_RRT_HOST_DEVICE auto is_segment_collision_free(const Point2D& start, const Point2D& end)
-        const -> bool {
+    DYNAMIC_RRT_HOST_DEVICE auto is_segment_collision_free(
+        const Point2D& start, const Point2D& end
+    ) const -> bool {
         const auto delta_x = static_cast<std::int32_t>(ceilf(fabsf(end.x - start.x)));
         const auto delta_y = static_cast<std::int32_t>(ceilf(fabsf(end.y - start.y)));
         const auto num_steps = delta_x > delta_y ? delta_x : delta_y;
@@ -88,8 +89,8 @@ struct Tree {
         ++this->size;
     }
 
-    DYNAMIC_RRT_HOST_DEVICE auto get_nearest_node_index(const Point2D& point
-    ) const -> std::int32_t {
+    DYNAMIC_RRT_HOST_DEVICE auto get_nearest_node_index(const Point2D& point) const
+        -> std::int32_t {
         std::int32_t nearest_index = -1;
         auto nearest_distance_squared = FLT_MAX;
         for (std::int32_t index = 0; index < this->size; ++index) {
