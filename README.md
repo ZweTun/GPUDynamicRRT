@@ -40,6 +40,12 @@ Despite the strong theoretical motivation for GPU acceleration, our latest bench
   <p align="center">F1tenth car hardware overview</p>
 </p>
 
+**Electrical Hardware Overview Walkthrough**
+
+- 2D Lidar Scanner
+- Nividia Nano Orin
+- Lipo Battery
+
 <p align="center">
   <img src="imgs/dev_environment.png" />
   <p align="center">Overview of the development and run-time architecture in GPUDynamicRRT</p>
