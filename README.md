@@ -100,7 +100,7 @@ These plots mirror evaluation methods used in sampling-based planning research p
 | **Corridor Map (60 × 120)** | <img src="imgs/Corridor1.png" width="300"> <img src="imgs/Corridor2.png" width="300"> |
 | **Random Map (1000 × 1000)** | <img src="imgs/Random1.png" width="300"> <img src="imgs/Random2.png" width="300"> |
 
-
+*CPU RRT failed all trials of random map resulting in flat line*
 
 
 
