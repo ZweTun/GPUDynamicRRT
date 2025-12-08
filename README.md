@@ -63,7 +63,7 @@ A key objective of this project is to quantify the speed-up achieved through GPU
 To evaluate planning performance across different planners and environments, we use the following metrics:
 
 1. Planning Time (ms)
-The total runtime required to compute a valid path from start to goal.
+The mean and medium planning time of the algorithm to produce a valid path form start to goal. 
 
 2. Cost of the Path
 The total distance of the resulting path from start to goal.
