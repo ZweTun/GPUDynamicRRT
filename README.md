@@ -51,18 +51,36 @@ The diagram contrasts our current GPU RRT strategy (left) with the fully paralle
 
 ## Performance Evaluation
 
-Performance Evaluation
+A key objective of this project is to quantify the speed-up achieved through GPU acceleration. Even with our initial naive GPU implementation, the performance benefits can already been seen when compared to a single-threaded CPU RRT baseline.
 
-A key motivation for this project is the expected speed-up from GPU acceleration. Even with our initial naive GPU implementation, we have observed a substantial performance gain over the CPU versions.
+<p align="center"> <img src="imgs/EmptyP.png" /> <img src="imgs/CorridorP.png" /> <img src="imgs/RandomP.png" /> <p align="center"><em>CDF-based benchmark of CPU vs. Naive GPU vs. pRRT across three map types</em></p> </p>
 
-<p align="center">
-  <img src="imgs/EmptyP.png" />
-  <img src="imgs/CorridorP.png" />
-  <img src="imgs/RandomP.png" />
-  <p align="center">Preliminary benchmark comparing CPU vs. GPU RRT planning times</p>
+### Overview of Performance Metrics
+To evaluate planning performance across different planners and environments, we use the following metrics:
+
+1. Planning Time (ms)
+The total runtime required to compute a valid path from start to goal.
+
+2. Cost of the Path
+The total distance of the resulting path from start to goal.
+
+3. Solve Percentage (Success Rate)
+The percentage of trials in which a valid path is found within a time/iteration budget.
 
 
-Early results show roughly a 10× speed improvement when using the GPU-based RRT compared to the baseline single-threaded CPU RRT. This test was conducted in the F1Tenth simulator under identical conditions for both planners. The GPU planner is able to compute paths much faster, which means it can re-plan at a higher frequency (important for dynamic scenarios). For example, if the CPU planner could update a path at ~1 Hz, the GPU planner can achieve on the order of ~10 Hz with the same environment and goal. This dramatic speed-up confirms that GPU parallelism can meet the real-time requirements of dynamic obstacle avoidance. As we refine the implementation (moving from the naive parallel approach to the fully parallel cooperative approach), we expect further gains in efficiency and the ability to scale to more complex environments.
+4. CDF (Cumulative Distribution Function) of Planning Time
+CDF curves allow comparison not just of average speed, but distributional speed characteristics:
+Farther left = faster solve times
+Steeper slope = more consistent solve times
+Higher tail performance = solves even the harder cases quickly
+These plots mirror evaluation methods used in sampling-based planning research papers.
+
+
+
+
+
+
+
 
 **Meeting Notes 11/09/25**
 
