@@ -83,7 +83,7 @@ inline void printHeader(const std::string& title) {
 // Print a path
 inline void printPath(const std::vector<TreeNode>& path) {
     for (const auto& n : path) {
-        printf("   (%.3f, %.3f)\n", n.x, n.y);
+        printf("   (%.3f, %.3f),\n", n.x, n.y);
     }
 }
 
@@ -111,7 +111,7 @@ inline void printCmpPath(const std::vector<TreeNode>& cpu,
     }
 
     if (cpu.empty() && !gpu.empty()) {
-        printf("    CPU failed, GPU succeeded check correctness\n");
+        printf("    CPU failed, GPU succeeded\n");
         return;
     }
     if (!cpu.empty() && gpu.empty()) {
@@ -134,12 +134,14 @@ using RRT::Common::PerformanceTimer;
 
 using RRT::Common::timerCPU;
 using RRT::Common::timerGPU;
+using RRT::Common::timerpRRT;
 
 // CPU timer helpers
 inline void zeroTimerCPU() {
     // reset timer by starting & stopping immediately
     timerCPU().startCpuTimer();
     timerCPU().endCpuTimer();
+
 }
 
 inline float getCPUTime() {
@@ -163,4 +165,16 @@ inline float getGPUTime() {
 
 inline void printElapsedTimeGPU(const std::string& note) {
     printElapsedTime(getGPUTime(), note);
+}
+
+// pRRT timer helpers
+inline void zeroTimerpRRT() {
+    timerpRRT().startGpuTimer();
+    timerpRRT().endGpuTimer();
+}
+inline float getpRRTTime() {
+    return timerpRRT().getGpuElapsedTimeForPreviousOperation();
+}
+inline void printElapsedTimepRRT(const std::string& note) {
+    printElapsedTime(getpRRTTime(), note);
 }

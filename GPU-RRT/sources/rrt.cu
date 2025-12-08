@@ -38,11 +38,10 @@ __device__ bool isGoal(float x, float y, float goalX, float goalY) {
 
 
 
-
 // Samples a random point in free space
 // Should call device_isPointFree to ensure sampled point is in free space
 // Uses thrust random number generators
-__device__ TreeNode sampleFreeSpace(OccupancyGrid* grid, int iter) {
+__device__ TreeNode sampleFreeSpace(OccupancyGrid* grid, int iter, float goalX, float goalY) {
 
 	//Jittered random seed based on thread and iteration
 
@@ -59,8 +58,11 @@ __device__ TreeNode sampleFreeSpace(OccupancyGrid* grid, int iter) {
         float rx = dist01(rng);
         float ry = dist01(rng);
 
-        float x = grid->origin_x + rx * (grid->width * grid->resolution);
-        float y = grid->origin_y + ry * (grid->height * grid->resolution);
+        int cx = int(rx * grid->width);
+        int cy = int(ry * grid->height);
+
+        float x = grid->origin_x + (cx + 0.5f) * grid->resolution;
+        float y = grid->origin_y + (cy + 0.5f) * grid->resolution;
 
 
         if (isPointFree(grid, x, y)) {
@@ -111,6 +113,7 @@ __device__ bool checkCollision(OccupancyGrid* grid, float x1, float y1, float x2
     //TODO
 	int x_diff = abs(int(ceil((x2 - x1) / grid->resolution)));
     int y_diff = abs(int(ceil((y2 - y1) / grid->resolution)));
+
     int steps = -1;
     if (x_diff > y_diff) {
         steps = x_diff;
@@ -136,6 +139,7 @@ __device__ bool checkCollision(OccupancyGrid* grid, float x1, float y1, float x2
     }
 	return false; // No collision
 }
+
 
 
 
@@ -173,11 +177,18 @@ __global__ void kernRRT(
     results[tid] = -1;  
 
     for (int iter = 1; iter < maxIter && size < maxNodes; ++iter) {
-        TreeNode newNode = sampleFreeSpace(&grid, iter);
+        TreeNode newNode = sampleFreeSpace(&grid, iter, goalX, goalY);
         int nearestIdx = nearestNeighbor(tree, size, newNode.x, newNode.y);
         TreeNode nearest = tree[nearestIdx];
 		newNode = steer(nearest, newNode, maxStep); //Steer with max range 0.5
-
+       
+        unsigned seed = (tid * 1337u) ^ (iter * 911u);
+        thrust::default_random_engine rng(seed);
+        thrust::uniform_real_distribution<float> dist01(0.0f, 1.0f);
+        if (dist01(rng) < 0.1f) {
+            newNode.x = goalX;
+            newNode.y = goalY;
+		}
         if (!checkCollision(&grid, nearest.x, nearest.y, newNode.x, newNode.y)) {
             newNode.parent = nearestIdx;
             int idx = size++;
@@ -236,10 +247,12 @@ PerformanceTimer& timerGPU()
 std::vector<TreeNode> launchRRT(const OccupancyGrid& h_grid,
     float startX, float startY,
     float goalX, float goalY, int maxIter, int maxNodes, float maxStep) {
+    timerGPU().startGpuTimer();
 
 	// parameters
     int numThreads = 1024;
-
+	// result path
+    std::vector<TreeNode> path;
   
     OccupancyGrid d_grid;
 
@@ -266,7 +279,7 @@ std::vector<TreeNode> launchRRT(const OccupancyGrid& h_grid,
 	// launch kernels
     dim3 block(128);
     dim3 gridDim((numThreads + block.x - 1) / block.x);
-    timerGPU().startGpuTimer();
+    //timerGPU().startGpuTimer();
 
     kernRRT <<<gridDim, block >>> (
         maxIter,
@@ -278,12 +291,13 @@ std::vector<TreeNode> launchRRT(const OccupancyGrid& h_grid,
         d_allTrees,
         d_results, maxStep
         );
-
+    cudaDeviceSynchronize();
+    //timerGPU().endGpuTimer();
  
 
-    cudaDeviceSynchronize();
 
-    timerGPU().endGpuTimer();
+
+  
    // Copy back to host
     cudaMemcpy(h_allTrees, d_allTrees,
         numThreads * maxNodes * sizeof(TreeNode),
@@ -299,12 +313,28 @@ std::vector<TreeNode> launchRRT(const OccupancyGrid& h_grid,
             int goalIndex = h_results[tid];
             TreeNode* treeBase = &h_allTrees[tid * maxNodes];
 			
-
-            return findFinalPath(treeBase, goalIndex);
-			//return path; // Return the found path
+            // Print tree size
+			///printf("Thread %d found RRT Path, tree size = %d\n", tid, goalIndex + 1);
+            path = findFinalPath(treeBase, goalIndex);
+            break;
+			
         }
-    }
+    } 
 
-    // No solution
-    return {};
+
+    // Clean up
+    cudaFree(d_grid.data);
+    cudaFree(d_allTrees);
+    cudaFree(d_results);
+    delete[] h_allTrees;
+    delete[] h_results;
+
+    timerGPU().endGpuTimer();
+    return path; // may be empty if no solution
+
+
+
+
+
+
 }
