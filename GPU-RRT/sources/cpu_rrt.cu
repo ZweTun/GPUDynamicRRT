@@ -6,6 +6,10 @@
 #include <vector>
 #include <cmath>
 
+#include <vector>
+
+#include <unordered_set>
+#include <iostream>
 
 #include "common.h"
 
@@ -50,10 +54,10 @@ bool isPointFreeCPU(const OccupancyGrid& grid, float x, float y) {
     return grid.data[gy * grid.width + gx] == 0;
 }
 
-int nearestNeighborCPU(const std::vector<TreeNode>& tree, float x, float y) {
+int nearestNeighborCPU(const std::vector<TreeNode>& tree, float x, float y, int size) {
     int best = 0;
     float bestDist = 1e9f;
-    for (int i = 0; i < tree.size(); i++) {
+    for (int i = 0; i < size; i++) {
         float dx = tree[i].x - x;
         float dy = tree[i].y - y;
         float d2 = dx * dx + dy * dy;
@@ -73,10 +77,16 @@ TreeNode steerCPU(const TreeNode& from, const TreeNode& to, float maxStep) {
 
 TreeNode sampleFreeSpaceCPU(const OccupancyGrid& grid) {
     float x, y;
+	int maxAttempts = 1000;
+	int attempts = 0;
     do {
         x = grid.origin_x + static_cast<float>(rand()) / RAND_MAX * grid.width * grid.resolution;
         y = grid.origin_y + static_cast<float>(rand()) / RAND_MAX * grid.height * grid.resolution;
-    } while (!isPointFreeCPU(grid, x, y));
+        attempts++;
+    } while (!isPointFreeCPU(grid, x, y) && attempts < maxAttempts);
+    
+
+    
     return { x, y, -1 };
 }
 
@@ -88,7 +98,28 @@ bool isGoalCPU(float x, float y, float goalX, float goalY) {
 	return (sqrtf((x - goalX) * (x - goalX) + (y - goalY) * (y - goalY)) < threshold);
 }
 
+std::vector<TreeNode> findFinalPathCPU(std::vector<TreeNode> tree, int goalIdx) {
+    std::vector<TreeNode> path;
+    int idx = goalIdx;
 
+    // protect against infinite loops
+    std::unordered_set<int> visited;
+
+    while (idx >= 0) {
+ 
+        if (visited.count(idx)) {
+            std::cout << "ERROR: cycle in parent pointers\n";
+            break;
+        }
+	//	printf("Visiting node %d at (%.2f, %.2f)\n", idx, tree[idx].x, tree[idx].y);
+        path.push_back(tree[idx]);
+        visited.insert(idx);
+        idx = tree[idx].parent;
+    }
+
+    std::reverse(path.begin(), path.end());
+    return path;
+}
 
 
 
@@ -98,7 +129,7 @@ std::vector<TreeNode> cpuRRT(OccupancyGrid grid,
     float goalX, float goalY,
     int maxIter, int maxNodes, float maxStep) {
     
-	std::vector<TreeNode>(tree) (maxNodes);
+	std::vector<TreeNode> tree(maxNodes);
 	std::vector<TreeNode> path;
 
     int size = 1;
@@ -106,22 +137,24 @@ std::vector<TreeNode> cpuRRT(OccupancyGrid grid,
 
     for (int iter = 1; iter < maxIter && size < maxNodes; ++iter) {
         TreeNode newNode = sampleFreeSpaceCPU(grid);
-		int nearestIdx = nearestNeighborCPU(tree, newNode.x, newNode.y);
-        TreeNode nearest = tree[nearestIdx];
-        newNode = steerCPU(nearest, newNode, 1.0f); //Steer with max range 0.5
 
+
+		int nearestIdx = nearestNeighborCPU(tree, newNode.x, newNode.y, size);
+        TreeNode nearest = tree[nearestIdx];
+        newNode = steerCPU(nearest, newNode, maxStep); //Steer with max range 
+        if (rand() % 100 < 5) {
+            // With small probability, sample the goal directly
+            newNode = { goalX, goalY, -1 };
+        }
         if (!checkCollisionCPU(&grid, nearest.x, nearest.y, newNode.x, newNode.y)) {
             newNode.parent = nearestIdx;
             int idx = size++;
             tree[idx] = newNode;
-			path.push_back(newNode);
             if (isGoalCPU(newNode.x, newNode.y, goalX, goalY)) {
 
                 // Path found
-				path.push_back({ goalX, goalY, idx });
-                
-
-                return path;
+        
+                return findFinalPathCPU(tree, idx);
             }
         }
     }
