@@ -94,6 +94,16 @@ Steeper slope = more consistent solve times
 Higher tail performance = solves even the harder cases quickly
 These plots mirror evaluation methods used in sampling-based planning research papers.
 
+| Map Type (width, height) | Visualizations |
+|----------|----------------|
+| **Empty Map (100 × 100)** | <img src="imgs/Empty1.png" width="300"> <img src="imgs/Empty2.png" width="300"> |
+| **Corridor Map (60 × 120)** | <img src="imgs/Corridor1.png" width="300"> <img src="imgs/Corridor2.png" width="300"> |
+| **Random Map (1000 × 1000)** | <img src="imgs/Random1.png" width="300"> <img src="imgs/Random2.png" width="300"> |
+
+
+
+
+
 ## Data Collected from Deployment
 
 To evaluate a naive GPU baseline, we implemented a multi-tree RRT planner that is logically identical to our multi-threaded CPU implementation. The common RRT logic is factored into a shared header and compiled separately for CPU and CUDA. In all experiments, we use the same RRT configuration; the CPU version runs with 2 worker threads, and the CUDA version launches 32 workers in parallel. We deploy both planners on the vehicle and collect statistics over two complete test loops.
