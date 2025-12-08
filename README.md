@@ -56,7 +56,9 @@ Performance Evaluation
 A key motivation for this project is the expected speed-up from GPU acceleration. Even with our initial naive GPU implementation, we have observed a substantial performance gain over the CPU versions.
 
 <p align="center">
-  <img src="imgs/CPU_vs_GPU.png" />
+  <img src="imgs/EmptyP.png" />
+  <img src="imgs/CorridorP.png" />
+  <img src="imgs/RandomP.png" />
   <p align="center">Preliminary benchmark comparing CPU vs. GPU RRT planning times</p>
 
 
