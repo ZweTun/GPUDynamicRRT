@@ -71,8 +71,11 @@ The total distance of the resulting path from start to goal.
 3. Solve Percentage (Success Rate)
 The percentage of trials in which a valid path is found within a time/iteration budget.
 
+4. Percentile
+The variability in runtime. Q1 is 25th percentile, Q3 is 75th percentile. The 95th percentile is of note to show that 95% of runs finished at or faster than this time, characterizing the “worst typical case."
 
-4. CDF (Cumulative Distribution Function) of Planning Time
+ 
+5. CDF (Cumulative Distribution Function) of Planning Time
 CDF curves allow comparison not just of average speed, but distributional speed characteristics:
 Farther left = faster solve times
 Steeper slope = more consistent solve times
