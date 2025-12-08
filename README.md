@@ -2,6 +2,12 @@
 
 CIS 5650 Final Project
 
+* Zwe Tun
+  * LinkedIn: https://www.linkedin.com/in/zwe-tun-6b7191256/
+* Jefferson Koumba Moussadji Lu
+* Yunhao Qian
+  
+* Tested on: Intel(R) i7-14700HX, 2100 Mhz, RTX 5060 Laptop
 ## Project Overview
 
 GPUDynamicRRT is a robotics project aiming to build a GPU-accelerated Rapidly-Exploring Random Tree (RRT) path planner for an autonomous F1Tenth racecar platform. The goal is to enable real-time path planning in environments with dynamic obstacles, leveraging GPU parallelism to outperform traditional CPU-based RRT planners. RRT is a sampling-based algorithm widely used for robot path planning. By offloading RRT computations to the car's onboard NVIDIA GPU, the planner can handle frequent re-planning and avoid moving obstacles without slowing down the vehicle. This project integrates the GPU-based RRT with the F1Tenth simulator and hardware, demonstrating improved performance and responsiveness compared to a CPU implementation.
@@ -59,6 +65,11 @@ A key objective of this project is to quantify the speed-up achieved through GPU
   <img src="imgs/RandomP.png" width="30%" />
 </div>
 
+
+<p align="center">
+  <img src="imgs/corridorMap.png" />
+  <p align="center">Different paths plotted by each RRT algorithm</p>
+  
 ### Overview of Performance Metrics
 To evaluate planning performance across different planners and environments, we use the following metrics:
 
