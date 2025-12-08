@@ -86,6 +86,8 @@ This GPU approach was naively parallel but aimed to exploit raw parallelism quic
 
 ## Performance Evaluation
 
+Tested on: Intel(R) i7-14700HX, 2100 Mhz, RTX 5060 Laptop
+
 A key objective of this project is to quantify the speed-up achieved through GPU acceleration. Even with our initial naive GPU implementation, the performance benefits can already been seen when compared to a single-threaded CPU RRT baseline.
 
 <div align="center" style="display: flex; justify-content: center; gap: 20px;">
@@ -154,8 +156,6 @@ At the system level, the planner is allowed up to three retries before sending a
 These observations indicate that a naive multi-tree CUDA implementation is poorly matched to our application. Although it performs more parallel computations than the CPU baseline, this does not translate into higher effective success or improved safety, because the dominant factors are planning latency, pose estimation quality, and per-tree node density, rather than the sheer number of independent trees. This motivates an algorithmic redesign: in pRRT, multiple CUDA threads cooperatively grow a single RRT tree (or a small set of trees), increasing the number of nodes per tree and reducing effective latency, thereby better exploiting the GPU's parallel capabilities.
 
 ## Performance Evaluation on F1tenth
-
-Tested on: Intel(R) i7-14700HX, 2100 Mhz, RTX 5060 Laptop
 
 We conducted head-to-head benchmarks of the CPU and GPU RRT planners in a realistic mapping of an indoor environment (the “Skirkanich Lobby” map, which includes multiple turns and obstacles). Both planners were tested under identical conditions: the car starts at a fixed location and repeatedly plans local paths toward successive waypoints on a pre-defined global route. Dynamic obstacles were not introduced in this particular test (to isolate planner performance), but the environment's static obstacles still require the planner to maneuver around walls and pillars. The planners ran in an iterative loop (at ~3.3 Hz planning interval) until the route was completed or a timeout occurred. We logged every planning cycle's result, including whether a path was found, how long the planning took, and how complex the resulting path was (number of waypoints). Below we present a comparison of key metrics between the CPU and GPU versions:
 
