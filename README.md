@@ -53,7 +53,11 @@ The diagram contrasts our current GPU RRT strategy (left) with the fully paralle
 
 A key objective of this project is to quantify the speed-up achieved through GPU acceleration. Even with our initial naive GPU implementation, the performance benefits can already been seen when compared to a single-threaded CPU RRT baseline.
 
-<p align="center"> <img src="imgs/EmptyP.png" /> <img src="imgs/CorridorP.png" /> <img src="imgs/RandomP.png" /> <p align="center"><em>CDF-based benchmark of CPU vs. Naive GPU vs. pRRT across three map types</em></p> </p>
+<div align="center" style="display: flex; justify-content: center; gap: 20px;">
+  <img src="imgs/EmptyP.png" width="30%" />
+  <img src="imgs/CorridorP.png" width="30%" />
+  <img src="imgs/RandomP.png" width="30%" />
+</div>
 
 ### Overview of Performance Metrics
 To evaluate planning performance across different planners and environments, we use the following metrics:
