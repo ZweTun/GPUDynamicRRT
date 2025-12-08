@@ -1,5 +1,6 @@
 # Visual Studio cache
 .vs/
+.vscode/
 
 # Build folders
 build/
@@ -26,3 +27,14 @@ CMakeCache.txt
 
 # Logs
 *.log
+
+# Python
+__pycache__/
+
+# ROS
+build/
+install/
+log/
+
+# macOS
+.DS_Store
