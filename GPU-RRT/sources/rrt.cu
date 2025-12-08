@@ -247,10 +247,12 @@ PerformanceTimer& timerGPU()
 std::vector<TreeNode> launchRRT(const OccupancyGrid& h_grid,
     float startX, float startY,
     float goalX, float goalY, int maxIter, int maxNodes, float maxStep) {
+    timerGPU().startGpuTimer();
 
 	// parameters
     int numThreads = 1024;
-
+	// result path
+    std::vector<TreeNode> path;
   
     OccupancyGrid d_grid;
 
@@ -277,7 +279,7 @@ std::vector<TreeNode> launchRRT(const OccupancyGrid& h_grid,
 	// launch kernels
     dim3 block(128);
     dim3 gridDim((numThreads + block.x - 1) / block.x);
-    timerGPU().startGpuTimer();
+    //timerGPU().startGpuTimer();
 
     kernRRT <<<gridDim, block >>> (
         maxIter,
@@ -289,10 +291,11 @@ std::vector<TreeNode> launchRRT(const OccupancyGrid& h_grid,
         d_allTrees,
         d_results, maxStep
         );
-    timerGPU().endGpuTimer();
+    cudaDeviceSynchronize();
+    //timerGPU().endGpuTimer();
  
 
-    cudaDeviceSynchronize();
+
 
   
    // Copy back to host
@@ -311,57 +314,27 @@ std::vector<TreeNode> launchRRT(const OccupancyGrid& h_grid,
             TreeNode* treeBase = &h_allTrees[tid * maxNodes];
 			
             // Print tree size
-			printf("Thread %d found RRT Path, tree size = %d\n", tid, goalIndex + 1);
-            return findFinalPath(treeBase, goalIndex);
-            
-			//return path; // Return the found path
+			///printf("Thread %d found RRT Path, tree size = %d\n", tid, goalIndex + 1);
+            path = findFinalPath(treeBase, goalIndex);
+            break;
+			
         }
     } 
 
 
-    // No solution
-    return {};
+    // Clean up
+    cudaFree(d_grid.data);
+    cudaFree(d_allTrees);
+    cudaFree(d_results);
+    delete[] h_allTrees;
+    delete[] h_results;
+
+    timerGPU().endGpuTimer();
+    return path; // may be empty if no solution
 
 
 
 
 
 
-
-
-
-
-
-
-
-    //// find ALL successful paths
-    //bool firstFound = false;
-    //std::vector<TreeNode> returnPath;
-
-    //for (int tid = 0; tid < numThreads; ++tid) {
-    //    if (h_results[tid] != -1) {
-
-    //        int goalIndex = h_results[tid];
-    //        TreeNode* treeBase = &h_allTrees[tid * maxNodes];
-
-    //        auto path = findFinalPath(treeBase, goalIndex);
-
-    //        printf("Thread %d success, path length = %zu\n", tid, path.size());
-    //        for (const auto& n : path) {
-    //            printf("   (%.3f, %.3f),\n", n.x, n.y);
-    //        }
-
-    //        // save first successful path to return
-    //        if (!firstFound) {
-    //            returnPath = path;
-    //            firstFound = true;
-    //        }
-    //    }
-    //}
-    //   timerGPU().endGpuTimer();
-    //// return first successful path
-    //if (firstFound) return returnPath;
-
-    //// otherwise return empty
-    //return {};
 }

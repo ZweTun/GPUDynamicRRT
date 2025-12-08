@@ -53,7 +53,7 @@ __device__ bool isPointFreeGPU(const OccupancyGrid& grid, float x, float y) {
 }
 
 
-//// Checks for collision along the segment 
+/// Checks for collision along the segment 
 __device__ bool checkCollisionGPU(const OccupancyGrid& grid,
     float x1, float y1,
     float x2, float y2) {
@@ -260,7 +260,7 @@ __global__ void nearestNeighborBatch(
     int localIdx = -1;
     TreeNode sampled = *s_sampled;
 
-    // Each thread examines a strided subset of  tree
+    // Each thread examines a strided subset of tree
     for (int i = threadIdx.x; i < size; i += blockDim.x) {
         float dx = d_treeX[i] - sampled.x;
         float dy = d_treeY[i] - sampled.y;
@@ -286,10 +286,9 @@ __global__ void nearestNeighborBatch(
     }
 
     __syncthreads();
-    // thread 0 in the block writes the NN for this sample
+    
      // thread 0 in the block writes the NN for this sample
     if (threadIdx.x == 0) {
-              // one-block-per-sample design
         nnIdx[sampleId] = s_idx[0];
     }
 }
@@ -335,11 +334,10 @@ __global__ void extendAndInsertKernel(
     thrust::default_random_engine rng(seed);
     thrust::uniform_real_distribution<float> dist01(0.0f, 1.0f);
 
-
+    // Goal biasing 
     if (dist01(rng) < 0.05f) {
-        // Bias increased to focus on goal sampling
+        
         TreeNode goalNode = { goalX, goalY, -1 };
-       // proposed = steerGPU({ nx, ny, -1 }, goalNode, maxStep); 
         proposed = goalNode;
     }
  
@@ -390,6 +388,7 @@ std::vector<TreeNode> gpuRRT(
     float goalX, float goalY,
     int maxIter, int maxNodes, float maxStep
 ) {
+    timerpRRT().startGpuTimer();
     std::vector<TreeNode> tree(maxNodes);
     std::vector<TreeNode> path;
 
@@ -469,7 +468,7 @@ std::vector<TreeNode> gpuRRT(
 
     int iter = 0;
 
-    timerpRRT().startGpuTimer();
+    
 
 	// Only copy every this iterations
     int copyIter = 1000;
@@ -488,7 +487,7 @@ std::vector<TreeNode> gpuRRT(
 
     dim3 blockDim(block);
     dim3 gridDim((numSamples + block - 1) / block);
-
+    //timerpRRT().startGpuTimer();
     while (iter < maxIter) {
       
 
@@ -535,9 +534,10 @@ std::vector<TreeNode> gpuRRT(
     
         iter++;
     }
+    cudaDeviceSynchronize();
 
 
-    timerpRRT().endGpuTimer();
+    //timerpRRT().endGpuTimer();
 
     int h_goalInt1 = 0;
     int h_size_int1 = 0;
@@ -574,7 +574,7 @@ std::vector<TreeNode> gpuRRT(
         }
     }
     // Print size of tree
-	printf("RRT Tree Size: %d nodes\n", h_size_int);
+	/*printf("RRT Tree Size: %d nodes\n", h_size_int);*/
 
 
 
@@ -589,7 +589,7 @@ std::vector<TreeNode> gpuRRT(
     cudaFree(sy);
     cudaFree(nnIdx);
     cudaFree(d_goalReached_int);
-
+    timerpRRT().endGpuTimer();
     return path;
 }
 
