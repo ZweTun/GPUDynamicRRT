@@ -91,7 +91,7 @@ The variability in runtime. Q1 is 25th percentile, Q3 is 75th percentile. The 95
 CDF curves allow comparison not just of average speed, but distributional speed characteristics:
 Farther left = faster solve times.
 Steeper slope = more consistent solve times.
-Higher tail performance = solves even the harder cases quickly.
+Higher tail = greater variance. 
 These plots mirror evaluation methods used in sampling-based planning research papers.
 
 | Map Type (width, height) | Visualizations |
