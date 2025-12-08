@@ -8,7 +8,7 @@ CIS 5650 Final Project
 * Yunhao Qian
   * LinkedIn: <https://www.linkedin.com/in/yunhao-qian-026980170/>
 
-* Tested on: Intel(R) i7-14700HX, 2100 Mhz, RTX 5060 Laptop
+- Tested on: Intel(R) i7-14700HX, 2100 Mhz, RTX 5060 Laptop
 
 ## Project Overview
 
